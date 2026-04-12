@@ -10,9 +10,13 @@ export const ContainerScroll = ({
   children: React.ReactNode;
 }) => {
   const containerRef = useRef<HTMLDivElement>(null);
+
+  // Track scroll progress starting only when the section enters the viewport
   const { scrollYProgress } = useScroll({
     target: containerRef,
+    offset: ["start end", "end start"], // starts when bottom of viewport hits section top, ends when section leaves top
   });
+
   const [isMobile, setIsMobile] = React.useState(false);
 
   React.useEffect(() => {
@@ -26,13 +30,22 @@ export const ContainerScroll = ({
     };
   }, []);
 
-  const scaleDimensions = () => {
-    return isMobile ? [0.7, 0.9] : [1.05, 1];
-  };
+  // Card starts tilted (rotateX 25°) and flattens to 0° as you scroll through it
+  // Animation is most visible between 20%–60% scroll through the section
+  const rotate = useTransform(scrollYProgress, [0.1, 0.55], [25, 0]);
 
-  const rotate = useTransform(scrollYProgress, [0, 1], [20, 0]);
-  const scale = useTransform(scrollYProgress, [0, 1], scaleDimensions());
-  const translate = useTransform(scrollYProgress, [0, 1], [0, -100]);
+  // Slightly scale up as it flattens
+  const scale = useTransform(
+    scrollYProgress,
+    [0.1, 0.55],
+    isMobile ? [0.75, 1] : [0.82, 1]
+  );
+
+  // Title slides up slightly as card comes in
+  const translate = useTransform(scrollYProgress, [0.1, 0.55], [60, 0]);
+
+  // Opacity fades in
+  const opacity = useTransform(scrollYProgress, [0.08, 0.25], [0, 1]);
 
   return (
     <div
@@ -42,11 +55,11 @@ export const ContainerScroll = ({
       <div
         className="py-10 md:py-40 w-full relative"
         style={{
-          perspective: "1000px",
+          perspective: "1200px",
         }}
       >
-        <Header translate={translate} titleComponent={titleComponent} />
-        <Card rotate={rotate} translate={translate} scale={scale}>
+        <Header translate={translate} opacity={opacity} titleComponent={titleComponent} />
+        <Card rotate={rotate} scale={scale} opacity={opacity}>
           {children}
         </Card>
       </div>
@@ -54,13 +67,22 @@ export const ContainerScroll = ({
   );
 };
 
-export const Header = ({ translate, titleComponent }: { translate: MotionValue<number>, titleComponent: string | React.ReactNode }) => {
+export const Header = ({
+  translate,
+  opacity,
+  titleComponent,
+}: {
+  translate: MotionValue<number>;
+  opacity: MotionValue<number>;
+  titleComponent: string | React.ReactNode;
+}) => {
   return (
     <motion.div
       style={{
         translateY: translate,
+        opacity,
       }}
-      className="div max-w-5xl mx-auto text-center"
+      className="max-w-5xl mx-auto text-center mb-4"
     >
       {titleComponent}
     </motion.div>
@@ -70,11 +92,12 @@ export const Header = ({ translate, titleComponent }: { translate: MotionValue<n
 export const Card = ({
   rotate,
   scale,
+  opacity,
   children,
 }: {
   rotate: MotionValue<number>;
   scale: MotionValue<number>;
-  translate: MotionValue<number>;
+  opacity: MotionValue<number>;
   children: React.ReactNode;
 }) => {
   return (
@@ -82,10 +105,12 @@ export const Card = ({
       style={{
         rotateX: rotate,
         scale,
+        opacity,
         boxShadow:
           "0 0 #0000004d, 0 9px 20px #0000004a, 0 37px 37px #00000042, 0 84px 50px #00000026, 0 149px 60px #0000000a, 0 233px 65px #00000003",
+        transformOrigin: "center top",
       }}
-      className="max-w-5xl mt-35 mx-auto h-[32rem] md:h-[45rem] w-full border-2 border-primary/20 p-2 md:p-6 bg-[#0B0A10] rounded-[30px] shadow-2xl"
+      className="max-w-5xl mt-48 mx-auto h-[32rem] md:h-[45rem] w-full border-2 border-[#FF85A1]/20 p-2 md:p-6 bg-[#0B0A10] rounded-[30px] shadow-2xl"
     >
       <div className="h-full w-full overflow-hidden rounded-2xl bg-[#0B0A10] md:rounded-2xl md:p-4">
         {children}
