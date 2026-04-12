@@ -108,10 +108,10 @@ export default function Hero() {
       </div>
 
       {/* Main Content Area - Split Layout */}
-      <div className="absolute top-[50%] md:top-[45%] -translate-y-1/2 w-full max-w-[1920px] mx-auto left-4 right-0 px-12 md:pl-0 md:pr-16 lg:pr-32 xl:pr-48 flex flex-col md:flex-row items-center md:items-center md:justify-start md:gap-8 z-10 pointer-events-none">
+      <div className="absolute top-[55%] md:top-[52%] -translate-y-1/2 w-full max-w-[1920px] mx-auto left-4 right-0 px-12 md:pl-0 md:pr-16 lg:pr-32 xl:pr-48 flex flex-col md:flex-row items-center md:items-center md:justify-start md:gap-8 z-10 pointer-events-none">
         
         {/* Left Side: Profile Picture */}
-        <div className="relative flex mb-22 md:mb-100 md:-mt-32 lg:-mt-48 xl:-mt-64 pointer-events-auto shrink-0">
+        <div className="relative flex mb-22 md:mb-100 md:-mt-16 lg:-mt-24 xl:-mt-32 pointer-events-auto shrink-0">
           <div 
             className="relative w-[340px] h-[500px] sm:w-[500px] sm:h-[700px] md:w-[550px] md:h-[750px] lg:w-[650px] lg:h-[850px] xl:w-[800px] xl:h-[1050px] mix-blend-lighten"
             style={{
