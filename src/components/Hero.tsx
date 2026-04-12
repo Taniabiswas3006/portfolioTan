@@ -246,7 +246,7 @@ export default function Hero() {
         className="hidden md:block absolute bottom-0 left-1/2 -translate-x-1/2 transition-colors duration-300 z-20 pointer-events-auto"
         aria-label="Scroll down"
       >
-        <ChevronDown className="w-8 h-8 text-gray-500 hover:text-white transition-colors duration-300 animate-bounce" />
+        <ChevronDown className="w-8 h-15 text-gray-500 hover:text-white transition-colors duration-300 animate-bounce" />
       </a>
     </section>
   );
