@@ -2,6 +2,7 @@
 
 import { useRef, useEffect } from 'react';
 import { gsap } from 'gsap';
+import Image from 'next/image';
 import './ChromaGrid.css';
 
 export interface ChromaItem {
@@ -124,8 +125,8 @@ export const ChromaGrid = ({
             cursor: c.url ? 'pointer' : 'default'
           } as React.CSSProperties}
         >
-          <div className="chroma-img-wrapper" style={{ borderColor: c.borderColor, color: c.borderColor }}>
-            {c.icon ? c.icon : (c.image ? <img src={c.image} alt={c.title} loading="lazy" /> : null)}
+          <div className="chroma-img-wrapper relative" style={{ borderColor: c.borderColor, color: c.borderColor }}>
+            {c.icon ? c.icon : (c.image ? <Image src={c.image} alt={c.title} fill className="object-cover" /> : null)}
           </div>
           <footer className="chroma-info">
             <h3 className="name">{c.title}</h3>

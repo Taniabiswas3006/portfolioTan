@@ -157,10 +157,16 @@ export default function Hero() {
       </div>
 
       {/* Tagline - Proper Distance Below Hero */}
-      <div className="absolute bottom-16 sm:bottom-20 md:bottom-24 lg:bottom-32 xl:bottom-36 left-1/2 -translate-x-1/2 w-full px-6 z-20 pointer-events-auto">
+      <div className="absolute bottom-10 sm:bottom-12 md:bottom-14 lg:bottom-16 xl:bottom-18 left-1/2 -translate-x-1/2 w-full px-6 z-20 pointer-events-auto">
         <div className="flex justify-center">
-
-
+          <BlurText
+            text="Designing human experiences in code."
+            delay={150}
+            animateBy="words"
+            direction="top"
+            className="text-[15px] sm:text-[18px] md:text-[20px] lg:text-[22px] text-center transition-colors duration-300 text-gray-500 hover:text-white"
+            style={{ fontFamily: "var(--font-antic)" }}
+          />
         </div>
       </div>
 
