@@ -65,7 +65,7 @@ export default function Education() {
         {/* Timeline */}
         <div className="relative">
           {/* Vertical line */}
-          <div className="absolute left-4 sm:left-6 md:left-1/2 top-0 bottom-0 w-px bg-gradient-to-b from-primary/60 via-secondary/40 to-transparent" />
+          <div className="absolute left-8 sm:left-12 md:left-1/2 top-0 bottom-0 w-px bg-gradient-to-b from-primary/60 via-secondary/40 to-transparent" />
 
           {timeline.map((item, i) => {
             const isLeft = i % 2 === 0;
@@ -82,7 +82,7 @@ export default function Education() {
                 }`}
               >
                 {/* Timeline Node */}
-                <div className="absolute left-4 sm:left-6 md:left-1/2 -translate-x-1/2 z-20">
+                <div className="absolute left-8 sm:left-12 md:left-1/2 -translate-x-1/2 z-20">
                   <div
                     className={`w-8 h-8 sm:w-12 sm:h-12 rounded-full flex items-center justify-center border-2 ${
                       item.current
@@ -100,7 +100,7 @@ export default function Education() {
 
                 {/* Content Card */}
                 <div
-                  className={`ml-14 sm:ml-20 md:ml-0 md:w-[calc(50%-3rem)] ${
+                  className={`ml-20 sm:ml-28 md:ml-0 md:w-[calc(50%-3rem)] ${
                     isLeft ? "md:pr-4 md:text-right md:mr-auto" : "md:pl-4 md:text-left md:ml-auto"
                   }`}
                 >

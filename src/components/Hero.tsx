@@ -141,7 +141,7 @@ export default function Hero() {
         </div>
 
         {/* Typing Text - Mobile */}
-        <div className="mt-3 font-medium text-[12px] sm:text-[14px] tracking-wide text-center" style={{ color: "#FF85A1", fontFamily: "var(--font-fira-code)" }}>
+        <div className="mt-3 font-medium text-[12px] sm:text-[14px] tracking-wide text-center px-4" style={{ color: "#FF85A1", fontFamily: "var(--font-fira-code)" }}>
           <TextType
             texts={["CS UNDERGRAD | AI/ML Enthusiast | JISCE"]}
             typingSpeed={75}
