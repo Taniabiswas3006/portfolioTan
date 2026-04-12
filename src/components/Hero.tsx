@@ -107,13 +107,85 @@ export default function Hero() {
         />
       </div>
 
+      {/* ═══ MOBILE LAYOUT (< md) ═══ */}
+      <div className="flex md:hidden flex-col items-center justify-center text-center relative z-10 pt-24 pb-16 px-4 min-h-screen">
+        {/* Profile Image - Mobile */}
+        <div className="relative flex-shrink-0 mb-4">
+          <div
+            className="relative w-[240px] h-[320px] sm:w-[300px] sm:h-[420px] mix-blend-lighten"
+            style={{
+              maskImage: "radial-gradient(circle at center, black 35%, transparent 70%)",
+              WebkitMaskImage: "radial-gradient(circle at center, black 35%, transparent 70%)",
+              animation: "customAppear 1.5s ease-out forwards 0.2s",
+              opacity: 0,
+            }}
+          >
+            <Image
+              src="/profile.png"
+              alt="Profile Image"
+              fill
+              className="object-cover object-top scale-[1.05]"
+              priority
+            />
+          </div>
+        </div>
+
+        {/* Name Text - Mobile */}
+        <div className="w-full max-w-[340px] sm:max-w-[420px]">
+          <div className="w-full">
+            <PathAnimation text="TANIA" />
+          </div>
+          <div className="w-full -mt-6 sm:-mt-8">
+            <PathAnimation text="BISWAS" />
+          </div>
+        </div>
+
+        {/* Typing Text - Mobile */}
+        <div className="mt-3 font-medium text-[12px] sm:text-[14px] tracking-wide text-center" style={{ color: "#FF85A1", fontFamily: "var(--font-fira-code)" }}>
+          <TextType
+            texts={["CS UNDERGRAD | AI/ML Enthusiast | JISCE"]}
+            typingSpeed={75}
+            pauseDuration={1500}
+            showCursor
+            cursorCharacter="_"
+            deletingSpeed={50}
+            variableSpeedEnabled
+            variableSpeedMin={60}
+            variableSpeedMax={120}
+            cursorBlinkDuration={0.8}
+          />
+        </div>
+
+        {/* Tagline - Mobile */}
+        <div className="mt-6">
+          <BlurText
+            text="Designing human experiences in code."
+            delay={150}
+            animateBy="words"
+            direction="top"
+            className="text-[13px] sm:text-[15px] text-center transition-colors duration-300 text-gray-500 hover:text-white"
+            style={{ fontFamily: "var(--font-antic)" }}
+          />
+        </div>
+
+        {/* Scroll Arrow - Mobile */}
+        <a
+          href="#about"
+          className="mt-6 transition-colors duration-300 pointer-events-auto"
+          aria-label="Scroll down"
+        >
+          <ChevronDown className="w-5 h-5 text-gray-500 hover:text-white transition-colors duration-300 animate-bounce" />
+        </a>
+      </div>
+
+      {/* ═══ DESKTOP LAYOUT (>= md) ═══ */}
       {/* Main Content Area - Split Layout */}
-      <div className="absolute top-[55%] md:top-[52%] -translate-y-1/2 w-full max-w-[1920px] mx-auto left-4 right-0 px-12 md:pl-0 md:pr-16 lg:pr-32 xl:pr-48 flex flex-col md:flex-row items-center md:items-center md:justify-start md:gap-8 z-10 pointer-events-none">
+      <div className="hidden md:flex absolute top-[52%] -translate-y-1/2 w-full max-w-[1920px] mx-auto left-4 right-0 md:pl-0 md:pr-16 lg:pr-32 xl:pr-48 flex-row items-center md:justify-start md:gap-8 z-10 pointer-events-none">
 
         {/* Left Side: Profile Picture */}
-        <div className="relative flex mb-22 md:mb-100 md:-mt-16 lg:-mt-24 xl:-mt-32 pointer-events-auto shrink-0">
+        <div className="relative flex md:mb-100 md:-mt-16 lg:-mt-24 xl:-mt-32 pointer-events-auto shrink-0">
           <div
-            className="relative w-[340px] h-[500px] sm:w-[500px] sm:h-[700px] md:w-[550px] md:h-[750px] lg:w-[650px] lg:h-[850px] xl:w-[800px] xl:h-[1050px] mix-blend-lighten"
+            className="relative md:w-[550px] md:h-[750px] lg:w-[650px] lg:h-[850px] xl:w-[800px] xl:h-[1050px] mix-blend-lighten"
             style={{
               maskImage: "radial-gradient(circle at center, black 35%, transparent 70%)",
               WebkitMaskImage: "radial-gradient(circle at center, black 35%, transparent 70%)",
@@ -132,14 +204,14 @@ export default function Hero() {
         </div>
 
         {/* Right Side: Name Text */}
-        <div className="relative flex flex-col items-center justify-center text-center mt-4 md:mt-16 xl:mt-24 md:ml-auto pointer-events-auto w-full max-w-[400px] sm:max-w-[600px] md:max-w-[700px] lg:max-w-[900px] xl:max-w-[1100px] md:translate-x-8 lg:translate-x-16 xl:translate-x-24">
+        <div className="relative flex flex-col items-center justify-center text-center md:mt-16 xl:mt-24 md:ml-auto pointer-events-auto w-full md:max-w-[700px] lg:max-w-[900px] xl:max-w-[1100px] md:translate-x-8 lg:translate-x-16 xl:translate-x-24">
           <div className="w-full">
             <PathAnimation text="TANIA" />
           </div>
-          <div className="w-full -mt-10 sm:-mt-14 md:-mt-16 lg:-mt-20 lg:mb-4">
+          <div className="w-full md:-mt-16 lg:-mt-20 lg:mb-4">
             <PathAnimation text="BISWAS" />
           </div>
-          <div className="mt-4 md:mt-6 lg:mt-8 font-medium text-[14px] sm:text-[18px] md:text-[22px] tracking-wide text-center" style={{ color: "#FF85A1", fontFamily: "var(--font-fira-code)" }}>
+          <div className="md:mt-6 lg:mt-8 font-medium md:text-[22px] tracking-wide text-center" style={{ color: "#FF85A1", fontFamily: "var(--font-fira-code)" }}>
             <TextType
               texts={["CS UNDERGRAD | AI/ML Enthusiast | JISCE"]}
               typingSpeed={75}
@@ -156,28 +228,27 @@ export default function Hero() {
         </div>
       </div>
 
-      {/* Tagline - Proper Distance Below Hero */}
-      <div className="absolute bottom-1 sm:bottom-2 md:bottom-3 lg:bottom-4 xl:bottom-5 left-1/2 -translate-x-1/2 w-full px-6 z-20 pointer-events-auto">
-        <div className="flex justify-center">
-          <BlurText
-            text="Designing human experiences in code."
-            delay={150}
-            animateBy="words"
-            direction="top"
-            className="text-[15px] sm:text-[18px] md:text-[20px] lg:text-[22px] text-center transition-colors duration-300 text-gray-500 hover:text-white"
-            style={{ fontFamily: "var(--font-antic)" }}
-          />
-        </div>
+      {/* Tagline - Desktop */}
+      <div className="hidden md:flex absolute bottom-1 md:bottom-3 lg:bottom-4 xl:bottom-5 left-1/2 -translate-x-1/2 w-full px-6 z-20 pointer-events-auto justify-center">
+        <BlurText
+          text="Designing human experiences in code."
+          delay={150}
+          animateBy="words"
+          direction="top"
+          className="text-[18px] md:text-[20px] lg:text-[22px] text-center transition-colors duration-300 text-gray-500 hover:text-white"
+          style={{ fontFamily: "var(--font-antic)" }}
+        />
       </div>
 
-      {/* Scroll Indicator */}
+      {/* Scroll Indicator - Desktop */}
       <a
         href="#about"
-        className="absolute bottom-0 md:bottom-0 left-1/2 -translate-x-1/2 transition-colors duration-300 z-20 pointer-events-auto"
+        className="hidden md:block absolute bottom-0 left-1/2 -translate-x-1/2 transition-colors duration-300 z-20 pointer-events-auto"
         aria-label="Scroll down"
       >
-        <ChevronDown className="w-5 h-5 md:w-8 md:h-8 text-gray-500 hover:text-white transition-colors duration-300 animate-bounce" />
+        <ChevronDown className="w-8 h-8 text-gray-500 hover:text-white transition-colors duration-300 animate-bounce" />
       </a>
     </section>
   );
 }
+

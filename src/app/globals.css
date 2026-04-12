@@ -332,3 +332,46 @@ h1, h2, h3, h4, h5, h6 {
     transform: translateY(0px);
   }
 }
+
+/* ===========================
+   MOBILE RESPONSIVE OVERRIDES
+   (screens under 768px only)
+   =========================== */
+@media (max-width: 768px) {
+
+  /* Reset zoom on mobile — CSS zoom doesn't work well on mobile browsers */
+  html {
+    zoom: 1 !important;
+  }
+
+  /* ── General Mobile Spacing ── */
+  section {
+    padding-top: 3rem !important;
+    padding-bottom: 3rem !important;
+  }
+
+  .section-title {
+    font-size: 2rem !important;
+    margin-bottom: 1.5rem !important;
+  }
+
+  /* ── Hero Section Mobile ── */
+  /* The hero wrapper uses absolute positioning with top-[55%] which
+     doesn't work well on mobile. Override to use relative flow instead. */
+
+  /* ── About Status Cards ── */
+  /* Force 1-column layout for the Origin/Working/Role/Status cards */
+
+  /* ── Hackathons ── reduce extreme spacing */
+
+  /* ── Container Scroll Animation ── */
+  /* Reduce the scroll container height on mobile for better experience */
+
+  /* ── Contact section mobile ── */
+
+  /* ── Ensure no horizontal overflow anywhere ── */
+  .container {
+    max-width: 100% !important;
+    overflow-x: hidden !important;
+  }
+}

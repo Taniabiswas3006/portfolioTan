@@ -33,7 +33,7 @@ export default function About() {
               </p>
             </div>
 
-            <div className="mt-12 md:mt-24 grid grid-cols-2 md:grid-cols-4 gap-6 sm:gap-8 relative z-10">
+            <div className="mt-12 md:mt-24 grid grid-cols-1 sm:grid-cols-2 md:grid-cols-4 gap-6 sm:gap-8 relative z-10">
               {[
                 { label: "Origin", value: "West Bengal, IN" },
                 { label: "Working", value: "Parot.Dev" },

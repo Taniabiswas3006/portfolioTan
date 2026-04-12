@@ -32,7 +32,7 @@ export default function Contact() {
 
             <div className="max-w-screen-xl mx-auto px-4 sm:px-6 gap-16 md:px-8 flex flex-col lg:flex-row items-center relative z-10">
                 <div className="max-w-md w-full text-center lg:text-left">
-                    <h3 className="section-title !text-5xl md:!text-6xl lg:!text-[4.5rem] !text-left">
+                    <h3 className="section-title !text-5xl md:!text-6xl lg:!text-[4.5rem] !text-center lg:!text-left">
                         <TextType
                             texts={["Let&apos;s Connect", "Transmit Data", "Initiate Link"]}
                             typingSpeed={90}
@@ -61,7 +61,7 @@ export default function Contact() {
                 </div>
 
                 <div className="flex-1 w-full mt-12 lg:mt-0 bg-white/5 border border-white/10 rounded-3xl p-8 sm:p-12 backdrop-blur-sm">
-                    <ul className="gap-y-12 gap-x-12 items-start md:flex lg:gap-x-0 flex-col md:flex-row">
+                    <ul className="gap-y-12 gap-x-12 items-start flex flex-col lg:flex-row lg:gap-x-0">
                         {contactMethods.map((item, idx) => (
                             <li
                                 key={idx}
