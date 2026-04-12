@@ -16,6 +16,7 @@ export interface SkillInfo {
   description: string;
   level: number;
   icon: React.ReactNode;
+  techStack: string[];
 }
 
 const SKILLS: SkillInfo[] = [
@@ -26,6 +27,7 @@ const SKILLS: SkillInfo[] = [
     icon: <Brain className="text-[#FF85A1]" size={22} />,
     level: 95,
     description: "Experienced in training models, crafting NLP solutions, and deep data preprocessing pipelines.",
+    techStack: ["Python", "Pandas","NumPy", "Scikit", "NLP"],
   },
   {
     id: "2",
@@ -34,6 +36,7 @@ const SKILLS: SkillInfo[] = [
     icon: <Shield className="text-[#FF85A1]" size={22} />,
     level: 75,
     description: "Knowledgeable in network security, pen testing foundations, and cryptography deployments.",
+    techStack: ["Kali Linux", "VMware", "Metasploit","VirtualBox"],
   },
   {
     id: "3",
@@ -41,7 +44,8 @@ const SKILLS: SkillInfo[] = [
     role: "PROFICIENT",
     icon: <Layout className="text-[#FF85A1]" size={22} />,
     level: 85,
-    description: "Proficient in data analysis with hands-on experience in extracting insights, identifying patterns, and visualizing data to support informed decision-making.",
+    description: "Proficient in data analysis with hands-on experience in extracting insights, identifying patterns, and visualizing data.",
+    techStack: ["Pandas", "Matplotlib", "SQL", "Tableau","EXCEL"],
   },
   {
     id: "4",
@@ -50,6 +54,7 @@ const SKILLS: SkillInfo[] = [
     icon: <Smartphone className="text-[#FF85A1]" size={22} />,
     level: 75,
     description: "Experience with building solid mobile applications using modern flexible frameworks.",
+    techStack: ["Java", "Kotlin", "Android Studio", "XML"],
   },
   {
     id: "5",
@@ -57,7 +62,8 @@ const SKILLS: SkillInfo[] = [
     role: "ADVANCED",
     icon: <Code2 className="text-[#FF85A1]" size={22} />,
     level: 90,
-    description: "Highly proficient in React, Next.js, Framer Motion, and modern CSS frameworks like Tailwind.End-to-End scalable architectures, RESTful APIs, and cloud integration testing.",
+    description: "Highly proficient in React, Next.js, Framer Motion, and Tailwind. End-to-End scalable architectures.",
+    techStack: ["React", "Next.js", "Node.js", "Appwrite","Flask","REST API","HTML+CSS+JS"],
   },
   {
     id: "6",
@@ -66,6 +72,7 @@ const SKILLS: SkillInfo[] = [
     icon: <Database className="text-[#FF85A1]" size={22} />,
     level: 90,
     description: "Designing schemas, optimizing NoSQL structures, and high-availability data migrations.",
+    techStack: ["MongoDB", "PostgreSQL", "MYSQL", "SQLite"],
   },
 ];
 
@@ -190,6 +197,20 @@ function SkillCard({
         <p className={cn("text-[10px] sm:text-xs md:text-sm leading-snug md:leading-relaxed transition-colors duration-500", isActive ? "text-gray-100" : "text-gray-500")}>
           {skill.description}
         </p>
+      </div>
+
+      <div className="relative z-20 flex flex-wrap gap-1 md:gap-2 mt-4">
+        {skill.techStack.map((tech) => (
+          <span 
+            key={tech} 
+            className={cn(
+              "text-[8px] md:text-[10px] px-1.5 py-0.5 rounded-md border transition-all duration-300",
+              isActive ? "border-[#FF85A1]/40 text-[#FF85A1] bg-[#FF85A1]/5" : "border-white/5 text-gray-600"
+            )}
+          >
+            {tech}
+          </span>
+        ))}
       </div>
     </div>
   );
