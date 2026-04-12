@@ -2,10 +2,6 @@
 @tailwind components;
 @tailwind utilities;
 
-html {
-  font-size: 12px;
-}
-
 :root {
   --background: #0B0E14;
   --foreground: #FFFFFF;
