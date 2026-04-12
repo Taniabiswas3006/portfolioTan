@@ -1,138 +1,182 @@
 "use client";
 
-import { motion } from "framer-motion";
-import { ArrowUpRight, Github, Linkedin, Twitter } from "lucide-react";
+import React, { useState, useEffect, useRef, useMemo } from "react";
+import { ChevronDown } from "lucide-react";
 import Image from "next/image";
+import Antigravity from "./Antigravity";
+import TextType from "./TextType";
+import PathAnimation from "./PathAnimation";
+
+// BlurText animation component
+interface BlurTextProps {
+  text: string;
+  delay?: number;
+  animateBy?: "words" | "letters";
+  direction?: "top" | "bottom";
+  className?: string;
+  style?: React.CSSProperties;
+}
+
+const BlurText: React.FC<BlurTextProps> = ({
+  text,
+  delay = 50,
+  animateBy = "words",
+  direction = "top",
+  className = "",
+  style,
+}) => {
+  const [inView, setInView] = useState(false);
+  const ref = useRef<HTMLParagraphElement>(null);
+
+  useEffect(() => {
+    const observer = new IntersectionObserver(
+      ([entry]) => {
+        if (entry.isIntersecting) {
+          setInView(true);
+        }
+      },
+      { threshold: 0.1 }
+    );
+
+    if (ref.current) {
+      observer.observe(ref.current);
+    }
+
+    return () => {
+      if (ref.current) {
+        observer.unobserve(ref.current);
+      }
+    };
+  }, []);
+
+  const segments = useMemo(() => {
+    return animateBy === "words" ? text.split(" ") : text.split("");
+  }, [text, animateBy]);
+
+  return (
+    <p ref={ref} className={`inline-flex flex-wrap ${className}`} style={style}>
+      {segments.map((segment, i) => (
+        <span
+          key={i}
+          style={{
+            display: "inline-block",
+            filter: inView ? "blur(0px)" : "blur(10px)",
+            opacity: inView ? 1 : 0,
+            transform: inView ? "translateY(0)" : `translateY(${direction === "top" ? "-20px" : "20px"})`,
+            transition: `all 0.5s ease-out ${i * delay}ms`,
+          }}
+        >
+          {segment}
+          {animateBy === "words" && i < segments.length - 1 ? "\u00A0" : ""}
+        </span>
+      ))}
+    </p>
+  );
+};
 
 export default function Hero() {
   return (
-    <section className="hero-section">
-      {/* Background Tech Grid */}
-      <div className="absolute inset-0 tech-grid opacity-20" />
-
-      {/* Background Large Name — centered behind the image */}
-      <div className="hero-bg-name">
-        <motion.h1
-          initial={{ opacity: 0, scale: 0.9 }}
-          animate={{ opacity: 0.06, scale: 1 }}
-          transition={{ duration: 1.8, ease: "easeOut" }}
-          className="text-[10vw] font-black font-poppins text-white whitespace-nowrap leading-none tracking-tighter"
-        >
-          Tania Biswas
-        </motion.h1>
+    <section className="relative min-h-screen flex flex-col overflow-hidden">
+      <style>{`
+        @keyframes customAppear {
+          0% { opacity: 0; filter: blur(20px); transform: scale(0.9) translateX(-40px); }
+          100% { opacity: 0.75; filter: blur(0px); transform: scale(1) translateX(0); }
+        }
+      `}</style>
+      
+      {/* Antigravity Background */}
+      <div className="absolute inset-0 z-0">
+        <Antigravity
+          count={500}
+          magnetRadius={6}
+          ringRadius={7}
+          waveSpeed={0.4}
+          waveAmplitude={1}
+          particleSize={0.3}
+          lerpSpeed={0.05}
+          color="#FF85A1"
+          autoAnimate
+          particleVariance={1.5}
+          rotationSpeed={0}
+          depthFactor={1}
+          pulseSpeed={3}
+          particleShape="sphere"
+          fieldStrength={10}
+          opacity={0.25}
+        />
       </div>
 
-      {/* Main 3-column hero grid */}
-      <div className="hero-grid">
-
-        {/* LEFT — Role & Tagline */}
-        <motion.div
-          initial={{ opacity: 0, x: -40 }}
-          animate={{ opacity: 1, x: 0 }}
-          transition={{ delay: 0.6, duration: 0.9 }}
-          className="hero-left"
-        >
-          <p className="text-xs uppercase tracking-[0.25em] text-gray-500 font-bold mb-4">Who am I</p>
-          <h2 className="text-3xl md:text-4xl font-black font-poppins leading-tight text-white mb-4">
-            CS Undergrad<br />
-            <span className="bg-clip-text text-transparent bg-gradient-to-r from-primary to-lavenderGlow">& ML Enthusiast</span>
-          </h2>
-          <p className="text-sm text-gray-500 leading-relaxed max-w-[280px]">
-            Passionate about building intelligent systems and solving real-world problems through code.
-          </p>
-
-          {/* Location */}
-          <div className="flex items-center gap-3 mt-4 text-[10px] uppercase tracking-widest text-gray-600 font-bold">
-            <span>India</span>
-            <span className="w-1 h-1 rounded-full bg-gray-700" />
-          </div>
-        </motion.div>
-
-        {/* CENTER — Profile Photo */}
-        <div className="hero-center">
-
-          <motion.div
-            initial={{ opacity: 0, scale: 0.85 }}
-            animate={{ opacity: 1, scale: 1 }}
-            transition={{ duration: 1.2, ease: "easeOut" }}
-            className="hero-image-container"
+      {/* Main Content Area - Split Layout */}
+      <div className="absolute top-[50%] md:top-[45%] -translate-y-1/2 w-full max-w-[1920px] mx-auto left-4 right-0 px-12 md:pl-0 md:pr-16 lg:pr-32 xl:pr-48 flex flex-col md:flex-row items-center md:items-center md:justify-start md:gap-8 z-10 pointer-events-none">
+        
+        {/* Left Side: Profile Picture */}
+        <div className="relative flex mb-22 md:mb-100 md:-mt-32 lg:-mt-48 xl:-mt-64 pointer-events-auto shrink-0">
+          <div 
+            className="relative w-[340px] h-[500px] sm:w-[500px] sm:h-[700px] md:w-[550px] md:h-[750px] lg:w-[650px] lg:h-[850px] xl:w-[800px] xl:h-[1050px] mix-blend-lighten"
+            style={{
+              maskImage: "radial-gradient(circle at center, black 35%, transparent 70%)",
+              WebkitMaskImage: "radial-gradient(circle at center, black 35%, transparent 70%)",
+              animation: "customAppear 1.5s ease-out forwards 0.2s",
+              opacity: 0,
+            }}
           >
-            {/* Glow aura behind image */}
-            <div className="hero-glow" />
-
             <Image
               src="/profile.png"
-              alt="Tania Biswas"
-              width={500}
-              height={660}
-              className="hero-image"
+              alt="Profile Image"
+              fill
+              className="object-cover object-top scale-[1.05]"
               priority
             />
-          </motion.div>
-
-          {/* Status Badge — under the photo */}
-          <motion.div
-            initial={{ opacity: 0, y: 10 }}
-            animate={{ opacity: 1, y: 0 }}
-            transition={{ delay: 0.5, duration: 0.8 }}
-            className="flex items-center gap-2 px-4 py-2 bg-white/5 border border-white/10 rounded-full mt-10"
-          >
-            <div className="w-2 h-2 rounded-full bg-secondary animate-pulse shadow-[0_0_10px_#FF85A1]" />
-            <span className="text-[10px] font-bold uppercase tracking-[0.2em] text-gray-400">Open to Opportunities</span>
-          </motion.div>
+          </div>
         </div>
 
-        {/* RIGHT — Intro & CTA */}
-        <motion.div
-          initial={{ opacity: 0, x: 40 }}
-          animate={{ opacity: 1, x: 0 }}
-          transition={{ delay: 0.8, duration: 0.9 }}
-          className="hero-right"
-        >
-          <p className="text-xs uppercase tracking-[0.25em] text-gray-500 font-bold mb-4">What I do</p>
-          <h2 className="text-3xl md:text-4xl font-black font-poppins leading-tight text-white mb-4">
-            Pixel-Perfect<br />
-            <span className="bg-clip-text text-transparent bg-gradient-to-r from-secondary to-pinkGlow">Interfaces.</span>
-          </h2>
-          <p className="text-sm text-gray-500 leading-relaxed max-w-[280px] mb-8">
-            I turn ideas into stunning interfaces and train models that learn from data.
-          </p>
-
-          {/* CTA Button */}
-          <a
-            href="#projects"
-            className="group relative inline-flex items-center gap-2 bg-gradient-to-r from-primary via-lavenderGlow to-secondary text-spaceBlack px-5 py-2.5 rounded-full font-bold overflow-hidden transition-all duration-300 hover:scale-105 active:scale-95 shadow-[0_0_20px_rgba(205,180,219,0.3)]"
-          >
-            <span className="relative z-10 text-xs">View Projects</span>
-            <div className="relative z-10 w-7 h-7 rounded-full bg-spaceBlack text-white flex items-center justify-center transition-transform group-hover:rotate-45">
-              <ArrowUpRight size={14} />
-            </div>
-          </a>
-
-          {/* Socials */}
-          <div className="mt-6 flex gap-6">
-            {[
-              { icon: <Github size={20} />, href: "https://github.com/Taniabiswas3006" },
-              { icon: <Linkedin size={20} />, href: "https://www.linkedin.com/in/tania-biswas-30469a29a/" },
-              { icon: <Twitter size={20} />, href: "https://x.com/Taniabi84087273" },
-            ].map((s, i) => (
-              <motion.a
-                key={i}
-                href={s.href}
-                target="_blank"
-                rel="noopener noreferrer"
-                initial={{ opacity: 0, y: 10 }}
-                animate={{ opacity: 1, y: 0 }}
-                transition={{ delay: 1.3 + i * 0.1 }}
-                className="text-gray-600 hover:text-primary transition-all hover:scale-125"
-              >
-                {s.icon}
-              </motion.a>
-            ))}
+        {/* Right Side: Name Text */}
+        <div className="relative flex flex-col items-center justify-center text-center mt-4 md:mt-16 xl:mt-24 md:ml-auto pointer-events-auto w-full max-w-[400px] sm:max-w-[600px] md:max-w-[700px] lg:max-w-[900px] xl:max-w-[1100px] md:translate-x-8 lg:translate-x-16 xl:translate-x-24">
+          <div className="w-full">
+            <PathAnimation text="TANIA" />
           </div>
-        </motion.div>
-
+          <div className="w-full -mt-10 sm:-mt-14 md:-mt-16 lg:-mt-20 lg:mb-4">
+            <PathAnimation text="BISWAS" />
+          </div>
+          <div className="mt-4 md:mt-6 lg:mt-8 font-medium text-[14px] sm:text-[18px] md:text-[22px] tracking-wide text-center" style={{ color: "#FF85A1", fontFamily: "var(--font-fira-code)" }}>
+            <TextType 
+              texts={["CS UNDERGRAD | AI/ML Enthusiast | JISCE"]}
+              typingSpeed={75}
+              pauseDuration={1500}
+              showCursor
+              cursorCharacter="_"
+              deletingSpeed={50}
+              variableSpeedEnabled
+              variableSpeedMin={60}
+              variableSpeedMax={120}
+              cursorBlinkDuration={0.8}
+            />
+          </div>
+        </div>
       </div>
+
+      {/* Tagline - Proper Distance Below Hero */}
+      <div className="absolute bottom-16 sm:bottom-20 md:bottom-24 lg:bottom-32 xl:bottom-36 left-1/2 -translate-x-1/2 w-full px-6 z-20 pointer-events-auto">
+        <div className="flex justify-center">
+          <BlurText
+            text="Designing human experiences in code."
+            delay={150}
+            animateBy="words"
+            direction="top"
+            className="text-[15px] sm:text-[18px] md:text-[20px] lg:text-[22px] text-center transition-colors duration-300 text-gray-500 hover:text-white"
+            style={{ fontFamily: "var(--font-antic)" }}
+          />
+        </div>
+      </div>
+
+      {/* Scroll Indicator */}
+      <a
+        href="#about"
+        className="absolute bottom-6 md:bottom-10 left-1/2 -translate-x-1/2 transition-colors duration-300 z-20 pointer-events-auto"
+        aria-label="Scroll down"
+      >
+        <ChevronDown className="w-5 h-5 md:w-8 md:h-8 text-gray-500 hover:text-white transition-colors duration-300 animate-bounce" />
+      </a>
     </section>
   );
 }

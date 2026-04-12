@@ -7,6 +7,7 @@ import Projects from "@/components/Projects";
 import Hackathons from "@/components/Hackathons";
 import Certifications from "@/components/Certifications";
 import Publication from "@/components/Publication";
+import Hobbies from "@/components/Hobbies";
 import Contact from "@/components/Contact";
 import Footer from "@/components/Footer";
 import Starfield from "@/components/Starfield";
@@ -25,6 +26,7 @@ export default function Home() {
         <Hackathons />
         <Certifications />
         <Publication />
+        <Hobbies />
         <Contact />
       </div>
       <Footer />

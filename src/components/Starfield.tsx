@@ -24,8 +24,8 @@ export default function Starfield() {
         <motion.div
           key={star.id}
           className="star"
-          initial={{ opacity: 0.1 }}
-          animate={{ opacity: [0.1, 0.8, 0.1] }}
+          initial={{ opacity: 0.3 }}
+          animate={{ opacity: [0.3, 1.0, 0.3] }}
           transition={{
             duration: star.duration,
             repeat: Infinity,
