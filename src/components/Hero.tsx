@@ -157,7 +157,7 @@ export default function Hero() {
       </div>
 
       {/* Tagline - Proper Distance Below Hero */}
-      <div className="absolute bottom-6 sm:bottom-8 md:bottom-0 lg:bottom-12 xl:bottom-14 left-1/2 -translate-x-1/2 w-full px-6 z-20 pointer-events-auto">
+      <div className="absolute bottom-1 sm:bottom-2 md:bottom-3 lg:bottom-4 xl:bottom-5 left-1/2 -translate-x-1/2 w-full px-6 z-20 pointer-events-auto">
         <div className="flex justify-center">
           <BlurText
             text="Designing human experiences in code."
@@ -173,7 +173,7 @@ export default function Hero() {
       {/* Scroll Indicator */}
       <a
         href="#about"
-        className="absolute bottom-2 md:bottom-6 left-1/2 -translate-x-1/2 transition-colors duration-300 z-20 pointer-events-auto"
+        className="absolute bottom-0 md:bottom-0 left-1/2 -translate-x-1/2 transition-colors duration-300 z-20 pointer-events-auto"
         aria-label="Scroll down"
       >
         <ChevronDown className="w-5 h-5 md:w-8 md:h-8 text-gray-500 hover:text-white transition-colors duration-300 animate-bounce" />
