@@ -84,7 +84,7 @@ export default function Hero() {
           100% { opacity: 0.75; filter: blur(0px); transform: scale(1) translateX(0); }
         }
       `}</style>
-      
+
       {/* Antigravity Background */}
       <div className="absolute inset-0 z-0">
         <Antigravity
@@ -109,10 +109,10 @@ export default function Hero() {
 
       {/* Main Content Area - Split Layout */}
       <div className="absolute top-[55%] md:top-[52%] -translate-y-1/2 w-full max-w-[1920px] mx-auto left-4 right-0 px-12 md:pl-0 md:pr-16 lg:pr-32 xl:pr-48 flex flex-col md:flex-row items-center md:items-center md:justify-start md:gap-8 z-10 pointer-events-none">
-        
+
         {/* Left Side: Profile Picture */}
         <div className="relative flex mb-22 md:mb-100 md:-mt-16 lg:-mt-24 xl:-mt-32 pointer-events-auto shrink-0">
-          <div 
+          <div
             className="relative w-[340px] h-[500px] sm:w-[500px] sm:h-[700px] md:w-[550px] md:h-[750px] lg:w-[650px] lg:h-[850px] xl:w-[800px] xl:h-[1050px] mix-blend-lighten"
             style={{
               maskImage: "radial-gradient(circle at center, black 35%, transparent 70%)",
@@ -140,7 +140,7 @@ export default function Hero() {
             <PathAnimation text="BISWAS" />
           </div>
           <div className="mt-4 md:mt-6 lg:mt-8 font-medium text-[14px] sm:text-[18px] md:text-[22px] tracking-wide text-center" style={{ color: "#FF85A1", fontFamily: "var(--font-fira-code)" }}>
-            <TextType 
+            <TextType
               texts={["CS UNDERGRAD | AI/ML Enthusiast | JISCE"]}
               typingSpeed={75}
               pauseDuration={1500}
@@ -159,14 +159,8 @@ export default function Hero() {
       {/* Tagline - Proper Distance Below Hero */}
       <div className="absolute bottom-16 sm:bottom-20 md:bottom-24 lg:bottom-32 xl:bottom-36 left-1/2 -translate-x-1/2 w-full px-6 z-20 pointer-events-auto">
         <div className="flex justify-center">
-          <BlurText
-            text="Designing human experiences in code."
-            delay={150}
-            animateBy="words"
-            direction="top"
-            className="text-[15px] sm:text-[18px] md:text-[20px] lg:text-[22px] text-center transition-colors duration-300 text-gray-500 hover:text-white"
-            style={{ fontFamily: "var(--font-antic)" }}
-          />
+
+
         </div>
       </div>
 
