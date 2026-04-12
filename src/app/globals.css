@@ -16,6 +16,10 @@
   --font-antic: 'Antic', sans-serif;
 }
 
+html {
+  zoom: 0.75;
+}
+
 * {
   scroll-behavior: smooth;
 }
