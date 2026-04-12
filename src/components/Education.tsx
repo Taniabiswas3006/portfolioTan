@@ -1,7 +1,7 @@
 "use client";
 
 import { motion } from "framer-motion";
-import { GraduationCap, Briefcase, Calendar, MapPin } from "lucide-react";
+import { GraduationCap, Briefcase, Calendar } from "lucide-react";
 
 const timeline = [
   {

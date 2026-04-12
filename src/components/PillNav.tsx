@@ -25,13 +25,9 @@ const PillNav: React.FC<PillNavProps> = ({
   items,
   activeHref,
   className = "",
-  ease = "power2.easeOut",
   baseColor = "#9ca3af",
   pillColor = "#FF85A1",
   hoveredPillTextColor = "#ffffff",
-  pillTextColor = "#ffffff",
-  theme = "dark",
-  initialLoadAnimation = true,
 }) => {
   const [hoveredNode, setHoveredNode] = useState<string | null>(null);
   const [activeNode, setActiveNode] = useState<string | null>(activeHref || null);

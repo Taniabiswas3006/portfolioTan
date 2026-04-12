@@ -34,14 +34,14 @@ export default function Contact() {
                 <div className="max-w-md w-full text-center lg:text-left">
                     <h3 className="section-title !text-5xl md:!text-6xl lg:!text-[4.5rem] !text-left">
                         <TextType
-                            texts={["Let's Connect", "Transmit Data", "Initiate Link"]}
+                            texts={["Let&apos;s Connect", "Transmit Data", "Initiate Link"]}
                             typingSpeed={90}
                             deletingSpeed={50}
                             pauseDuration={2500}
                         />
                     </h3>
                     <p className="mt-6 text-gray-400 leading-relaxed text-lg sm:text-xl font-medium">
-                        I'm currently looking for new opportunities. Whether you have a question or just want to say hi, I'll try my best to get back to you!
+                        I&apos;m currently looking for new opportunities. Whether you have a question or just want to say hi, I&apos;ll try my best to get back to you!
                     </p>
                     
                     <div className="mt-10 flex flex-col gap-4 items-center lg:items-start text-gray-300 font-mono">

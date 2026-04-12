@@ -37,13 +37,21 @@ const hackathons = [
   },
 ];
 
+interface Hackathon {
+  name: string;
+  role: string;
+  achievement: string;
+  icon: React.ReactNode;
+  url?: string;
+}
+
 export default function Hackathons() {
-  const [activeCard, setActiveCard] = useState<any>(null);
+  const [activeCard, setActiveCard] = useState<Hackathon | null>(null);
 
   return (
     <section id="hackathons" className="py-16 md:py-24 relative overflow-hidden">
       <div className="container mx-auto px-4 sm:px-6">
-        <h2 className="section-title !text-5xl md:!text-6xl lg:!text-[4.5rem]">Hackathon's Tech Era</h2>
+        <h2 className="section-title !text-5xl md:!text-6xl lg:!text-[4.5rem]">Hackathon&apos;s Tech Era</h2>
         
         <div className="flex flex-col md:flex-row gap-48 justify-center items-center mt-56 pt-24 pb-20 px-12 md:px-0">
           

@@ -18,7 +18,7 @@ export default function Certifications() {
         <h2 className="section-title !text-5xl md:!text-6xl lg:!text-[4.5rem]">Verified Intelligence</h2>
         <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6 sm:gap-8 max-w-6xl mx-auto mt-12">
           {certifications.map((cert, i) => {
-            const Wrapper: any = cert.url ? motion.a : motion.div;
+            const Wrapper = (cert.url ? motion.a : motion.div) as React.ElementType;
             return (
               <Wrapper
                 key={cert.name}

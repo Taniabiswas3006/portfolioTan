@@ -1,6 +1,7 @@
 "use client";
 
 import { motion } from "framer-motion";
+import Image from "next/image";
 import { Github, ExternalLink, Code2 } from "lucide-react";
 import DecryptedText from "./DecryptedText";
 
@@ -87,10 +88,11 @@ export default function Projects() {
               <div className="relative glass-card overflow-hidden flex flex-col h-full bg-spaceDark/40 border-white/5 group-hover:border-primary/20 transition-all duration-500">
                 <div className="h-44 sm:h-52 md:h-64 overflow-hidden relative">
                   <div className="absolute inset-0 bg-gradient-to-t from-spaceBlack to-transparent z-10 opacity-60" />
-                  <img
-                    src={project.image}
+                  <Image
+                    src={`/${project.image}`}
                     alt={project.title}
-                    className="w-full h-full object-cover transition-transform duration-700 group-hover:scale-110"
+                    fill
+                    className="object-cover transition-transform duration-700 group-hover:scale-110"
                   />
                 </div>
 

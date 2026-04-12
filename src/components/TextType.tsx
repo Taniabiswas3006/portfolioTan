@@ -1,6 +1,6 @@
 "use client";
 
-import React, { useState, useEffect } from "react";
+import React, { useState, useEffect, useMemo } from "react";
 
 interface TextTypeProps {
   text?: string[];
@@ -35,7 +35,7 @@ const TextType: React.FC<TextTypeProps> = ({
   const [isDeleting, setIsDeleting] = useState(false);
   const [loopNum, setLoopNum] = useState(0);
 
-  const displayTexts = text || texts || [""];
+  const displayTexts = useMemo(() => text || texts || [""], [text, texts]);
 
   useEffect(() => {
     let timer: NodeJS.Timeout;
