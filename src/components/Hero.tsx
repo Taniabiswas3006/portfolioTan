@@ -156,22 +156,21 @@ export default function Hero() {
           />
         </div>
 
-        {/* Tagline - Mobile */}
-        <div className="mt-6">
-          <BlurText
-            text="Designing human experiences in code."
-            delay={150}
-            animateBy="words"
-            direction="top"
-            className="text-[13px] sm:text-[15px] text-center transition-colors duration-300 text-gray-500 hover:text-white"
-            style={{ fontFamily: "var(--font-antic)" }}
-          />
-        </div>
+      </div>
 
-        {/* Scroll Arrow - Mobile */}
+      {/* ═══ MOBILE BOTTOM ELEMENTS (Tagline & Arrow) ═══ */}
+      <div className="flex md:hidden absolute bottom-2 left-1/2 -translate-x-1/2 w-full px-6 z-20 pointer-events-auto flex-col items-center gap-2">
+        <BlurText
+          text="Designing human experiences in code."
+          delay={150}
+          animateBy="words"
+          direction="top"
+          className="text-[13px] sm:text-[15px] text-center transition-colors duration-300 text-gray-500 hover:text-white"
+          style={{ fontFamily: "var(--font-antic)" }}
+        />
         <a
           href="#about"
-          className="mt-6 transition-colors duration-300 pointer-events-auto"
+          className="transition-colors duration-300 pointer-events-auto"
           aria-label="Scroll down"
         >
           <ChevronDown className="w-5 h-5 text-gray-500 hover:text-white transition-colors duration-300 animate-bounce" />
@@ -229,7 +228,7 @@ export default function Hero() {
       </div>
 
       {/* Tagline - Desktop */}
-      <div className="hidden md:flex absolute bottom-1 md:bottom-3 lg:bottom-4 xl:bottom-5 left-1/2 -translate-x-1/2 w-full px-6 z-20 pointer-events-auto justify-center">
+      <div className="hidden md:flex absolute bottom-0 md:bottom-0 lg:bottom-1.5 xl:bottom-2 left-1/2 -translate-x-1/2 w-full px-6 z-20 pointer-events-auto justify-center">
         <BlurText
           text="Designing human experiences in code."
           delay={150}
@@ -243,10 +242,10 @@ export default function Hero() {
       {/* Scroll Indicator - Desktop */}
       <a
         href="#about"
-        className="hidden md:block absolute bottom-0 left-1/2 -translate-x-1/2 transition-colors duration-300 z-20 pointer-events-auto"
+        className="hidden md:block absolute bottom left-1/2 -translate-x-1/2 transition-colors duration-300 z-20 pointer-events-auto"
         aria-label="Scroll down"
       >
-        <ChevronDown className="w-8 h-15 text-gray-500 hover:text-white transition-colors duration-300 animate-bounce" />
+        <ChevronDown className="w-10 h-10 text-gray-500 hover:text-white transition-colors duration-300 animate-bounce" />
       </a>
     </section>
   );
