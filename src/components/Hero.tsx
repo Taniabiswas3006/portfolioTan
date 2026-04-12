@@ -107,53 +107,51 @@ export default function Hero() {
         />
       </div>
 
-      {/* Main Content Area - Split Layout with custom scale for "Perfect Look" */}
-      <div className="flex-1 flex items-center justify-center scale-[0.8] md:scale-[0.85] origin-center z-10">
-        <div className="w-full max-w-[1920px] mx-auto flex flex-col md:flex-row items-center justify-center md:gap-16 px-6 md:px-12 pointer-events-none">
-          
-          {/* Left Side: Profile Picture */}
-          <div className="relative flex mb-8 md:mb-0 pointer-events-auto shrink-0">
-            <div 
-              className="relative w-[340px] h-[500px] sm:w-[500px] sm:h-[700px] md:w-[550px] md:h-[750px] lg:w-[650px] lg:h-[850px] xl:w-[800px] xl:h-[1010px] mix-blend-lighten"
-              style={{
-                maskImage: "radial-gradient(circle at center, black 35%, transparent 70%)",
-                WebkitMaskImage: "radial-gradient(circle at center, black 35%, transparent 70%)",
-                animation: "customAppear 1.5s ease-out forwards 0.2s",
-                opacity: 0,
-              }}
-            >
-              <Image
-                src="/profile.png"
-                alt="Profile Image"
-                fill
-                className="object-cover object-top scale-[1.05]"
-                priority
-              />
-            </div>
+      {/* Main Content Area - Split Layout */}
+      <div className="absolute top-[50%] md:top-[45%] -translate-y-1/2 w-full max-w-[1920px] mx-auto left-4 right-0 px-12 md:pl-0 md:pr-16 lg:pr-32 xl:pr-48 flex flex-col md:flex-row items-center md:items-center md:justify-start md:gap-8 z-10 pointer-events-none">
+        
+        {/* Left Side: Profile Picture */}
+        <div className="relative flex mb-22 md:mb-100 md:-mt-32 lg:-mt-48 xl:-mt-64 pointer-events-auto shrink-0">
+          <div 
+            className="relative w-[340px] h-[500px] sm:w-[500px] sm:h-[700px] md:w-[550px] md:h-[750px] lg:w-[650px] lg:h-[850px] xl:w-[800px] xl:h-[1050px] mix-blend-lighten"
+            style={{
+              maskImage: "radial-gradient(circle at center, black 35%, transparent 70%)",
+              WebkitMaskImage: "radial-gradient(circle at center, black 35%, transparent 70%)",
+              animation: "customAppear 1.5s ease-out forwards 0.2s",
+              opacity: 0,
+            }}
+          >
+            <Image
+              src="/profile.png"
+              alt="Profile Image"
+              fill
+              className="object-cover object-top scale-[1.05]"
+              priority
+            />
           </div>
+        </div>
 
-          {/* Right Side: Name Text */}
-          <div className="relative flex flex-col items-center justify-center text-center pointer-events-auto w-full md:w-auto">
-            <div className="w-full">
-              <PathAnimation text="TANIA" />
-            </div>
-            <div className="w-full -mt-10 sm:-mt-14 md:-mt-16 lg:-mt-20">
-              <PathAnimation text="BISWAS" />
-            </div>
-            <div className="mt-4 md:mt-6 lg:mt-8 font-medium text-[14px] sm:text-[18px] md:text-[22px] tracking-wide text-center" style={{ color: "#FF85A1", fontFamily: "var(--font-fira-code)" }}>
-              <TextType 
-                texts={["CS UNDERGRAD | AI/ML Enthusiast | JISCE"]}
-                typingSpeed={75}
-                pauseDuration={1500}
-                showCursor
-                cursorCharacter="_"
-                deletingSpeed={50}
-                variableSpeedEnabled
-                variableSpeedMin={60}
-                variableSpeedMax={120}
-                cursorBlinkDuration={0.8}
-              />
-            </div>
+        {/* Right Side: Name Text */}
+        <div className="relative flex flex-col items-center justify-center text-center mt-4 md:mt-16 xl:mt-24 md:ml-auto pointer-events-auto w-full max-w-[400px] sm:max-w-[600px] md:max-w-[700px] lg:max-w-[900px] xl:max-w-[1100px] md:translate-x-8 lg:translate-x-16 xl:translate-x-24">
+          <div className="w-full">
+            <PathAnimation text="TANIA" />
+          </div>
+          <div className="w-full -mt-10 sm:-mt-14 md:-mt-16 lg:-mt-20 lg:mb-4">
+            <PathAnimation text="BISWAS" />
+          </div>
+          <div className="mt-4 md:mt-6 lg:mt-8 font-medium text-[14px] sm:text-[18px] md:text-[22px] tracking-wide text-center" style={{ color: "#FF85A1", fontFamily: "var(--font-fira-code)" }}>
+            <TextType 
+              texts={["CS UNDERGRAD | AI/ML Enthusiast | JISCE"]}
+              typingSpeed={75}
+              pauseDuration={1500}
+              showCursor
+              cursorCharacter="_"
+              deletingSpeed={50}
+              variableSpeedEnabled
+              variableSpeedMin={60}
+              variableSpeedMax={120}
+              cursorBlinkDuration={0.8}
+            />
           </div>
         </div>
       </div>
