@@ -259,10 +259,10 @@ const ProfileCardComponent: React.FC<ProfileCardProps> = ({
     const shell = shellRef.current;
     if (!shell) return;
 
-    const pointerMoveHandler = handlePointerMove as any;
-    const pointerEnterHandler = handlePointerEnter as any;
-    const pointerLeaveHandler = handlePointerLeave as any;
-    const deviceOrientationHandler = handleDeviceOrientation as any;
+    const pointerMoveHandler = handlePointerMove as EventListener;
+    const pointerEnterHandler = handlePointerEnter as EventListener;
+    const pointerLeaveHandler = handlePointerLeave as EventListener;
+    const deviceOrientationHandler = handleDeviceOrientation as EventListener;
 
     shell.addEventListener('pointerenter', pointerEnterHandler);
     shell.addEventListener('pointermove', pointerMoveHandler);
@@ -270,9 +270,11 @@ const ProfileCardComponent: React.FC<ProfileCardProps> = ({
 
     const handleClick = () => {
       if (!enableMobileTilt || window.location.protocol !== 'https:') return;
-      const anyMotion = (window as any).DeviceMotionEvent;
-      if (anyMotion && typeof anyMotion.requestPermission === 'function') {
-        anyMotion
+      
+      const DeviceMotionEventWithType = (window as unknown as { DeviceMotionEvent?: { requestPermission?: () => Promise<PermissionState> } }).DeviceMotionEvent;
+
+      if (DeviceMotionEventWithType && typeof DeviceMotionEventWithType.requestPermission === 'function') {
+        DeviceMotionEventWithType
           .requestPermission()
           .then((state: string) => {
             if (state === 'granted') {

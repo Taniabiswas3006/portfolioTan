@@ -3,6 +3,7 @@
 import React, { useState } from "react";
 import { motion, AnimatePresence } from "framer-motion";
 import { Menu, X } from "lucide-react";
+import Image from "next/image";
 
 interface PillNavProps {
   logo?: string | React.ReactNode;
@@ -40,7 +41,14 @@ const PillNav: React.FC<PillNavProps> = ({
         {/* Logo Section */}
         <div className="flex-shrink-0 flex items-center justify-center mr-0 md:mr-6 shrink-0">
           {typeof logo === 'string' ? (
-            <img src={logo} alt={logoAlt} className="h-8 auto" />
+            <div className="relative h-8 w-12">
+              <Image 
+                src={logo} 
+                alt={logoAlt} 
+                fill
+                style={{ objectFit: 'contain' }}
+              />
+            </div>
           ) : (
             logo
           )}
