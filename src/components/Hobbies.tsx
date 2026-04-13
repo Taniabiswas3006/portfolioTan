@@ -143,7 +143,7 @@ export default function Hobbies() {
                   </button>
                 </div>
 
-                <div className="p-8 md:p-12 w-full -mt-20 relative z-10 overflow-y-auto">
+                <div className="p-8 md:p-12 w-full -mt-20 relative z-10 overflow-y-auto no-scrollbar">
                     <motion.h3 
                         layoutId={`title-${selectedHobby.id}`}
                         transition={transition}
