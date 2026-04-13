@@ -33,16 +33,16 @@ export default function About() {
               </p>
             </div>
 
-            <div className="mt-12 md:mt-24 grid grid-cols-1 sm:grid-cols-2 md:grid-cols-4 gap-6 sm:gap-8 relative z-10">
+            <div className="mt-12 md:mt-24 grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-6 sm:gap-8 relative z-10">
               {[
                 { label: "Origin", value: "West Bengal, IN" },
                 { label: "Working", value: "Parot.Dev" },
                 { label: "Role", value: "AI Engineer" },
                 { label: "Status", value: "Active" },
               ].map((item, i) => (
-                <div key={i} className="space-y-2 border-l-2 border-[#FF85A1]/30 pl-4 py-2 hover:border-[#FF85A1] transition-colors">
-                  <p className="text-[11px] md:text-[13px] uppercase tracking-widest text-[#FF85A1] font-bold">{item.label}</p>
-                  <p className="font-bold text-white text-base md:text-xl">{item.value}</p>
+                <div key={i} className="space-y-2 border-l-2 border-[#FF85A1]/30 pl-4 py-2 hover:border-[#FF85A1] transition-colors bg-white/5 sm:bg-transparent p-4 sm:p-0 rounded-r-xl sm:rounded-none">
+                  <p className="text-[10px] md:text-[13px] uppercase tracking-widest text-[#FF85A1] font-bold">{item.label}</p>
+                  <p className="font-bold text-white text-lg md:text-xl">{item.value}</p>
                 </div>
               ))}
             </div>

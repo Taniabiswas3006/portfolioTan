@@ -37,7 +37,7 @@ export default function RootLayout({
   return (
     <html lang="en" className="scroll-smooth">
       <body
-        className={`${poppins.variable} ${inter.variable} ${firaCode.variable} ${antic.variable} antialiased bg-bg-light text-text-dark selection:bg-primary/30 font-inter`}
+        className={`${poppins.variable} ${inter.variable} ${firaCode.variable} ${antic.variable} antialiased bg-bg-light text-text-dark selection:bg-primary/30 font-inter overflow-x-hidden`}
       >
         {children}
       </body>

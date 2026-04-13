@@ -374,7 +374,6 @@ h1, h2, h3, h4, h5, h6 {
   /* ── Ensure no horizontal overflow anywhere ── */
   .container {
     max-width: 100% !important;
-    overflow-x: hidden !important;
   }
 
   /* Fix for hamburger menu z-index */

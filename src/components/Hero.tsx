@@ -75,9 +75,9 @@ export default function Hero() {
       </div>
 
       {/* ═══ MOBILE LAYOUT (< md) ═══ */}
-      <div className="flex md:hidden flex-col items-center justify-center text-center relative z-10 pt-24 pb-16 px-4 min-h-screen">
+      <div className="flex md:hidden flex-col items-center justify-center text-center relative z-10 pt-24 pb-8 px-4 min-h-screen">
         {/* Profile Card - Mobile */}
-        <div className="relative flex-shrink-0 mb-8 transform scale-90 sm:scale-100">
+        <div className="relative flex-shrink-0 mb-4 transform scale-80 sm:scale-100">
           <ProfileCard
             name="A Learner"
             title="with Code and Coffee"
@@ -87,13 +87,13 @@ export default function Hero() {
             showUserInfo={false}
             enableTilt={true}
             enableMobileTilt={true}
-            behindGlowEnabled={true}
+            behindGlowEnabled={false}
             behindGlowColor="rgba(255, 133, 161, 0.4)"
           />
         </div>
 
         {/* Name Text - Mobile (added gap) */}
-        <div className="w-full max-w-[340px] sm:max-w-[420px] mt-4 sm:mt-6">
+        <div className="w-full max-w-[240px] sm:max-w-[420px] mt-2 sm:mt-6">
           <div className="w-full">
             <PathAnimation text="TANIA" />
           </div>
@@ -108,7 +108,7 @@ export default function Hero() {
         </div>
 
         {/* Typing Text - Mobile */}
-        <div className="mt-3 font-medium text-[12px] sm:text-[14px] tracking-wide text-center px-4" style={{ color: "#FF85A1", fontFamily: "var(--font-fira-code)" }}>
+        <div className="mt-4 font-medium text-[clamp(12px,4vw,16px)] tracking-wide text-center px-4" style={{ color: "#FF85A1", fontFamily: "var(--font-fira-code)" }}>
           <TextType
             texts={["CS UNDERGRAD | AI/ML Enthusiast | JISCE"]}
             typingSpeed={75}
@@ -125,7 +125,7 @@ export default function Hero() {
       </div>
 
       {/* ═══ MOBILE BOTTOM ELEMENTS (Tagline & Arrow) ═══ */}
-      <div className="flex md:hidden absolute bottom-2 left-1/2 -translate-x-1/2 w-full px-6 z-20 pointer-events-auto flex-col items-center gap-2">
+      <div className="flex md:hidden absolute bottom-6 left-1/2 -translate-x-1/2 w-full px-6 z-20 pointer-events-auto flex-col items-center gap-2">
         <a
           href="#about"
           className="transition-colors duration-300 pointer-events-auto"
@@ -136,7 +136,7 @@ export default function Hero() {
       </div>
 
       {/* ═══ DESKTOP LAYOUT (>= md) ═══ */}
-      <div className="hidden md:flex absolute inset-0 pt-36 items-center justify-center z-10 pointer-events-none">
+      <div className="hidden md:flex absolute inset-0 pt-36 items-center justify-center z-10 pointer-events-none overflow-hidden">
         <div className="flex flex-row items-center justify-center gap-8 lg:gap-14 xl:gap-20 w-full max-w-[1400px] mx-auto px-8 translate-x-12">
 
           {/* Left Side: Profile Card */}
@@ -149,7 +149,7 @@ export default function Hero() {
               avatarUrl="/profile.png"
               showUserInfo={false}
               enableTilt={true}
-              behindGlowEnabled={true}
+              behindGlowEnabled={false}
               behindGlowColor="rgba(255, 133, 161, 0.4)"
               onContactClick={() => {
                 const contactSection = document.getElementById('contact');
@@ -159,7 +159,7 @@ export default function Hero() {
           </div>
 
           {/* Right Side: Name Text */}
-          <div className="flex flex-col items-center justify-center text-center pointer-events-auto flex-1 translate-x-16 translate-y-6">
+          <div className="flex flex-col items-center justify-center text-center pointer-events-auto flex-1 translate-x-16 translate-y-6 max-w-full">
             <div className="w-full max-w-[700px] lg:max-w-[800px] xl:max-w-[900px]">
               <PathAnimation text="TANIA" />
             </div>
@@ -172,7 +172,7 @@ export default function Hero() {
               <OpenToWorkBadge />
             </div>
 
-            <div className="mt-6 lg:mt-8 font-medium md:text-[22px] tracking-wide text-center" style={{ color: "#FF85A1", fontFamily: "var(--font-fira-code)" }}>
+            <div className="mt-8 font-medium text-[clamp(18px,2vw,24px)] tracking-wide text-center px-4" style={{ color: "#FF85A1", fontFamily: "var(--font-fira-code)" }}>
               <TextType
                 texts={["CS UNDERGRAD | AI/ML Enthusiast | JISCE"]}
                 typingSpeed={75}

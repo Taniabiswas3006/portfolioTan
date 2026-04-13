@@ -148,11 +148,11 @@ export default function Projects() {
                     </div>
                   )}
 
-                  <div className="flex items-center gap-4 sm:gap-8 mt-auto flex-wrap">
+                  <div className="flex items-center gap-4 sm:gap-6 mt-auto flex-wrap">
                     {project.links.github && (
                       <a
                         href={project.links.github}
-                        className="flex items-center gap-2 text-sm font-bold text-gray-400 hover:text-white transition-all hover:translate-x-1"
+                        className="flex items-center gap-2 text-sm font-bold text-gray-400 hover:text-white transition-all bg-white/5 md:bg-transparent py-3 px-4 md:p-0 rounded-lg"
                       >
                         <Github size={18} /> Repository
                       </a>
@@ -160,7 +160,7 @@ export default function Projects() {
                     {project.links.demo && (
                       <a
                         href={project.links.demo}
-                        className="flex items-center gap-2 text-sm font-bold text-primary hover:text-secondary transition-all hover:translate-x-1"
+                        className="flex items-center gap-2 text-sm font-bold text-primary hover:text-secondary transition-all bg-primary/5 md:bg-transparent py-3 px-4 md:p-0 rounded-lg"
                       >
                         <ExternalLink size={18} /> Live Systems
                       </a>

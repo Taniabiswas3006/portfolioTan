@@ -90,54 +90,11 @@ export default function Skills({ members = SKILLS }: { members?: SkillInfo[] }) 
           Technical Arsenal
         </h2>
 
-        {/* Changed md:flex-row to xl:flex-row so large grid blocks don't squeeze text out of bounds on medium screens */}
-        <div className="flex flex-col xl:flex-row items-center xl:items-start gap-12 lg:gap-16 select-none w-full mx-auto">
-
-          {/* ── Left: detailed info grid replacing images ── */}
-          {/* Desktop/Tablet: Complex offset columns */}
-          <div className="hidden sm:flex gap-2 md:gap-4 flex-shrink-0 overflow-visible pb-4 md:pb-0 w-full xl:w-auto justify-center flex-wrap sm:flex-nowrap xl:justify-start">
-            {/* Column 1 */}
-            <div className="flex flex-col gap-3 md:gap-4 shrink-0">
-              {col1.map((skill) => (
-                <SkillCard
-                  key={skill.id}
-                  skill={skill}
-                  className="w-[180px] h-[200px] md:w-[220px] md:h-[260px]"
-                  hoveredId={hoveredId}
-                  onHover={setHoveredId}
-                />
-              ))}
-            </div>
-
-            {/* Column 2 */}
-            <div className="flex flex-col gap-3 md:gap-4 mt-[50px] md:mt-[70px] shrink-0">
-              {col2.map((skill) => (
-                <SkillCard
-                  key={skill.id}
-                  skill={skill}
-                  className="w-[200px] h-[220px] md:w-[245px] md:h-[285px]"
-                  hoveredId={hoveredId}
-                  onHover={setHoveredId}
-                />
-              ))}
-            </div>
-
-            {/* Column 3 */}
-            <div className="flex flex-col gap-3 md:gap-4 mt-[25px] md:mt-[35px] shrink-0">
-              {col3.map((skill) => (
-                <SkillCard
-                  key={skill.id}
-                  skill={skill}
-                  className="w-[190px] h-[210px] md:w-[230px] md:h-[270px]"
-                  hoveredId={hoveredId}
-                  onHover={setHoveredId}
-                />
-              ))}
-            </div>
-          </div>
-
-          {/* Mobile: Simple stack for screens under sm (640px) */}
-          <div className="flex flex-col gap-4 sm:hidden w-full px-2">
+        {/* Responsive Grid System */}
+        <div className="w-full select-none mx-auto">
+          
+          {/* Mobile & Tablet Grid (hidden on xl/desktop) */}
+          <div className="grid grid-cols-1 md:grid-cols-2 xl:hidden gap-4 sm:gap-6 w-full px-2">
             {members.map((skill) => (
               <SkillCard
                 key={skill.id}
@@ -149,16 +106,60 @@ export default function Skills({ members = SKILLS }: { members?: SkillInfo[] }) 
             ))}
           </div>
 
-          {/* ── Right: full skill name list (Right-Aligned) ── */}
-          <div className="flex flex-col gap-4 md:gap-6 pt-4 lg:pt-10 flex-1 w-full overflow-visible justify-center items-center xl:items-end">
-            {members.map((skill) => (
-              <SkillRow
-                key={skill.id}
-                skill={skill}
-                hoveredId={hoveredId}
-                onHover={setHoveredId}
-              />
-            ))}
+          {/* Desktop/Extra Large Screens: Complex offset columns */}
+          <div className="hidden xl:flex flex-row items-start gap-12 lg:gap-16 w-full">
+            <div className="flex gap-4 flex-shrink-0">
+              {/* Column 1 */}
+              <div className="flex flex-col gap-4 shrink-0">
+                {col1.map((skill) => (
+                  <SkillCard
+                    key={skill.id}
+                    skill={skill}
+                    className="w-[220px] h-[260px]"
+                    hoveredId={hoveredId}
+                    onHover={setHoveredId}
+                  />
+                ))}
+              </div>
+
+              {/* Column 2 */}
+              <div className="flex flex-col gap-4 mt-[70px] shrink-0">
+                {col2.map((skill) => (
+                  <SkillCard
+                    key={skill.id}
+                    skill={skill}
+                    className="w-[245px] h-[285px]"
+                    hoveredId={hoveredId}
+                    onHover={setHoveredId}
+                  />
+                ))}
+              </div>
+
+              {/* Column 3 */}
+              <div className="flex flex-col gap-4 mt-[35px] shrink-0">
+                {col3.map((skill) => (
+                  <SkillCard
+                    key={skill.id}
+                    skill={skill}
+                    className="w-[230px] h-[270px]"
+                    hoveredId={hoveredId}
+                    onHover={setHoveredId}
+                  />
+                ))}
+              </div>
+            </div>
+
+            {/* Right-Aligned Skill Rows for Desktop */}
+            <div className="flex flex-col gap-6 pt-10 flex-1 justify-center items-end">
+              {members.map((skill) => (
+                <SkillRow
+                  key={skill.id}
+                  skill={skill}
+                  hoveredId={hoveredId}
+                  onHover={setHoveredId}
+                />
+              ))}
+            </div>
           </div>
         </div>
       </div>

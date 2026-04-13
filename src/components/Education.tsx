@@ -59,13 +59,13 @@ const timeline = [
 export default function Education() {
   return (
     <section id="education" className="pt-4 pb-16 md:pt-6 md:pb-24 relative overflow-hidden -mt-8 md:-mt-16">
-      <div className="container mx-auto px-4 sm:px-6 max-w-5xl">
-        <h2 className="section-title !text-5xl md:!text-6xl lg:!text-[4.5rem]">Education & Experience</h2>
+      <div className="container mx-auto px-4 sm:px-6 max-w-5xl overflow-visible">
+        <h2 className="section-title !text-3xl sm:!text-5xl md:!text-6xl lg:!text-[4.5rem]">Education & Experience</h2>
 
         {/* Timeline */}
         <div className="relative">
           {/* Vertical line */}
-          <div className="absolute left-8 sm:left-12 md:left-1/2 top-0 bottom-0 w-px bg-gradient-to-b from-primary/60 via-secondary/40 to-transparent" />
+          <div className="absolute left-6 sm:left-12 md:left-1/2 top-0 bottom-0 w-px bg-gradient-to-b from-primary/60 via-secondary/40 to-transparent" />
 
           {timeline.map((item, i) => {
             const isLeft = i % 2 === 0;
@@ -82,7 +82,7 @@ export default function Education() {
                 }`}
               >
                 {/* Timeline Node */}
-                <div className="absolute left-8 sm:left-12 md:left-1/2 -translate-x-1/2 z-20">
+                <div className="absolute left-6 sm:left-12 md:left-1/2 -translate-x-1/2 z-20">
                   <div
                     className={`w-8 h-8 sm:w-12 sm:h-12 rounded-full flex items-center justify-center border-2 ${
                       item.current
@@ -100,7 +100,7 @@ export default function Education() {
 
                 {/* Content Card */}
                 <div
-                  className={`ml-20 sm:ml-28 md:ml-0 md:w-[calc(50%-3rem)] ${
+                  className={`ml-14 sm:ml-24 md:ml-0 md:w-[calc(50%-3rem)] ${
                     isLeft ? "md:pr-4 md:text-right md:mr-auto" : "md:pl-4 md:text-left md:ml-auto"
                   }`}
                 >
@@ -129,11 +129,14 @@ export default function Education() {
                       <div className="relative z-10">
                         {/* Current badge */}
                         {item.current && (
-                          <span className="inline-flex items-center gap-1.5 px-3 py-1 rounded-full bg-secondary/10 border border-secondary/20 text-secondary text-[10px] font-bold uppercase tracking-widest mb-4">
+                          <span className={`inline-flex items-center gap-1.5 px-3 py-1 rounded-full bg-secondary/10 border border-secondary/20 text-secondary text-[10px] font-bold uppercase tracking-widest mb-4 ${
+                            isLeft ? "md:float-right md:ml-auto" : "md:float-none"
+                          }`}>
                             <span className="w-1.5 h-1.5 rounded-full bg-secondary animate-pulse" />
                             {item.type === "work" ? "Current Role" : "Ongoing"}
                           </span>
                         )}
+                        <div className="clear-both" />
 
                         {/* Organization */}
                         <p className="text-xs uppercase tracking-[0.2em] text-primary font-bold mb-2">
@@ -148,7 +151,7 @@ export default function Education() {
                         {/* Period & Location */}
                         <div
                           className={`flex items-center gap-4 text-xs text-gray-500 mb-4 ${
-                            isLeft ? "md:justify-end" : "md:justify-start"
+                            isLeft ? "md:justify-end" : "justify-start"
                           }`}
                         >
                           <span className="flex items-center gap-1">
@@ -165,7 +168,7 @@ export default function Education() {
                         {/* Tags */}
                         <div
                           className={`flex flex-wrap gap-2 ${
-                            isLeft ? "md:justify-end" : "md:justify-start"
+                            isLeft ? "md:justify-end" : "justify-start"
                           }`}
                         >
                           {item.tags.map((tag) => (

@@ -61,17 +61,17 @@ export default function Contact() {
                 </div>
 
                 <div className="flex-1 w-full mt-12 lg:mt-0 bg-white/5 border border-white/10 rounded-3xl p-8 sm:p-12 backdrop-blur-sm">
-                    <ul className="gap-y-12 gap-x-12 items-start flex flex-col lg:flex-row lg:gap-x-0">
+                    <ul className="gap-y-12 gap-x-12 items-start flex flex-col md:flex-row md:flex-wrap lg:flex-nowrap lg:gap-x-0">
                         {contactMethods.map((item, idx) => (
                             <li
                                 key={idx}
-                                className="space-y-5 border-t border-white/10 pt-8 first:pt-0 first:border-0 md:max-w-sm md:pt-0 md:border-t-0 md:border-l md:border-white/10 md:first:border-0 md:px-12 md:first:pl-0 lg:max-w-none flex-1 group"
+                                className="space-y-5 border-t border-white/10 pt-8 first:pt-0 first:border-0 md:max-w-[45%] lg:max-w-none md:pt-0 md:border-t-0 md:border-l md:border-white/10 md:first:border-0 md:px-12 md:first:pl-0 flex-1 group w-full"
                             >
                                 <div className="w-16 h-16 sm:w-20 sm:h-20 rounded-2xl border border-[#FF85A1]/30 bg-[#FF85A1]/10 flex items-center justify-center text-[#FF85A1] shadow-[0_0_20px_rgba(255,133,161,0.15)] group-hover:scale-110 group-hover:bg-[#FF85A1]/20 transition-all duration-500">
                                     {item.icon}
                                 </div>
 
-                                <h4 className="text-white text-2xl font-bold font-mono tracking-tight pt-2 group-hover:text-[#FF85A1] transition-colors duration-300">
+                                <h4 className="text-white text-xl sm:text-2xl font-bold font-mono tracking-tight pt-2 group-hover:text-[#FF85A1] transition-colors duration-300">
                                     {item.title}
                                 </h4>
 
@@ -83,7 +83,7 @@ export default function Contact() {
                                     href={item.link.href}
                                     target="_blank"
                                     rel="noopener noreferrer"
-                                    className="inline-flex items-center gap-2 text-sm sm:text-base text-[#FF85A1] duration-300 hover:text-white font-bold tracking-[0.2em] uppercase mt-2 w-max"
+                                    className="inline-flex items-center justify-center gap-2 text-sm sm:text-base text-[#FF85A1] duration-300 hover:text-white font-bold tracking-[0.2em] uppercase mt-2 w-full sm:w-max bg-white/5 sm:bg-transparent py-4 sm:p-0 rounded-xl sm:rounded-none"
                                 >
                                     {item.link.name}
                                     <ArrowRight className="w-5 h-5 group-hover:translate-x-2 transition-transform duration-300" />
