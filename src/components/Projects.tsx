@@ -8,35 +8,43 @@ import DecryptedText from "./DecryptedText";
 const projects = [
   {
     title: "EcoTwin",
+    subtitle: "Solo project",
     description: "EcoTwin is an AI-powered sustainability platform that analyzes your carbon footprint, energy consumption, and waste generation to create a personalized digital twin of your environmental impact also gives you actionable insights.",
-    tech: ["Vite", "REST API", "Flask","React.js", "Tailwind CSS", "PostgreSQL(Supabase),ML,Scikit-Learn,Numpy,Pandas,Vercel,Render"],
+    tech: ["Vite", "REST API", "Flask", "React.js", "Tailwind CSS", "PostgreSQL(Supabase),ML,Scikit-Learn,Numpy,Pandas,Vercel,Render"],
     links: { github: "https://github.com/Taniabiswas3006/Eco-Twin", demo: "https://eco-twin-flame.vercel.app/" },
     image: "Screenshot 2026-04-11 140655.png",
   },
   {
     title: "Nestate",
+    subtitle: "Group project",
     description: "A modern real estate solution providing seamless property management, tenant tracking, and portfolio insights for forward-thinking agencies.",
+    contribution: ["OCR", "Machine learning",],
     tech: ["Next.js", "Node.js", "React.js", "Tailwind CSS", "PostgreSQL"],
     links: { github: "https://nestate.parot.dev/", demo: "https://nestate.parot.dev/" },
     image: "Screenshot 2026-04-12 023733.png",
   },
-  
+
   {
     title: "Ahaarsetu",
+    subtitle: "Group Project",
     description: "Smart India Hackathon project combining ML and frontend to assist with food accessibility solutions.",
+    contribution: ["Deep learning", "NLP"],
     tech: ["ML", "React Native", "Node.js", "MongoDB"],
     links: { github: "https://github.com/Aritra-221B/AhaarSetu", demo: "https://ahaarsetu-theta.vercel.app/" },
     image: "Screenshot 2026-04-12 023413.png",
   },
   {
     title: "ThreatGuardX",
+    subtitle: "Group project",
     description: "Collaborative security-focused chrome extension built during a hackathon to detect vulnerabilities.",
+    contribution: ["UI/UX", "Logic"],
     tech: ["VirtualBox", "Python", "KaliLinux", "Bash"],
     links: { github: "https://github.com/Aritra-221B/ThreatGuardX-webextension" },
     image: "Screenshot 2026-04-12 020642.png",
   },
   {
     title: "ZByte",
+    subtitle: "Solo project",
     description: "Fooding Ecommerce template with antigravity themed experience",
     tech: ["React.js", "Javascript", "Framer-motion", "Node.js"],
     links: { demo: "https://zbyte.parot.dev/ " },
@@ -44,13 +52,16 @@ const projects = [
   },
   {
     title: "TwinTitles",
+    subtitle: "Group project",
     description: "NLP based system that detects similar or duplicate research paper titles using Sentence Transformers.",
+    contribution:["NLP","ML","Frontend"],
     tech: ["NLP", "PyTorch", "HuggingFace", "HTML", "CSS"],
     links: { github: "https://github.com/Aritra-221B/TwinTitles" },
     image: "Screenshot 2026-04-12 120557.png",
   },
   {
     title: "Eleve",
+    subtitle: "Solo project",
     description: "clothing Ecommerce template with light themed aesthetics",
     tech: ["React.js", "Javascript", "Framer-motion", "Node.js"],
     links: { demo: "https://eleve.parot.dev/" },
@@ -108,27 +119,52 @@ export default function Projects() {
                     </div>
                   </div>
 
-                  <h3 className="text-xl sm:text-2xl md:text-3xl font-bold mb-3 sm:mb-4 text-white group-hover:text-primary transition-colors">
-                    {project.title}
-                  </h3>
+                  <div className="flex flex-col gap-1 mb-3 sm:mb-4">
+                    <h3 className="text-xl sm:text-2xl md:text-3xl font-bold text-white group-hover:text-primary transition-colors">
+                      {project.title}
+                    </h3>
+                    {project.subtitle && (
+                      <span className="text-xs sm:text-sm font-medium text-secondary/80">
+                        {project.subtitle}
+                      </span>
+                    )}
+                  </div>
 
-                  <p className="text-gray-400 text-sm sm:text-base mb-6 sm:mb-10 flex-grow leading-relaxed">
+                  <p className="text-gray-400 text-sm sm:text-base mb-6 flex-grow leading-relaxed">
                     {project.description}
                   </p>
 
+                  {project.contribution && (
+                    <div className="mb-6 sm:mb-8">
+                      <h4 className="text-[10px] uppercase font-black text-gray-500 tracking-widest mb-2">Key Contributions</h4>
+                      <div className="flex flex-wrap gap-2">
+                        {project.contribution.map((c) => (
+                          <span key={c} className="text-xs text-white/70 flex items-center gap-1.5 bg-white/5 px-2.5 py-1 rounded-full border border-white/10">
+                            <span className="w-1 h-1 bg-primary rounded-full" />
+                            {c}
+                          </span>
+                        ))}
+                      </div>
+                    </div>
+                  )}
+
                   <div className="flex items-center gap-4 sm:gap-8 mt-auto flex-wrap">
-                    <a
-                      href={project.links.github}
-                      className="flex items-center gap-2 text-sm font-bold text-gray-400 hover:text-white transition-all hover:translate-x-1"
-                    >
-                      <Github size={20} /> Repository
-                    </a>
-                    <a
-                      href={project.links.demo}
-                      className="flex items-center gap-2 text-sm font-bold text-primary hover:text-secondary transition-all hover:translate-x-1"
-                    >
-                      <ExternalLink size={20} /> Live Systems
-                    </a>
+                    {project.links.github && (
+                      <a
+                        href={project.links.github}
+                        className="flex items-center gap-2 text-sm font-bold text-gray-400 hover:text-white transition-all hover:translate-x-1"
+                      >
+                        <Github size={18} /> Repository
+                      </a>
+                    )}
+                    {project.links.demo && (
+                      <a
+                        href={project.links.demo}
+                        className="flex items-center gap-2 text-sm font-bold text-primary hover:text-secondary transition-all hover:translate-x-1"
+                      >
+                        <ExternalLink size={18} /> Live Systems
+                      </a>
+                    )}
                   </div>
                 </div>
               </div>

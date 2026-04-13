@@ -40,7 +40,7 @@ const timeline = [
     organization: "JIS College of Engineering",
     period: "2023 — 2027",
     description:
-      "2nd Year • CGPA: 9.4 — Focused on machine learning, cybersecurity, and full-stack development.",
+      "CGPA: 9.4 — Focused on machine learning, cybersecurity, and full-stack development.",
     tags: ["C++", "Python", "Machine Learning", "Data Structures"],
     current: true,
   },

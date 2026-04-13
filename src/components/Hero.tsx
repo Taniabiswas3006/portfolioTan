@@ -75,6 +75,40 @@ const BlurText: React.FC<BlurTextProps> = ({
   );
 };
 
+
+
+// Open to Work Badge
+const OpenToWorkBadge: React.FC = () => {
+  return (
+    <div
+      className="inline-flex items-center gap-2.5 px-5 py-2.5 rounded-full border border-emerald-500/20 backdrop-blur-md"
+      style={{
+        background: "linear-gradient(135deg, rgba(16,185,129,0.08), rgba(205,180,219,0.06))",
+        boxShadow: "0 0 20px rgba(16,185,129,0.08), inset 0 1px 0 rgba(255,255,255,0.05)",
+        animation: "badgeFadeIn 1s ease-out 1.5s both",
+      }}
+    >
+      {/* Animated pulse dot */}
+      <span className="relative flex h-2.5 w-2.5">
+        <span className="absolute inline-flex h-full w-full rounded-full bg-emerald-400 opacity-75 animate-ping" />
+        <span className="relative inline-flex h-2.5 w-2.5 rounded-full bg-emerald-400" />
+      </span>
+      <span
+        className="text-[11px] sm:text-xs font-semibold tracking-[0.15em] uppercase"
+        style={{
+          background: "linear-gradient(90deg, #ef7dc3ff, #cfb4dfff)",
+          WebkitBackgroundClip: "text",
+          WebkitTextFillColor: "transparent",
+        }}
+      >
+        Available for Opportunities
+      </span>
+    </div>
+  );
+};
+
+import ProfileCard from "./ProfileCard";
+
 export default function Hero() {
   return (
     <section className="relative min-h-screen flex flex-col overflow-hidden">
@@ -82,6 +116,10 @@ export default function Hero() {
         @keyframes customAppear {
           0% { opacity: 0; filter: blur(20px); transform: scale(0.9) translateX(-40px); }
           100% { opacity: 0.75; filter: blur(0px); transform: scale(1) translateX(0); }
+        }
+        @keyframes badgeFadeIn {
+          0% { opacity: 0; transform: translateY(8px); }
+          100% { opacity: 1; transform: translateY(0); }
         }
       `}</style>
 
@@ -109,35 +147,35 @@ export default function Hero() {
 
       {/* ═══ MOBILE LAYOUT (< md) ═══ */}
       <div className="flex md:hidden flex-col items-center justify-center text-center relative z-10 pt-24 pb-16 px-4 min-h-screen">
-        {/* Profile Image - Mobile */}
-        <div className="relative flex-shrink-0 mb-4">
-          <div
-            className="relative w-[240px] h-[320px] sm:w-[300px] sm:h-[420px] mix-blend-lighten"
-            style={{
-              maskImage: "radial-gradient(circle at center, black 35%, transparent 70%)",
-              WebkitMaskImage: "radial-gradient(circle at center, black 35%, transparent 70%)",
-              animation: "customAppear 1.5s ease-out forwards 0.2s",
-              opacity: 0,
-            }}
-          >
-            <Image
-              src="/profile.png"
-              alt="Profile Image"
-              fill
-              className="object-cover object-top scale-[1.05]"
-              priority
-            />
-          </div>
+        {/* Profile Card - Mobile */}
+        <div className="relative flex-shrink-0 mb-8 transform scale-90 sm:scale-100">
+          <ProfileCard
+            name="A Learner"
+            title="with Code and Coffee"
+            handle="Taniabiswas3006"
+            status="Open to Work"
+            avatarUrl="/profile.png"
+            showUserInfo={false}
+            enableTilt={true}
+            enableMobileTilt={true}
+            behindGlowEnabled={true}
+            behindGlowColor="rgba(255, 133, 161, 0.4)"
+          />
         </div>
 
-        {/* Name Text - Mobile */}
-        <div className="w-full max-w-[340px] sm:max-w-[420px]">
+        {/* Name Text - Mobile (added gap) */}
+        <div className="w-full max-w-[340px] sm:max-w-[420px] mt-4 sm:mt-6">
           <div className="w-full">
             <PathAnimation text="TANIA" />
           </div>
-          <div className="w-full -mt-6 sm:-mt-8">
+          <div className="w-full -mt-2 sm:-mt-3">
             <PathAnimation text="BISWAS" />
           </div>
+        </div>
+
+        {/* Open to Work Badge - Mobile */}
+        <div className="mt-2">
+          <OpenToWorkBadge />
         </div>
 
         {/* Typing Text - Mobile */}
@@ -155,19 +193,10 @@ export default function Hero() {
             cursorBlinkDuration={0.8}
           />
         </div>
-
       </div>
 
       {/* ═══ MOBILE BOTTOM ELEMENTS (Tagline & Arrow) ═══ */}
       <div className="flex md:hidden absolute bottom-2 left-1/2 -translate-x-1/2 w-full px-6 z-20 pointer-events-auto flex-col items-center gap-2">
-        <BlurText
-          text="Designing human experiences in code."
-          delay={150}
-          animateBy="words"
-          direction="top"
-          className="text-[13px] sm:text-[15px] text-center transition-colors duration-300 text-gray-500 hover:text-white"
-          style={{ fontFamily: "var(--font-antic)" }}
-        />
         <a
           href="#about"
           className="transition-colors duration-300 pointer-events-auto"
@@ -178,65 +207,59 @@ export default function Hero() {
       </div>
 
       {/* ═══ DESKTOP LAYOUT (>= md) ═══ */}
-      {/* Main Content Area - Split Layout */}
-      <div className="hidden md:flex absolute top-[52%] -translate-y-1/2 w-full max-w-[1920px] mx-auto left-4 right-0 md:pl-0 md:pr-16 lg:pr-32 xl:pr-48 flex-row items-center md:justify-start md:gap-8 z-10 pointer-events-none">
+      <div className="hidden md:flex absolute inset-0 pt-36 items-center justify-center z-10 pointer-events-none">
+        <div className="flex flex-row items-center justify-center gap-8 lg:gap-14 xl:gap-20 w-full max-w-[1400px] mx-auto px-8 translate-x-12">
 
-        {/* Left Side: Profile Picture */}
-        <div className="relative flex md:mb-100 md:-mt-16 lg:-mt-24 xl:-mt-32 pointer-events-auto shrink-0">
-          <div
-            className="relative md:w-[550px] md:h-[750px] lg:w-[650px] lg:h-[850px] xl:w-[800px] xl:h-[1050px] mix-blend-lighten"
-            style={{
-              maskImage: "radial-gradient(circle at center, black 35%, transparent 70%)",
-              WebkitMaskImage: "radial-gradient(circle at center, black 35%, transparent 70%)",
-              animation: "customAppear 1.5s ease-out forwards 0.2s",
-              opacity: 0,
-            }}
-          >
-            <Image
-              src="/profile.png"
-              alt="Profile Image"
-              fill
-              className="object-cover object-top scale-[1.05]"
-              priority
+          {/* Left Side: Profile Card */}
+          <div className="pointer-events-auto shrink-0">
+            <ProfileCard
+              name="A Learner"
+              title="With Code and Coffee"
+              handle="Taniabiswas3006"
+              status="Open to Work"
+              avatarUrl="/profile.png"
+              showUserInfo={false}
+              enableTilt={true}
+              behindGlowEnabled={true}
+              behindGlowColor="rgba(255, 133, 161, 0.4)"
+              onContactClick={() => {
+                const contactSection = document.getElementById('contact');
+                if (contactSection) contactSection.scrollIntoView({ behavior: 'smooth' });
+              }}
             />
           </div>
-        </div>
 
-        {/* Right Side: Name Text */}
-        <div className="relative flex flex-col items-center justify-center text-center md:mt-16 xl:mt-24 md:ml-auto pointer-events-auto w-full md:max-w-[700px] lg:max-w-[900px] xl:max-w-[1100px] md:translate-x-8 lg:translate-x-16 xl:translate-x-24">
-          <div className="w-full">
-            <PathAnimation text="TANIA" />
-          </div>
-          <div className="w-full md:-mt-16 lg:-mt-20 lg:mb-4">
-            <PathAnimation text="BISWAS" />
-          </div>
-          <div className="md:mt-6 lg:mt-8 font-medium md:text-[22px] tracking-wide text-center" style={{ color: "#FF85A1", fontFamily: "var(--font-fira-code)" }}>
-            <TextType
-              texts={["CS UNDERGRAD | AI/ML Enthusiast | JISCE"]}
-              typingSpeed={75}
-              pauseDuration={1500}
-              showCursor
-              cursorCharacter="_"
-              deletingSpeed={50}
-              variableSpeedEnabled
-              variableSpeedMin={60}
-              variableSpeedMax={120}
-              cursorBlinkDuration={0.8}
-            />
-          </div>
-        </div>
-      </div>
+          {/* Right Side: Name Text */}
+          <div className="flex flex-col items-center justify-center text-center pointer-events-auto flex-1 translate-x-16 translate-y-6">
+            <div className="w-full max-w-[700px] lg:max-w-[800px] xl:max-w-[900px]">
+              <PathAnimation text="TANIA" />
+            </div>
+            <div className="w-full max-w-[700px] lg:max-w-[800px] xl:max-w-[900px] -mt-6 lg:-mt-8">
+              <PathAnimation text="BISWAS" />
+            </div>
 
-      {/* Tagline - Desktop */}
-      <div className="hidden md:flex absolute bottom-0 md:bottom-0 lg:bottom-1.5 xl:bottom-2 left-1/2 -translate-x-1/2 w-full px-6 z-20 pointer-events-auto justify-center">
-        <BlurText
-          text="Designing human experiences in code."
-          delay={150}
-          animateBy="words"
-          direction="top"
-          className="text-[18px] md:text-[20px] lg:text-[22px] text-center transition-colors duration-300 text-gray-500 hover:text-white"
-          style={{ fontFamily: "var(--font-antic)" }}
-        />
+            {/* Open to Work Badge - Desktop */}
+            <div className="mt-4">
+              <OpenToWorkBadge />
+            </div>
+
+            <div className="mt-6 lg:mt-8 font-medium md:text-[22px] tracking-wide text-center" style={{ color: "#FF85A1", fontFamily: "var(--font-fira-code)" }}>
+              <TextType
+                texts={["CS UNDERGRAD | AI/ML Enthusiast | JISCE"]}
+                typingSpeed={75}
+                pauseDuration={1500}
+                showCursor
+                cursorCharacter="_"
+                deletingSpeed={50}
+                variableSpeedEnabled
+                variableSpeedMin={60}
+                variableSpeedMax={120}
+                cursorBlinkDuration={0.8}
+              />
+            </div>
+          </div>
+
+        </div>
       </div>
 
       {/* Scroll Indicator - Desktop */}
@@ -244,4 +267,3 @@ export default function Hero() {
     </section>
   );
 }
-

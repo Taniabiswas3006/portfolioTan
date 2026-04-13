@@ -40,7 +40,7 @@ export default function Publication() {
                   </h3>
                   
                   <p className="text-base sm:text-lg md:text-xl text-gray-300 mb-6 sm:mb-8 leading-relaxed">
-                    Published in the seminal work: <span className="font-bold text-primary italic">Tiny Machine Learning: Fundamentals, Applications and Security</span>
+                    Published in the seminal work of <span className="font-bold text-primary">Scrivener publication: </span><span className="font-bold text-primary italic">Tiny Machine Learning: Fundamentals, Applications and Security</span>
                   </p>
                   
                   <div className="bg-white/5 p-5 sm:p-6 md:p-8 rounded-xl md:rounded-2xl border border-white/5 backdrop-blur-sm">
