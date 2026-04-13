@@ -240,13 +240,7 @@ export default function Hero() {
       </div>
 
       {/* Scroll Indicator - Desktop */}
-      <a
-        href="#about"
-        className="hidden md:block absolute bottom left-1/2 -translate-x-1/2 transition-colors duration-300 z-20 pointer-events-auto"
-        aria-label="Scroll down"
-      >
-        <ChevronDown className="w-10 h-10 text-gray-500 hover:text-white transition-colors duration-300 animate-bounce" />
-      </a>
+
     </section>
   );
 }
