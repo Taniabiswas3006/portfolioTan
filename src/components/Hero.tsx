@@ -77,7 +77,7 @@ export default function Hero() {
       {/* ═══ MOBILE LAYOUT (< md) ═══ */}
       <div className="flex md:hidden flex-col items-center justify-center text-center relative z-10 pt-24 pb-8 px-4 min-h-screen">
         {/* Profile Card - Mobile */}
-        <div className="relative flex-shrink-0 mb-4 transform scale-80 sm:scale-100">
+        <div className="relative flex-shrink-0 mb-4 transform scale-80 sm:scale-100 -mt-20 sm:-mt-16">
           <ProfileCard
             name="A Learner"
             title="with Code and Coffee"

@@ -1,9 +1,9 @@
 "use client";
 
 import React, { useState } from "react";
-import { motion, AnimatePresence } from "framer-motion";
-import { Menu, X } from "lucide-react";
+import { motion } from "framer-motion";
 import Image from "next/image";
+import StaggeredMenu from "./StaggeredMenu";
 
 interface PillNavProps {
   logo?: string | React.ReactNode;
@@ -32,11 +32,12 @@ const PillNav: React.FC<PillNavProps> = ({
 }) => {
   const [hoveredNode, setHoveredNode] = useState<string | null>(null);
   const [activeNode, setActiveNode] = useState<string | null>(activeHref || null);
-  const [isOpen, setIsOpen] = useState(false);
+
+  const staggeredItems = items.map(item => ({ label: item.label, link: item.href, ariaLabel: item.label }));
 
   return (
     <nav className={`fixed top-6 left-1/2 -translate-x-1/2 z-50 w-[90%] md:w-auto transition-all duration-500 rounded-full border border-white/5 bg-[#0B0A10]/90 backdrop-blur-xl py-3 px-6 md:px-8 shadow-[0_0_30px_rgba(0,0,0,0.5)] ${className}`}>
-      <div className="flex items-center justify-between">
+      <div className="flex items-center justify-between w-full">
         
         {/* Logo Section */}
         <div className="flex-shrink-0 flex items-center justify-center mr-0 md:mr-6 shrink-0">
@@ -88,49 +89,27 @@ const PillNav: React.FC<PillNavProps> = ({
           })}
         </ul>
 
-        {/* Mobile Toggle */}
+        {/* Mobile Toggle / StaggeredMenu */}
         <div className="md:hidden flex items-center ml-4">
-          <button
-            onClick={() => setIsOpen(!isOpen)}
-            className="p-2 text-white hover:text-[#FF85A1] transition-colors"
-          >
-            {isOpen ? <X size={24} /> : <Menu size={24} />}
-          </button>
+          <StaggeredMenu
+            isFixed={true}
+            position="right"
+            items={staggeredItems}
+            displaySocials={true}
+            socialItems={[
+              { label: 'GitHub', link: 'https://github.com/Taniabiswas3006' },
+              { label: 'LinkedIn', link: 'https://linkedin.com/in/tania-biswas-30469a29a' }
+            ]}
+            displayItemNumbering={false}
+            menuButtonColor="#ffffff"
+            openMenuButtonColor={pillColor}
+            changeMenuColorOnOpen={true}
+            colors={['#1a1a2e', '#16213e', pillColor]}
+            accentColor={pillColor}
+            logoUrl=""
+          />
         </div>
       </div>
-
-      {/* Mobile Menu Dropdown */}
-      <AnimatePresence>
-        {isOpen && (
-          <motion.div
-            initial={{ opacity: 0, height: 0 }}
-            animate={{ opacity: 1, height: "auto" }}
-            exit={{ opacity: 0, height: 0 }}
-            className="md:hidden mt-4 pb-4 flex flex-col gap-2 relative before:absolute before:top-0 before:left-0 before:right-0 before:h-[1px] before:bg-white/10"
-          >
-            {items.map((item) => {
-              const isMobileActive = activeNode === item.href;
-              return (
-                <a
-                  key={item.href}
-                  href={item.href}
-                  onClick={() => {
-                    setActiveNode(item.href);
-                    setIsOpen(false);
-                  }}
-                  className="px-4 py-3 mt-2 text-sm font-bold tracking-widest uppercase transition-colors duration-300 rounded-xl block text-center"
-                  style={{
-                    backgroundColor: isMobileActive ? pillColor : "transparent",
-                    color: isMobileActive ? hoveredPillTextColor : baseColor,
-                  }}
-                >
-                  {item.label}
-                </a>
-              );
-            })}
-          </motion.div>
-        )}
-      </AnimatePresence>
     </nav>
   );
 };

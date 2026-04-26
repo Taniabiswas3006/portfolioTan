@@ -82,7 +82,7 @@ export const Header = ({
         translateY: translate,
         opacity,
       }}
-      className="max-w-5xl mx-auto text-center mb-10 md:mb-4 px-4"
+      className="max-w-5xl mx-auto text-center mb-20 md:mb-4 px-4"
     >
       {titleComponent}
     </motion.div>
@@ -112,7 +112,7 @@ export const Card = ({
           "0 0 #0000004d, 0 9px 20px #0000004a, 0 37px 37px #00000042, 0 84px 50px #00000026, 0 149px 60px #0000000a, 0 233px 65px #00000003",
         transformOrigin: "center top",
       }}
-      className="max-w-5xl mt-12 md:mt-48 mx-auto h-auto min-h-[25rem] md:h-[45rem] w-full border-2 border-[#FF85A1]/20 p-2 md:p-6 bg-[#0B0A10] rounded-[30px] shadow-2xl relative z-10"
+      className="max-w-5xl mt-24 md:mt-48 mx-auto h-auto min-h-[25rem] md:h-[45rem] w-full border-2 border-[#FF85A1]/20 p-2 md:p-6 bg-[#0B0A10] rounded-[30px] shadow-2xl relative z-10"
     >
       <div className="h-full w-full overflow-hidden rounded-2xl bg-[#0B0A10] md:rounded-2xl md:p-4">
         {children}
