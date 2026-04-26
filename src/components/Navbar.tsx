@@ -24,6 +24,7 @@ export default function Navbar() {
         { label: 'Projects', href: '#projects' },
         { label: 'Hackathons', href: '#hackathons' },
         { label: 'Certifications', href: '#certifications' },
+        { label: 'Resume', href: '/resume' },
         { label: 'Contact', href: '#contact' }
       ]}
       activeHref="#about"
