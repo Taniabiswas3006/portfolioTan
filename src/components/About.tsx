@@ -21,15 +21,13 @@ export default function About() {
 
             <div className="space-y-6 sm:space-y-8 text-base sm:text-lg md:text-2xl leading-relaxed text-gray-300 relative z-10 font-medium">
               <p>
-                As a Computer Science and Engineering student at <span className="text-white font-bold">JIS College of Engineering</span>,
-                I treat every line of code as an exploration into the unknown. My technical odyssey is fueled by a pursuit of intelligence and security.
+                I am an <span className="text-white font-bold">AI Engineer & Full Stack Developer</span> specializing in building intelligent, scalable systems. I excel at bridging the gap between complex <span className="text-[#FF85A1] font-bold">Machine Learning</span> models and robust web applications.
               </p>
               <p>
-                My expertise spans the vast reaches of <span className="text-[#FF85A1] font-bold tracking-wide">Machine Learning</span>,
-                the protective layers of <span className="text-[#FF85A1] font-bold tracking-wide">Cybersecurity</span>, and the architectural foundations of <span className="text-[#FF85A1] font-bold tracking-wide">Full Stack Development</span>.
+                Currently pursuing my Computer Science degree at <span className="text-white font-bold">JIS College of Engineering</span>, I am actively seeking roles where I can architect end-to-end AI products, leverage data for actionable insights, and ensure application security.
               </p>
               <p>
-                In the high-energy orbits of hackathons, I thrive on rapid prototyping and collaborative problem-solving. I am a lifelong student of technology, constantly recalibrating my skills to stay ahead of the digital curve.
+                Whether it&apos;s deploying NLP solutions, optimizing backend databases, or crafting responsive frontends, I thrive in fast-paced hackathons and cross-functional teams that demand rapid, secure prototyping.
               </p>
             </div>
 

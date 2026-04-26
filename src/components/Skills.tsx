@@ -199,12 +199,12 @@ function SkillCard({
         <div className="absolute inset-0 bg-gradient-to-br from-[#FF85A1]/10 to-transparent transition-opacity opacity-100 pointer-events-none" />
       )}
 
-      <div className="flex justify-between items-start relative z-20">
+      <div className="flex justify-between items-center relative z-20">
         <div className={cn("p-2 sm:p-3 rounded-xl transition-colors duration-500 flex-shrink-0", isActive ? "bg-[#FF85A1]/20 shadow-[0_0_15px_rgba(255,133,161,0.2)]" : "bg-white/5")}>
           {skill.icon}
         </div>
-        <span className={cn("font-black text-xl md:text-2xl transition-all duration-500 font-mono ml-2", isActive ? "text-white" : "text-gray-500")}>
-          {skill.level}%
+        <span className={cn("font-black text-[10px] md:text-xs transition-all duration-500 font-mono tracking-widest uppercase border px-2 py-1 rounded-md", isActive ? "text-[#FF85A1] border-[#FF85A1]/30 bg-[#FF85A1]/10" : "text-gray-500 border-white/10")}>
+          {skill.role}
         </span>
       </div>
 
@@ -278,7 +278,7 @@ function SkillRow({
         "mt-3 md:mt-4 pl-[48px] sm:pl-[72px] xl:pl-0 text-[9px] sm:text-[10px] md:text-xs font-bold uppercase tracking-[0.2em] md:tracking-[0.4em] transition-colors duration-500 xl:text-right xl:pr-[60px]",
         isActive ? "text-[#FF85A1]" : "text-gray-600"
       )}>
-        {skill.role} <span className="opacity-50 mx-1 md:mx-2">•</span> LEVEL {skill.level} / 100
+        {skill.role}
       </p>
     </div>
   );
