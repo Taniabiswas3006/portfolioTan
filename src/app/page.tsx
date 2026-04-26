@@ -1,4 +1,5 @@
 import Navbar from "@/components/Navbar";
+import LandingIntro from "@/components/LandingIntro";
 import Hero from "@/components/Hero";
 import About from "@/components/About";
 import Education from "@/components/Education";
@@ -17,6 +18,7 @@ export default function Home() {
     <main className="min-h-screen overflow-x-hidden text-white">
       <Starfield />
       <Navbar />
+      <LandingIntro />
       <Hero />
       <div className="relative z-10">
         <About />

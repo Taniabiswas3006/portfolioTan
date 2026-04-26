@@ -40,7 +40,7 @@ import ProfileCard from "./ProfileCard";
 
 export default function Hero() {
   return (
-    <section className="relative min-h-screen flex flex-col overflow-hidden">
+    <section id="hero" className="relative min-h-screen flex flex-col overflow-hidden">
       <style>{`
         @keyframes customAppear {
           0% { opacity: 0; filter: blur(20px); transform: scale(0.9) translateX(-40px); }
