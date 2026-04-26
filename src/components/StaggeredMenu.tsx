@@ -130,7 +130,7 @@ export const StaggeredMenu: React.FC<StaggeredMenuProps> = ({
 
     const tl = gsap.timeline({ paused: true });
 
-    const allLayers = [...layerStates.map(ls => ls.el), panel];
+    const allLayers = [...layerStates.map((ls: any) => ls.el), panel];
     tl.set(allLayers, { visibility: 'visible' });
 
     layerStates.forEach((ls: any, i: number) => {
