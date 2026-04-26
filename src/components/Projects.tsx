@@ -165,7 +165,7 @@ export default function Projects() {
                         href={project.links.demo}
                         className="flex items-center gap-2 text-sm font-bold text-primary hover:text-secondary transition-all bg-primary/5 md:bg-transparent py-3 px-4 md:p-0 rounded-lg"
                       >
-                        <ExternalLink size={18} /> Live Systems
+                        <ExternalLink size={18} /> Live System
                       </a>
                     )}
                   </div>
@@ -188,14 +188,14 @@ export default function Projects() {
               <Github size={24} className="text-[#FF85A1]" />
               <h3 className="text-xl md:text-2xl font-bold text-white tracking-widest uppercase text-center">Open Source Activity</h3>
             </div>
-            
+
             <div className="w-full glass-card p-4 sm:p-6 md:p-10 bg-spaceDark/40 flex justify-start sm:justify-center overflow-x-auto no-scrollbar border-white/5 group relative max-w-[100vw]">
               {/* Ambient Glow */}
               <div className="absolute inset-0 bg-gradient-to-r from-primary/5 to-secondary/5 opacity-0 group-hover:opacity-100 transition-opacity duration-500 rounded-2xl pointer-events-none" />
-              
-              <img 
-                src="https://ghchart.rshah.org/FF85A1/Taniabiswas3006" 
-                alt="Tania's GitHub Contributions" 
+
+              <img
+                src="https://ghchart.rshah.org/FF85A1/Taniabiswas3006"
+                alt="Tania's GitHub Contributions"
                 onError={() => setGraphError(true)}
                 className="min-w-[600px] w-full max-w-4xl opacity-75 group-hover:opacity-100 transition-opacity duration-300"
               />

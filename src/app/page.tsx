@@ -27,9 +27,9 @@ export default function Home() {
         <Skills />
         <Projects />
         <TechStack />
+        <Publication />
         <Hackathons />
         <Certifications />
-        <Publication />
         <Hobbies />
         <Contact />
       </div>
