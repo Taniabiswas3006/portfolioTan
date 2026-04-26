@@ -55,7 +55,7 @@ export default function Hero() {
       {/* Antigravity Background */}
       <div className="absolute inset-0 z-0">
         <Antigravity
-          count={500}
+          count={100}
           magnetRadius={6}
           ringRadius={7}
           waveSpeed={0.4}

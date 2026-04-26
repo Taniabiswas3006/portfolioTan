@@ -7,7 +7,7 @@ export default function Starfield() {
   const [stars, setStars] = useState<{ id: number; x: string; y: string; size: number; duration: number }[]>([]);
 
   useEffect(() => {
-    const starCount = 100;
+    const starCount = 30;
     const newStars = Array.from({ length: starCount }).map((_, i) => ({
       id: i,
       x: `${Math.random() * 100}%`,
