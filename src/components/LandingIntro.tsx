@@ -99,7 +99,7 @@ const LandingIntro = () => {
           </h1>
           <p 
             className="text-[10px] sm:text-xs md:text-sm mt-3 sm:mt-6 font-semibold text-[#FF85A1] uppercase tracking-[0.4em]"
-            style={{ fontFamily: "'Montserrat', 'Inter', sans-serif" }}
+            style={{ fontFamily: "'Aloja', sans-serif" }}
           >
             Creative Developer
           </p>

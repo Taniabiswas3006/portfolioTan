@@ -14,7 +14,11 @@ const technologies = [
   { name: "MongoDB", color: "#47A248" },
   { name: "PostgreSQL", color: "#4169E1" },
   { name: "Git", color: "#F05032" },
-  { name: "C++", color: "#00599C" },
+  { name: "Scikit-Learn", color: "#F7931E" },
+  { name: "PyTorch", color: "#EE4C2C" },
+  { name: "Pandas", color: "#E70488" },
+  { name: "NumPy", color: "#4DABCF" },
+  { name: "NLP", color: "#B085FF" },
 ];
 
 export default function TechStack() {
