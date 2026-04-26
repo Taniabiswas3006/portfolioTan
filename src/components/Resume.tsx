@@ -8,15 +8,9 @@ import {
   Phone, 
   MapPin, 
   FileText, 
-  ExternalLink, 
   Award, 
-  Briefcase, 
-  GraduationCap, 
-  Code2, 
-  Layers, 
   BookOpen,
-  Printer,
-  Download
+  Printer
 } from "lucide-react";
 
 export default function Resume() {
@@ -286,7 +280,7 @@ export default function Resume() {
                   <BookOpen size={40} />
                 </div>
                 <h4 className="text-lg font-bold text-white mb-2 italic print:text-black">
-                  "{data.publications[0].title}"
+                  &quot;{data.publications[0].title}&quot;
                 </h4>
                 <p className="text-sm text-gray-400 print:text-gray-700">
                   Published in <span className="text-[#FF85A1] font-bold print:text-black">{data.publications[0].publisher}</span>

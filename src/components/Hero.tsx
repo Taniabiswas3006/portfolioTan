@@ -2,7 +2,6 @@
 
 import React from "react";
 import { ChevronDown } from "lucide-react";
-import Link from "next/link";
 import Antigravity from "./Antigravity";
 import TextType from "./TextType";
 import PathAnimation from "./PathAnimation";
