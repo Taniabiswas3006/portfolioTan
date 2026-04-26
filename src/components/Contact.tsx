@@ -34,7 +34,7 @@ export default function Contact() {
                 <div className="max-w-md w-full text-center lg:text-left">
                     <h3 className="section-title !text-5xl md:!text-6xl lg:!text-[4.5rem] !text-center lg:!text-left">
                         <TextType
-                            texts={["Let&apos;s Connect", "Transmit Data", "Initiate Link"]}
+                            texts={["Let's Connect", "Transmit Data", "Initiate Link"]}
                             typingSpeed={90}
                             deletingSpeed={50}
                             pauseDuration={2500}

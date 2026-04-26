@@ -12,6 +12,7 @@ import Hobbies from "@/components/Hobbies";
 import Contact from "@/components/Contact";
 import Footer from "@/components/Footer";
 import Starfield from "@/components/Starfield";
+import TechStack from "@/components/TechStack";
 
 export default function Home() {
   return (
@@ -25,6 +26,7 @@ export default function Home() {
         <Education />
         <Skills />
         <Projects />
+        <TechStack />
         <Hackathons />
         <Certifications />
         <Publication />

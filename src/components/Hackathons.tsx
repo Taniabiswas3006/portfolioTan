@@ -53,7 +53,7 @@ export default function Hackathons() {
       <div className="container mx-auto px-4 sm:px-6">
         <h2 className="section-title !text-5xl md:!text-6xl lg:!text-[4.5rem]">Hackathon&apos;s Tech Era</h2>
         
-        <div className="flex flex-col md:flex-row gap-16 md:gap-48 justify-center items-center mt-24 md:mt-56 pt-12 md:pt-24 pb-20 px-6 md:px-0">
+        <div className="flex flex-col md:flex-row gap-40 md:gap-48 justify-center items-center mt-24 md:mt-56 pt-12 md:pt-24 pb-20 px-6 md:px-0">
           
           {/* Folder 1: Early/Major Hacks */}
           <div className="flex flex-col items-center gap-6">
@@ -79,7 +79,7 @@ export default function Hackathons() {
                 </div>
               ]}
             />
-            <span className="text-white/60 font-mono text-sm tracking-widest uppercase font-bold mt-16 bg-white/5 py-1 px-4 rounded-full border border-white/10">Hackathon Volume I</span>
+            <span className="text-white/60 font-mono text-[11px] sm:text-sm tracking-widest uppercase font-bold mt-32 md:mt-16 bg-white/5 py-1 px-4 rounded-full border border-white/10 text-center">Hackathon Volume I</span>
           </div>
 
           {/* Folder 2: Recent Hacks */}
@@ -106,7 +106,7 @@ export default function Hackathons() {
                 </div>
               ]}
             />
-            <span className="text-white/60 font-mono text-sm tracking-widest uppercase font-bold mt-16 bg-white/5 py-1 px-4 rounded-full border border-white/10">Hackathon Volume II</span>
+            <span className="text-white/60 font-mono text-[11px] sm:text-sm tracking-widest uppercase font-bold mt-32 md:mt-16 bg-white/5 py-1 px-4 rounded-full border border-white/10 text-center">Hackathon Volume II</span>
           </div>
 
         </div>
