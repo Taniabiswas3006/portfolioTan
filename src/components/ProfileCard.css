@@ -225,7 +225,7 @@
 .pc-avatar-content {
   mix-blend-mode: normal;
   overflow: visible;
-  transform: translateZ(2);
+  transform: translateZ(2px);
   z-index: 5;
 }
 
