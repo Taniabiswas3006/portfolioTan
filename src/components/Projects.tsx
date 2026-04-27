@@ -189,7 +189,7 @@ export default function Projects() {
               <h3 className="text-xl md:text-2xl font-bold text-white tracking-widest uppercase text-center">Open Source Activity</h3>
             </div>
 
-            <div className="w-full glass-card p-4 sm:p-6 md:p-10 bg-spaceDark/40 flex justify-start sm:justify-center overflow-x-auto no-scrollbar border-white/5 group relative max-w-[100vw]">
+            <div className="w-full p-4 sm:p-6 md:p-10 flex justify-start sm:justify-center overflow-x-auto no-scrollbar group relative max-w-[100vw] bg-transparent">
               {/* Ambient Glow */}
               <div className="absolute inset-0 bg-gradient-to-r from-primary/5 to-secondary/5 opacity-0 group-hover:opacity-100 transition-opacity duration-500 rounded-2xl pointer-events-none" />
 
