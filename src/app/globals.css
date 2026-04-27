@@ -2,6 +2,8 @@
 @tailwind components;
 @tailwind utilities;
 
+@import url(https://db.onlinewebfonts.com/c/b12cce617218fe8bfa367def9a61af72?family=Aloja+Extended);
+
 @layer utilities {
   .no-scrollbar::-webkit-scrollbar {
     display: none;

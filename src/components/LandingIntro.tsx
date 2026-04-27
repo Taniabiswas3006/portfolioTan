@@ -98,8 +98,8 @@ const LandingIntro = () => {
             HI! I am Tania
           </h1>
           <p 
-            className="text-[10px] sm:text-xs md:text-sm mt-3 sm:mt-6 font-semibold text-[#FF85A1] uppercase tracking-[0.4em]"
-            style={{ fontFamily: "'Aloja', sans-serif" }}
+            className="text-2xl sm:text-3xl md:text-4xl mt-3 sm:mt-6 font-normal text-[#FF85A1] tracking-normal"
+            style={{ fontFamily: "'Aloja Extended', cursive" }}
           >
             Creative Developer
           </p>
