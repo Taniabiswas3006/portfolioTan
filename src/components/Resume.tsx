@@ -78,25 +78,29 @@ export default function Resume() {
         name: "EcoTwin",
         type: "Solo Project",
         desc: "AI digital twin platform analyzing personal carbon footprints. Integrated predictive ML models to increase data accuracy by 20% and provide actionable eco-insights.",
-        tech: "PostgreSQL, Flask, React, ML"
+        tech: "PostgreSQL, Flask, React, ML",
+        link: "eco-twin-flame.vercel.app"
       },
       {
         name: "Nestate",
         type: "Group Project",
         desc: "Comprehensive real estate management dashboard. Implemented OCR and ML property valuation models, automating data entry and reducing processing time by 30%.",
-        tech: "Next.js, Node.js, PostgreSQL"
+        tech: "Next.js, Node.js, PostgreSQL",
+        link: "nestate.parot.dev"
       },
       {
         name: "Ahaarsetu",
         type: "SIH Project",
         desc: "Food accessibility platform combating food waste. Engineered demand forecasting ML models and NLP pipelines to match surplus food with localized demand.",
-        tech: "React Native, MongoDB, ML"
+        tech: "React Native, MongoDB, ML",
+        link: "ahaarsetu-theta.vercel.app"
       },
       {
         name: "TwinTitles",
         type: "Group Project",
         desc: "NLP system detecting academic plagiarism. Implemented Sentence Transformers to achieve a 92% semantic similarity accuracy rate across large datasets.",
-        tech: "HuggingFace, PyTorch, NLP"
+        tech: "HuggingFace, PyTorch, NLP",
+        link: "github.com/Aritra-221B/TwinTitles"
       }
     ],
     publications: [
@@ -257,7 +261,17 @@ export default function Resume() {
                   <div key={idx} className="p-6 bg-white/5 border border-white/5 rounded-2xl print:bg-transparent print:border-gray-300 print:p-3 print:rounded-md print:break-inside-avoid">
                     <h4 className="text-lg print:text-sm font-bold text-white mb-1 print:text-black">{proj.name}</h4>
                     <p className="text-[10px] text-[#FF85A1] font-bold uppercase tracking-widest mb-3 print:mb-1 print:text-gray-500">{proj.type}</p>
-                    <p className="text-xs text-gray-400 leading-relaxed mb-4 print:mb-2 print:text-gray-700">{proj.desc}</p>
+                    <p className="text-xs text-gray-400 leading-relaxed mb-3 print:mb-1 print:text-gray-700">{proj.desc}</p>
+                    {proj.link && (
+                      <a 
+                        href={proj.link.startsWith('http') ? proj.link : `https://${proj.link}`}
+                        target="_blank"
+                        rel="noopener noreferrer"
+                        className="text-[10px] text-primary font-mono mb-4 print:mb-2 print:text-black block project-link"
+                      >
+                        {proj.link}
+                      </a>
+                    )}
                     <div className="flex flex-wrap gap-2 mt-auto">
                       {proj.tech.split(',').map((t, tIdx) => (
                         <span key={tIdx} className="text-[9px] font-bold text-white/40 uppercase tracking-tighter print:text-gray-500">
@@ -317,20 +331,44 @@ export default function Resume() {
 
       <style jsx global>{`
         @media print {
-          body {
+          @page {
+            margin: 0;
+            size: auto;
+          }
+          html, body {
             background: white !important;
             color: black !important;
+            margin: 0 !important;
+            padding: 0 !important;
+            overflow: visible !important;
           }
           .resume-container {
             border-radius: 0 !important;
             box-shadow: none !important;
             border: none !important;
-            padding: 0 !important;
+            padding: 2cm !important;
             width: 100% !important;
             max-width: 100% !important;
+            background: white !important;
+            color: black !important;
           }
           .no-print {
             display: none !important;
+          }
+          a {
+            text-decoration: none !important;
+            color: black !important;
+          }
+          /* Absolute suppression of browser-injected metadata/links except for what we explicitly show */
+          a[href]:after {
+            content: "" !important;
+          }
+          .project-link:after {
+            content: " (" attr(href) ")" !important;
+          }
+          * {
+            -webkit-print-color-adjust: exact !important;
+            print-color-adjust: exact !important;
           }
         }
       `}</style>
