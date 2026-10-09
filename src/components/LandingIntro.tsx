@@ -1,15 +1,33 @@
 "use client";
 
-import React, { useEffect, useState } from "react";
+import React, { useEffect, useRef, useState } from "react";
 import { motion } from "framer-motion";
 import { ChevronDown } from "lucide-react";
 
+const VIDEO_SRC = "/gemini_generated_video_aaa8ec55.mp4";
+
 const LandingIntro = () => {
   const [mounted, setMounted] = useState(false);
+  const videoRef = useRef<HTMLVideoElement>(null);
 
   useEffect(() => {
     setMounted(true);
   }, []);
+
+  // Programmatically trigger play after mount — the safest cross-browser approach
+  useEffect(() => {
+    const video = videoRef.current;
+    if (!video) return;
+
+    video.muted = true; // must be muted for autoplay policy
+    video.load();       // reload the source so it starts fresh
+    const playPromise = video.play();
+    if (playPromise !== undefined) {
+      playPromise.catch(() => {
+        // Silently ignore autoplay refusal — video is muted so this rarely fires
+      });
+    }
+  }, [mounted]); // re-runs once mounted is true
 
   const handleScrollDown = () => {
     const heroSection = document.getElementById("hero");
@@ -34,103 +52,105 @@ const LandingIntro = () => {
     { char: "'26", classes: 'top-[35%] right-[2%] md:top-[45%] md:right-[6%] text-3xl sm:text-5xl md:text-7xl rotate-[-20deg] text-white/30' },
   ];
 
-  if (!mounted) return <div className="h-screen w-full bg-transparent" />;
-
   return (
-    <section spellCheck="false" className="relative h-screen w-full flex items-center justify-center overflow-hidden bg-transparent select-none pt-16 md:pt-32">
+    <section spellCheck="false" className="relative h-screen w-full flex items-center justify-center overflow-hidden bg-black select-none pt-16 md:pt-32">
       
-      {/* Background Video */}
+      {/* Background Video — always in DOM so it starts loading immediately */}
       <video
+        ref={videoRef}
         autoPlay
         muted
         loop
         playsInline
-        className="absolute inset-0 w-full h-full object-cover z-[-1]"
-        src="/gemini_generated_video_9b9e56a1.mp4"
+        preload="auto"
+        className="absolute inset-0 w-full h-full object-cover z-0"
+        src={VIDEO_SRC}
       />
+
       {/* Dark overlay so text stays readable */}
-      <div className="absolute inset-0 z-0 bg-gradient-to-b from-black/70 via-black/50 to-black/75 pointer-events-none" />
+      <div className="absolute inset-0 z-[1] bg-gradient-to-b from-black/70 via-black/50 to-black/75 pointer-events-none" />
 
       {/* Background scattered typography */}
-      <div className="absolute inset-0 z-0 pointer-events-none translate-y-8 md:translate-y-16">
-        {letters.map((item, i) => (
-          <motion.div
-            key={i}
-            initial={{ opacity: 0, scale: 0.5 }}
-            animate={{ 
-              opacity: 1, 
-              scale: 1, 
-              // Extract the rotate class to animate towards it
-              rotate: parseFloat(item.classes.match(/rotate-\[(-?\d+)deg\]/)?.[1] || "0") 
-            }}
-            transition={{ 
-              duration: 1.2, 
-              delay: i * 0.08, 
-              ease: [0.25, 0.4, 0.25, 1] 
-            }}
-            className={`absolute font-black leading-none outline-none no-underline ${item.classes}`}
-            // Using a system fallback for chunky display fonts
-            style={{ fontFamily: "'Impact', 'Arial Black', sans-serif" }}
-          >
-            {item.char}
-          </motion.div>
-        ))}
-      </div>
+      {mounted && (
+        <div className="absolute inset-0 z-[2] pointer-events-none translate-y-8 md:translate-y-16">
+          {letters.map((item, i) => (
+            <motion.div
+              key={i}
+              initial={{ opacity: 0, scale: 0.5 }}
+              animate={{ 
+                opacity: 1, 
+                scale: 1, 
+                rotate: parseFloat(item.classes.match(/rotate-\[(-?\d+)deg\]/)?.[1] || "0") 
+              }}
+              transition={{ 
+                duration: 1.2, 
+                delay: i * 0.08, 
+                ease: [0.25, 0.4, 0.25, 1] 
+              }}
+              className={`absolute font-black leading-none outline-none no-underline ${item.classes}`}
+              style={{ fontFamily: "'Impact', 'Arial Black', sans-serif" }}
+            >
+              {item.char}
+            </motion.div>
+          ))}
+        </div>
+      )}
 
       {/* Central Avatar & Name */}
-      <motion.div 
-        initial={{ opacity: 0, y: 40, scale: 0.9 }}
-        animate={{ opacity: 1, y: 0, scale: 1 }}
-        transition={{ duration: 1.2, delay: 0.4, ease: "easeOut" }}
-        className="relative z-10 flex flex-col items-center justify-center mt-6 sm:mt-12 md:mt-20"
-      >
-        <div 
-          className="relative rounded-full border-2 border-white/10 overflow-hidden shadow-[0_0_60px_15px_rgba(255,133,161,0.4)] transition-transform duration-700 hover:scale-105"
-          style={{ width: 'clamp(160px, 35vh, 400px)', height: 'clamp(160px, 35vh, 400px)' }}
-        >
-          {/* Ensure the user puts avatar.png in the public folder */}
-          {/* eslint-disable-next-line @next/next/no-img-element */}
-          <img 
-            src="/avatar.png" 
-            alt="Tania Biswas Avatar" 
-            className="w-full h-full object-cover"
-          />
-        </div>
-        
+      {mounted && (
         <motion.div 
-          initial={{ opacity: 0, y: 10 }}
-          animate={{ opacity: 1, y: 0 }}
-          transition={{ duration: 1, delay: 0.8 }}
-          className="mt-4 sm:mt-8 text-center"
+          initial={{ opacity: 0, y: 40, scale: 0.9 }}
+          animate={{ opacity: 1, y: 0, scale: 1 }}
+          transition={{ duration: 1.2, delay: 0.4, ease: "easeOut" }}
+          className="relative z-[3] flex flex-col items-center justify-center mt-6 sm:mt-12 md:mt-20"
         >
-          <h1 
-            className="text-4xl md:text-6xl text-white/90"
-            style={{ fontFamily: "'Apricots', cursive" }}
+          <div 
+            className="relative rounded-full border-2 border-white/10 overflow-hidden shadow-[0_0_60px_15px_rgba(255,133,161,0.4)] transition-transform duration-700 hover:scale-105"
+            style={{ width: 'clamp(160px, 35vh, 400px)', height: 'clamp(160px, 35vh, 400px)' }}
           >
-            HI! I am Tania
-          </h1>
-          <p 
-            className="text-2xl sm:text-3xl md:text-4xl mt-3 sm:mt-6 font-normal text-[#FF85A1] tracking-normal"
-            style={{ fontFamily: "'Aloja Extended', cursive" }}
+            {/* eslint-disable-next-line @next/next/no-img-element */}
+            <img 
+              src="/avatar.png" 
+              alt="Tania Biswas Avatar" 
+              className="w-full h-full object-cover"
+            />
+          </div>
+          
+          <motion.div 
+            initial={{ opacity: 0, y: 10 }}
+            animate={{ opacity: 1, y: 0 }}
+            transition={{ duration: 1, delay: 0.8 }}
+            className="mt-4 sm:mt-8 text-center"
           >
-            Creative Developer
-          </p>
-        </motion.div>
+            <h1 
+              className="text-4xl md:text-6xl text-white/90"
+              style={{ fontFamily: "'Apricots', cursive" }}
+            >
+              HI! I am Tania
+            </h1>
+            <p 
+              className="text-2xl sm:text-3xl md:text-4xl mt-3 sm:mt-6 font-normal text-[#FF85A1] tracking-normal"
+              style={{ fontFamily: "'Aloja Extended', cursive" }}
+            >
+              Creative Developer
+            </p>
+          </motion.div>
 
-        {/* Scroll Down Indicator */}
-        <motion.div 
-          initial={{ opacity: 0, y: -10 }}
-          animate={{ opacity: 1, y: 0 }}
-          transition={{ delay: 1.8, duration: 1 }}
-          className="mt-6 sm:mt-12 cursor-pointer flex flex-col items-center gap-3 p-4 group"
-          onClick={handleScrollDown}
-        >
-          <span className="text-[10px] md:text-xs uppercase tracking-[0.3em] text-white/50 group-hover:text-[#FF85A1] transition-colors duration-300 font-semibold">
-            Scroll to Explore
-          </span>
-          <ChevronDown className="w-5 h-5 md:w-6 md:h-6 text-white/70 animate-bounce group-hover:text-[#FF85A1] transition-colors duration-300" />
+          {/* Scroll Down Indicator */}
+          <motion.div 
+            initial={{ opacity: 0, y: -10 }}
+            animate={{ opacity: 1, y: 0 }}
+            transition={{ delay: 1.8, duration: 1 }}
+            className="mt-6 sm:mt-12 cursor-pointer flex flex-col items-center gap-3 p-4 group"
+            onClick={handleScrollDown}
+          >
+            <span className="text-[10px] md:text-xs uppercase tracking-[0.3em] text-white/50 group-hover:text-[#FF85A1] transition-colors duration-300 font-semibold">
+              Scroll to Explore
+            </span>
+            <ChevronDown className="w-5 h-5 md:w-6 md:h-6 text-white/70 animate-bounce group-hover:text-[#FF85A1] transition-colors duration-300" />
+          </motion.div>
         </motion.div>
-      </motion.div>
+      )}
 
     </section>
   );

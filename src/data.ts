@@ -43,6 +43,9 @@ export interface HackathonItem {
   role: string;
   achievement: string;
   project?: string;
+  description?: string;
+  highlights?: string[];
+  tech?: string[];
   year: string;
   url?: string;
 }
@@ -373,6 +376,9 @@ export const portfolioData = {
       role: "Participant & Project Lead",
       achievement: "Top Project Contributor",
       project: "TwinTitles",
+      description: "Built an NLP-based semantic deduplication platform leveraging sentence transformer embeddings to detect paraphrased academic papers and duplicate submissions with sub-100ms vector lookup.",
+      highlights: ["36h Sprint", "Team Lead", "92% Deduplication Accuracy"],
+      tech: ["PyTorch", "Sentence Transformers", "FastAPI", "Python", "Hugging Face"],
       year: "2024",
       url: "https://drive.google.com/file/d/14BnTOEgxNkIcMH0m-RqLgor1_V6-2HP3/view?usp=drive_link",
     },
@@ -383,6 +389,9 @@ export const portfolioData = {
       role: "Competitive Engineer",
       achievement: "Hackathon Finalist",
       project: "ThreatGuardX",
+      description: "Developed an adversarial intrusion detection pipeline delivering real-time network telemetry analysis, automated threat classification, and anomaly alerts under stringent latency bounds.",
+      highlights: ["Podium Finalist", "Network Security", "Real-Time Telemetry"],
+      tech: ["Python", "Machine Learning", "FastAPI", "Docker", "Network Security"],
       year: "2024",
       url: "https://drive.google.com/file/d/1R6Zo_mYEroEvNg6v5e_UGOzlBmznD6nj/view?usp=drive_link",
     },
@@ -393,6 +402,9 @@ export const portfolioData = {
       role: "National Level Participant",
       achievement: "Honorable Mention",
       project: "Autonomous Agentic Suite",
+      description: "Engineered multi-agent orchestration workflows with dynamic LLM tool-calling, stateful cyclical graphs, and automated self-correction loops for automated code analysis and task execution.",
+      highlights: ["National Participant", "Multi-Agent Systems", "Stateful Graph Loops"],
+      tech: ["LangChain", "Python", "Next.js", "TypeScript", "AI Agents"],
       year: "2025",
       url: "https://drive.google.com/file/d/1S45LnJP0-5Hd2TV2gzm0XeTIiWX_lk59/view?usp=drive_link",
     },
@@ -403,6 +415,9 @@ export const portfolioData = {
       role: "Inter-College Finalist",
       achievement: "Finalist & Key Developer",
       project: "Ahaarsetu",
+      description: "Designed an automated surplus food logistics and redistribution bridge connecting hospitality venues with NGOs, featuring algorithmic route optimization and geo-fenced expiry tracking.",
+      highlights: ["Inter-College Finalist", "Geo-Fenced Logistics", "Social Impact Tech"],
+      tech: ["Next.js", "Node.js", "PostgreSQL", "Google Maps API", "Tailwind CSS"],
       year: "2025",
       url: "https://drive.google.com/file/d/1P0SSN1tKJV9kuQrtZN0jU4oAHELX1dA0/view?usp=drive_link",
     },

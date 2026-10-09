@@ -38,7 +38,7 @@ export default function Preloader() {
         >
           {/* Scroll-Locked Video Hero Core */}
           <MetroHero
-            videoSrc="https://cdn.21st.dev/assets/mirror/21/21a77eac28eacbb7e142016eefeaa0b4a766619e51113629a3bc6df6af066c0f.mp4"
+            videoSrc="/gemini_generated_video_aaa8ec55.mp4"
             title=""
             tagline=""
             scrollHint=""
@@ -78,15 +78,15 @@ export default function Preloader() {
                 <div className="overflow-hidden">
                   <motion.h1
                     initial={{ y: "110%", opacity: 0 }}
-                    animate={{ y: 0, opacity: 1 }}
+                    animate={{ y: 0, opacity: 0.45 }}
                     transition={{ duration: 0.8, ease: [0.22, 1, 0.36, 1] }}
-                    className="font-serif text-7xl sm:text-9xl md:text-[11rem] tracking-tight leading-none text-[#EDE8DF] drop-shadow-[0_10px_40px_rgba(0,0,0,0.8)]"
+                    className="font-serif text-7xl sm:text-9xl md:text-[11rem] tracking-tight leading-none text-[#EDE8DF] drop-shadow-[0_10px_40px_rgba(0,0,0,0.4)]"
                     style={{
                       transform: `scale(${1 + (count / 100) * 0.12})`,
                       transition: "transform 0.1s ease-out",
                     }}
                   >
-                    TB<span className="text-[#FF85A1]">.</span>
+                    TB<span className="text-[#FF85A1] opacity-70">.</span>
                   </motion.h1>
                 </div>
 

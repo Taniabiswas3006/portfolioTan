@@ -97,14 +97,24 @@ export default function MetroHero({
     let touchStartY = 0
     let completedTriggered = false
 
-    const onLoadedData = () => {
+    // Use multiple events so cached-reload hits are covered.
+    // loadeddata alone is unreliable when the browser serves from disk cache.
+    const onVideoReady = () => {
       duration = video.duration || 0
       setReady(true)
       if (reduceMotion) {
         video.currentTime = duration * 0.92
       }
     }
-    video.addEventListener("loadeddata", onLoadedData)
+    // If the video is already ready (e.g. cached), fire immediately
+    if (video.readyState >= 2) {
+      onVideoReady()
+    }
+    video.addEventListener("loadeddata", onVideoReady)
+    video.addEventListener("canplay", onVideoReady)
+    video.addEventListener("canplaythrough", onVideoReady)
+    // Absolute fallback: show video after 600ms regardless
+    const readyFallback = setTimeout(() => setReady(true), 600)
 
     // iOS Safari often won't buffer any video data — even with
     // preload="auto" — until playback actually starts, to save mobile
@@ -228,10 +238,8 @@ export default function MetroHero({
         seekTo(currentProgress * duration)
       }
 
-      if (videoRef.current) {
-        const scale = 1 + currentProgress * 0.06
-        videoRef.current.style.transform = `scale(${scale})`
-      }
+      // Video stays at native resolution — no scale upsampling
+      // (scaling causes browser pixel interpolation → blurry look)
       if (titleRef.current) {
         const t = 1 - clamp(currentProgress / 0.35, 0, 1)
         titleRef.current.style.opacity = String(t)
@@ -267,7 +275,10 @@ export default function MetroHero({
     }
 
     return () => {
-      video.removeEventListener("loadeddata", onLoadedData)
+      clearTimeout(readyFallback)
+      video.removeEventListener("loadeddata", onVideoReady)
+      video.removeEventListener("canplay", onVideoReady)
+      video.removeEventListener("canplaythrough", onVideoReady)
       video.removeEventListener("seeked", onSeeked)
       window.removeEventListener("wheel", onWheel)
       window.removeEventListener("touchstart", onTouchStart)
@@ -305,9 +316,10 @@ export default function MetroHero({
           width: "100%",
           height: "100%",
           objectFit: "cover",
-          opacity: ready ? 1 : 0,
+          opacity: 1,
           transformOrigin: "center center",
-          willChange: "transform",
+          willChange: "auto",
+          imageRendering: "auto",
           transition: "opacity 0.6s ease",
           touchAction: "none",
           pointerEvents: "none",
