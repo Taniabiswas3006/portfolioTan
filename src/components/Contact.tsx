@@ -1,98 +1,172 @@
 "use client";
 
-import { Github, Linkedin, ArrowRight, Mail, Phone } from "lucide-react";
-import TextType from "./TextType";
+import React, { useEffect, useState } from "react";
+import { motion } from "framer-motion";
+import { ArrowUpRight, Github, Linkedin, Clock } from "lucide-react";
+import { portfolioData } from "@/data";
 
 export default function Contact() {
-    const contactMethods = [
-        {
-            icon: <Github className="w-8 h-8" />,
-            title: "Explore My Code",
-            desc: "Dive into my repositories. I regularly publish open-source projects, machine learning experiments, and modern frontend architectures.",
-            link: {
-                name: "Taniabiswas3006",
-                href: "https://github.com/Taniabiswas3006"
-            },
-        },
-        {
-            icon: <Linkedin className="w-8 h-10" />,
-            title: "Connect professionally",
-            desc: "I'm always open to discussing new engineering opportunities, startup collaborations, or exchanging ideas.",
-            link: {
-                name: "Tania Biswas",
-                href: "https://www.linkedin.com/in/tania-biswas-30469a29a"
-            },
-        },
-    ];
+  const [localTime, setLocalTime] = useState("");
 
-    return (
-        <section id="contact" className="py-20 md:py-32 relative overflow-hidden bg-transparent">
-            {/* Background ambient glow matching the portfolio theme */}
-            <div className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-[600px] h-[600px] bg-[#FF85A1]/5 rounded-full blur-[100px] pointer-events-none" />
+  useEffect(() => {
+    const updateTime = () => {
+      try {
+        const now = new Date();
+        const formatter = new Intl.DateTimeFormat("en-GB", {
+          timeZone: "Asia/Kolkata",
+          hour: "2-digit",
+          minute: "2-digit",
+          second: "2-digit",
+          hour12: false,
+        });
+        setLocalTime(formatter.format(now));
+      } catch {
+        setLocalTime("14:32");
+      }
+    };
 
-            <div className="max-w-screen-xl mx-auto px-4 sm:px-6 gap-16 md:px-8 flex flex-col lg:flex-row items-center relative z-10">
-                <div className="max-w-md w-full text-center lg:text-left">
-                    <h3 className="section-title !text-5xl md:!text-6xl lg:!text-[4.5rem] !text-center lg:!text-left">
-                        <TextType
-                            texts={["Let's Connect", "Transmit Data", "Initiate Link"]}
-                            typingSpeed={90}
-                            deletingSpeed={50}
-                            pauseDuration={2500}
-                        />
-                    </h3>
-                    <p className="mt-6 text-gray-400 leading-relaxed text-lg sm:text-xl font-medium">
-                        I&apos;m currently looking for new opportunities. Whether you have a question or just want to say hi, I&apos;ll try my best to get back to you!
-                    </p>
-                    
-                    <div className="mt-10 flex flex-col gap-4 items-center lg:items-start text-gray-300 font-mono">
-                        <a href="mailto:taniabiswas232@gmail.com" className="flex items-center gap-3 hover:text-[#FF85A1] transition-colors group">
-                            <div className="w-10 h-10 rounded-xl bg-white/5 border border-white/10 flex items-center justify-center group-hover:border-[#FF85A1]/50 group-hover:bg-[#FF85A1]/10 transition-colors">
-                                <Mail className="w-5 h-5 text-[#FF85A1]" />
-                            </div>
-                            <span className="text-sm sm:text-base font-bold tracking-tight">taniabiswas232@gmail.com</span>
-                        </a>
-                        <a href="tel:+919123918909" className="flex items-center gap-3 hover:text-[#FF85A1] transition-colors group">
-                            <div className="w-10 h-10 rounded-xl bg-white/5 border border-white/10 flex items-center justify-center group-hover:border-[#FF85A1]/50 group-hover:bg-[#FF85A1]/10 transition-colors">
-                                <Phone className="w-5 h-5 text-[#FF85A1]" />
-                            </div>
-                            <span className="text-sm sm:text-base font-bold tracking-widest">+91 9123918909</span>
-                        </a>
-                    </div>
-                </div>
+    updateTime();
+    const interval = setInterval(updateTime, 1000);
+    return () => clearInterval(interval);
+  }, []);
 
-                <div className="flex-1 w-full mt-12 lg:mt-0 bg-white/5 border border-white/10 rounded-3xl p-8 sm:p-12 backdrop-blur-sm">
-                    <ul className="gap-y-12 gap-x-12 items-start flex flex-col md:flex-row md:flex-wrap lg:flex-nowrap lg:gap-x-0">
-                        {contactMethods.map((item, idx) => (
-                            <li
-                                key={idx}
-                                className="space-y-5 border-t border-white/10 pt-8 first:pt-0 first:border-0 md:max-w-[45%] lg:max-w-none md:pt-0 md:border-t-0 md:border-l md:border-white/10 md:first:border-0 md:px-12 md:first:pl-0 flex-1 group w-full"
-                            >
-                                <div className="w-16 h-16 sm:w-20 sm:h-20 rounded-2xl border border-[#FF85A1]/30 bg-[#FF85A1]/10 flex items-center justify-center text-[#FF85A1] shadow-[0_0_20px_rgba(255,133,161,0.15)] group-hover:scale-110 group-hover:bg-[#FF85A1]/20 transition-all duration-500">
-                                    {item.icon}
-                                </div>
+  return (
+    <footer
+      id="contact"
+      className="relative pt-24 sm:pt-36 pb-16 px-4 sm:px-8 md:px-12 lg:px-20 overflow-hidden bg-[#0B0A09]"
+    >
+      {/* Corner crosshairs */}
+      <div className="crosshair-corner crosshair-top-left absolute top-8 left-8 hidden sm:block" />
+      <div className="crosshair-corner crosshair-top-right absolute top-8 right-8 hidden sm:block" />
 
-                                <h4 className="text-white text-xl sm:text-2xl font-bold font-mono tracking-tight pt-2 group-hover:text-[#FF85A1] transition-colors duration-300">
-                                    {item.title}
-                                </h4>
+      {/* Ambient background glow */}
+      <div className="absolute bottom-0 left-1/2 -translate-x-1/2 w-[700px] h-[400px] bg-[#FF85A1]/[0.04] rounded-full blur-[140px] pointer-events-none" />
 
-                                <p className="text-gray-400 text-sm sm:text-base leading-relaxed">
-                                    {item.desc}
-                                </p>
+      <div className="max-w-7xl mx-auto relative z-10">
+        {/* Section Heading Tag */}
+        <div className="flex items-center gap-3 text-xs font-mono text-[#8A847A] uppercase tracking-widestEditorial mb-12 sm:mb-16">
+          <span className="text-[#FF85A1] font-bold">(12)</span>
+          <span>Communication & Link</span>
+          <span className="text-white/20">—</span>
+          <span>Let&apos;s Initiate Dialogue</span>
+        </div>
 
-                                <a
-                                    href={item.link.href}
-                                    target="_blank"
-                                    rel="noopener noreferrer"
-                                    className="inline-flex items-center justify-center gap-2 text-sm sm:text-base text-[#FF85A1] duration-300 hover:text-white font-bold tracking-[0.2em] uppercase mt-2 w-full sm:w-max bg-white/5 sm:bg-transparent py-4 sm:p-0 rounded-xl sm:rounded-none"
-                                >
-                                    {item.link.name}
-                                    <ArrowRight className="w-5 h-5 group-hover:translate-x-2 transition-transform duration-300" />
-                                </a>
-                            </li>
-                        ))}
-                    </ul>
-                </div>
-            </div>
-        </section>
-    );
+        {/* Giant Footer Headline */}
+        <div className="mb-16 sm:mb-24">
+          <motion.h2
+            initial={{ opacity: 0, y: 30 }}
+            whileInView={{ opacity: 1, y: 0 }}
+            viewport={{ once: true }}
+            transition={{ duration: 0.9, ease: [0.22, 1, 0.36, 1] }}
+            className="font-serif text-4xl sm:text-6xl md:text-7xl lg:text-[6.5rem] font-light text-[#EDE8DF] leading-[1.05] tracking-tight max-w-5xl"
+          >
+            Let&apos;s build something{" "}
+            <span className="italic font-normal text-[#FF85A1] block sm:inline">
+              beautiful.
+            </span>
+          </motion.h2>
+
+          <p className="font-sans text-base sm:text-xl text-[#8A847A] mt-6 max-w-2xl leading-relaxed">
+            Available for select AI engineering opportunities, foundational research initiatives, and ambitious full-stack collaborations.
+          </p>
+        </div>
+
+        {/* Huge Underlined Communication Links */}
+        <div className="space-y-6 sm:space-y-8 pb-16 sm:pb-24 border-b border-[rgba(237,232,223,0.08)]">
+          {/* Email Link */}
+          <div>
+            <span className="font-mono text-xs uppercase tracking-widest text-[#8A847A] block mb-2">
+              Direct Mail
+            </span>
+            <a
+              href={`mailto:${portfolioData.personal.email}`}
+              className="group inline-flex items-baseline gap-4 font-serif text-2xl sm:text-4xl md:text-5xl lg:text-6xl text-[#EDE8DF] hover:text-[#FF85A1] transition-colors border-b border-[rgba(237,232,223,0.2)] hover:border-[#FF85A1] pb-2 leading-none"
+            >
+              <span>{portfolioData.personal.email}</span>
+              <ArrowUpRight
+                size={28}
+                className="text-[#8A847A] group-hover:text-[#FF85A1] group-hover:translate-x-1 group-hover:-translate-y-1 transition-all inline"
+              />
+            </a>
+          </div>
+
+          {/* Phone Link */}
+          <div className="pt-4">
+            <span className="font-mono text-xs uppercase tracking-widest text-[#8A847A] block mb-2">
+              Voice / WhatsApp
+            </span>
+            <a
+              href={`tel:${portfolioData.personal.phone.replace(/\s+/g, "")}`}
+              className="group inline-flex items-baseline gap-4 font-serif text-2xl sm:text-3xl md:text-4xl text-[#EDE8DF] hover:text-[#FF85A1] transition-colors border-b border-[rgba(237,232,223,0.2)] hover:border-[#FF85A1] pb-1 leading-none"
+            >
+              <span>{portfolioData.personal.phone}</span>
+              <ArrowUpRight
+                size={22}
+                className="text-[#8A847A] group-hover:text-[#FF85A1] group-hover:translate-x-1 group-hover:-translate-y-1 transition-all inline"
+              />
+            </a>
+          </div>
+        </div>
+
+        {/* Social Platforms & Live Kolkata Clock Row */}
+        <div className="py-12 flex flex-col md:flex-row justify-between items-start md:items-center gap-8 border-b border-[rgba(237,232,223,0.08)]">
+          {/* Social Platforms */}
+          <div className="flex flex-wrap items-center gap-6">
+            <span className="font-mono text-xs text-[#8A847A] uppercase tracking-widest">
+              Digital Coordinates:
+            </span>
+
+            <a
+              href={portfolioData.personal.github}
+              target="_blank"
+              rel="noopener noreferrer"
+              className="inline-flex items-center gap-2 text-sm font-mono uppercase tracking-wider text-[#EDE8DF] hover:text-[#FF85A1] transition-colors"
+            >
+              <Github size={16} />
+              <span>GitHub</span>
+              <ArrowUpRight size={12} />
+            </a>
+
+            <a
+              href={portfolioData.personal.linkedin}
+              target="_blank"
+              rel="noopener noreferrer"
+              className="inline-flex items-center gap-2 text-sm font-mono uppercase tracking-wider text-[#EDE8DF] hover:text-[#FF85A1] transition-colors"
+            >
+              <Linkedin size={16} />
+              <span>LinkedIn</span>
+              <ArrowUpRight size={12} />
+            </a>
+          </div>
+
+          {/* Live Local Time Clock */}
+          <div className="flex items-center gap-3 px-4 py-2 rounded-full border border-[rgba(237,232,223,0.12)] bg-white/[0.02]">
+            <Clock size={14} className="text-[#FF85A1]" />
+            <span className="font-mono text-xs text-[#EDE8DF] tracking-wider">
+              Kolkata, IN — <span className="text-[#FF85A1] font-bold">{localTime || "14:32:00"}</span> (IST)
+            </span>
+          </div>
+        </div>
+
+        {/* Bottom Colophon / Footer Signature */}
+        <div className="pt-10 flex flex-col sm:flex-row justify-between items-start sm:items-center gap-4 text-xs font-mono text-[#8A847A]">
+          <div className="flex items-center gap-3">
+            <span className="font-serif text-lg text-[#EDE8DF] font-bold">TB.</span>
+            <span>—</span>
+            <span>Digital Intelligence Artisan © 2026</span>
+          </div>
+
+          <div className="flex items-center gap-6">
+            <span>Next.js App Router</span>
+            <span>•</span>
+            <span>Tailwind CSS</span>
+            <span>•</span>
+            <span>Lenis</span>
+            <span>•</span>
+            <span className="text-[#FF85A1]">Warm Dark Editorial</span>
+          </div>
+        </div>
+      </div>
+    </footer>
+  );
 }

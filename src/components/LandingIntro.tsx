@@ -39,6 +39,18 @@ const LandingIntro = () => {
   return (
     <section spellCheck="false" className="relative h-screen w-full flex items-center justify-center overflow-hidden bg-transparent select-none pt-16 md:pt-32">
       
+      {/* Background Video */}
+      <video
+        autoPlay
+        muted
+        loop
+        playsInline
+        className="absolute inset-0 w-full h-full object-cover z-[-1]"
+        src="/gemini_generated_video_9b9e56a1.mp4"
+      />
+      {/* Dark overlay so text stays readable */}
+      <div className="absolute inset-0 z-0 bg-gradient-to-b from-black/70 via-black/50 to-black/75 pointer-events-none" />
+
       {/* Background scattered typography */}
       <div className="absolute inset-0 z-0 pointer-events-none translate-y-8 md:translate-y-16">
         {letters.map((item, i) => (

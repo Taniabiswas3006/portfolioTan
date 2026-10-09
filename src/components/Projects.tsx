@@ -1,208 +1,307 @@
 "use client";
 
-import { useState } from "react";
-import { motion } from "framer-motion";
+import React, { useState } from "react";
 import Image from "next/image";
-import { Github, ExternalLink, Code2 } from "lucide-react";
-import DecryptedText from "./DecryptedText";
-
-const projects = [
-  {
-    title: "EcoTwin",
-    subtitle: "Solo project",
-    description: "An AI-powered digital twin platform that analyzes personal carbon footprints and energy consumption. Built to solve the lack of personalized sustainability tracking. Integrated predictive ML models, increasing data accuracy by 20% and providing highly actionable eco-insights.",
-    tech: ["Vite", "REST API", "Flask", "React.js", "Tailwind CSS", "PostgreSQL(Supabase),ML,Scikit-Learn,Numpy,Pandas,Vercel,Render"],
-    links: { github: "https://github.com/Taniabiswas3006/Eco-Twin", demo: "https://eco-twin-flame.vercel.app/" },
-    image: "Screenshot 2026-04-11 140655.png",
-  },
-  {
-    title: "Nestate",
-    subtitle: "Group project",
-    description: "A comprehensive real estate management dashboard designed to eliminate manual data entry. Implemented OCR and ML models for automated property tracking, reducing document processing time by 30% for agencies.",
-    contribution: ["OCR integration for document parsing", "ML property valuation models"],
-    tech: ["Next.js", "Node.js", "React.js", "Tailwind CSS", "PostgreSQL"],
-    links: { github: "https://nestate.parot.dev/", demo: "https://nestate.parot.dev/" },
-    image: "Screenshot 2026-04-12 023733.png",
-  },
-
-  {
-    title: "Ahaarsetu",
-    subtitle: "Group Project",
-    description: "A smart livestock management platform that assigns every animal a Digital Medicine Passport — tracking drug use, withdrawal periods, and MRL compliance in real-time so farmers, vets, buyers, and regulators can guarantee residue-free, traceable food from farm to table.",
-    contribution: ["Deep learning models for demand forecasting", "NLP for resource matching"],
-    tech: ["ML", "React Native", "Node.js", "MongoDB"],
-    links: { github: "https://github.com/Aritra-221B/AhaarSetu", demo: "https://ahaarsetu-theta.vercel.app/" },
-    image: "Screenshot 2026-04-12 023413.png",
-  },
-  {
-    title: "ThreatGuardX",
-    subtitle: "Group project",
-    description: "A security-focused Chrome extension developed to instantly detect web vulnerabilities. Architected the core detection logic and user interface, allowing users to identify potential threats 40% faster during browsing.",
-    contribution: ["Threat-detection logic", "UI/UX architecture"],
-    tech: ["VirtualBox", "Python", "KaliLinux", "Bash"],
-    links: { github: "https://github.com/Aritra-221B/ThreatGuardX-webextension" },
-    image: "Screenshot 2026-04-12 020642.png",
-  },
-  {
-    title: "ZByte",
-    subtitle: "Solo project",
-    description: "A high-performance food e-commerce template. Engineered complex Framer Motion animations to deliver an 'antigravity' user experience while maintaining a 90+ Lighthouse performance score.",
-    tech: ["React.js", "Javascript", "Framer-motion", "Node.js"],
-    links: { demo: "https://zbyte.parot.dev/ " },
-    image: "Screenshot 2026-04-12 002648.png",
-  },
-  {
-    title: "TwinTitles",
-    subtitle: "Group project",
-    description: "An NLP system that solves academic plagiarism by detecting duplicate research titles. Implemented advanced Sentence Transformers to achieve a 92% semantic similarity accuracy rate across large datasets.",
-    contribution: ["Sentence Transformers implementation", "Frontend architecture"],
-    tech: ["NLP", "PyTorch", "HuggingFace", "HTML", "CSS"],
-    links: { github: "https://github.com/Aritra-221B/TwinTitles" },
-    image: "Screenshot 2026-04-12 120557.png",
-  },
-  {
-    title: "Eleve",
-    subtitle: "Solo project",
-    description: "A scalable clothing e-commerce frontend architecture. Built with React and Framer Motion to provide a fluid, light-themed aesthetic focused on high conversion rates and accessible design.",
-    tech: ["React.js", "Javascript", "Framer-motion", "Node.js"],
-    links: { demo: "https://eleve.parot.dev/" },
-    image: "Screenshot 2026-04-12 010007.png",
-  }
-];
+import { motion, AnimatePresence, useMotionValue, useSpring } from "framer-motion";
+import { ArrowUpRight, Github, ExternalLink, X, CheckCircle2 } from "lucide-react";
+import { portfolioData, Project } from "@/data";
 
 export default function Projects() {
-  const [graphError, setGraphError] = useState(false);
+  const [activeProject, setActiveProject] = useState<Project | null>(null);
+  const [hoveredProject, setHoveredProject] = useState<Project | null>(null);
+
+  // Mouse coords for floating hover image preview
+  const mouseX = useMotionValue(-500);
+  const mouseY = useMotionValue(-500);
+
+  const previewX = useSpring(mouseX, { stiffness: 350, damping: 28 });
+  const previewY = useSpring(mouseY, { stiffness: 350, damping: 28 });
+
+  const handleMouseMove = (e: React.MouseEvent) => {
+    mouseX.set(e.clientX + 24);
+    mouseY.set(e.clientY - 120);
+  };
 
   return (
-    <section id="projects" className="py-16 md:py-24 relative overflow-hidden">
-      <div className="container mx-auto px-4 sm:px-6">
-        <h2 className="section-title !text-5xl md:!text-6xl lg:!text-[4.5rem]">
-          <DecryptedText
-            text="Mission Deployments"
-            animateOn="hover"
-            speed={60}
-            maxIterations={15}
-            encryptedClassName="text-[#FF85A1] opacity-75 font-mono"
-          />
-        </h2>
+    <section
+      id="projects"
+      onMouseMove={handleMouseMove}
+      className="relative py-24 sm:py-36 px-4 sm:px-8 md:px-12 lg:px-20 hairline-b overflow-hidden"
+    >
+      <div className="max-w-7xl mx-auto">
+        {/* Section Heading Tag */}
+        <div className="flex items-center gap-3 text-xs font-mono text-[#8A847A] uppercase tracking-widestEditorial mb-12 sm:mb-16">
+          <span className="text-[#FF85A1] font-bold">(05)</span>
+          <span>Selected Work & Case Studies</span>
+          <span className="text-white/20">—</span>
+          <span>01 / 07 Curated Projects</span>
+        </div>
 
-        <div className="grid grid-cols-1 md:grid-cols-2 gap-6 sm:gap-8 lg:gap-12">
-          {projects.map((project, i) => (
-            <motion.div
-              key={project.title}
-              initial={{ opacity: 0, y: 20 }}
-              whileInView={{ opacity: 1, y: 0 }}
-              viewport={{ once: true }}
-              transition={{ delay: i * 0.1 }}
-              className="group relative"
+        {/* Section Title */}
+        <div className="flex flex-col md:flex-row justify-between items-start md:items-end gap-6 mb-16 sm:mb-24">
+          <div>
+            <h2 className="font-serif text-4xl sm:text-6xl md:text-7xl lg:text-8xl font-light text-[#EDE8DF] tracking-tight">
+              Selected <span className="italic font-normal text-[#FF85A1]">Works</span>
+            </h2>
+            <p className="font-sans text-sm sm:text-base text-[#8A847A] mt-4 max-w-2xl leading-relaxed">
+              Autonomous architectures, real-time machine intelligence, and high-velocity web interfaces. 
+              Click any project for deep case study telemetries and architecture blueprints.
+            </p>
+          </div>
+          <span className="font-mono text-xs text-[#8A847A] uppercase tracking-widest hidden md:block">
+            CLICK TO EXPAND METRICS
+          </span>
+        </div>
+
+        {/* Numbered Full-Width List (01–07) */}
+        <div className="border-t border-[rgba(237,232,223,0.1)] divide-y divide-[rgba(237,232,223,0.1)]">
+          {portfolioData.projects.map((project) => (
+            <div
+              key={project.id}
+              data-cursor="view"
+              onMouseEnter={() => setHoveredProject(project)}
+              onMouseLeave={() => setHoveredProject(null)}
+              onClick={() => setActiveProject(project)}
+              className="group relative py-8 sm:py-12 md:py-14 cursor-pointer transition-all duration-500 hover:px-4 sm:hover:px-6 hover:bg-white/[0.02]"
             >
-              {/* Glow Decoration */}
-              <div className="absolute -inset-2 bg-gradient-to-r from-primary to-secondary rounded-3xl blur-xl opacity-0 group-hover:opacity-20 transition duration-1000 group-hover:duration-200" />
+              <div className="flex flex-col lg:flex-row lg:items-center justify-between gap-6">
+                {/* Left: Number + Title */}
+                <div className="flex items-baseline gap-4 sm:gap-8 md:gap-12">
+                  <span className="font-mono text-xs sm:text-sm text-[#8A847A] group-hover:text-[#FF85A1] transition-colors font-bold">
+                    ({project.num})
+                  </span>
 
-              <div className="relative glass-card overflow-hidden flex flex-col h-full bg-spaceDark/40 border-white/5 group-hover:border-primary/20 transition-all duration-500">
-                <div className="h-44 sm:h-52 md:h-64 overflow-hidden relative">
-                  <div className="absolute inset-0 bg-gradient-to-t from-spaceBlack to-transparent z-10 opacity-60" />
-                  <Image
-                    src={`/${project.image}`}
-                    alt={project.title}
-                    fill
-                    className="object-cover transition-transform duration-700 group-hover:scale-110"
-                  />
+                  <div>
+                    <h3 className="font-serif text-3xl sm:text-5xl md:text-6xl lg:text-7xl font-light text-[#EDE8DF] group-hover:text-[#FF85A1] group-hover:translate-x-3 transition-all duration-300 leading-none">
+                      {project.title.replace(project.italicTitle || "", "")}
+                      {project.italicTitle && (
+                        <span className="italic font-normal">{project.italicTitle}</span>
+                      )}
+                    </h3>
+
+                    <p className="font-mono text-xs uppercase tracking-wider text-[#8A847A] mt-3 group-hover:text-[#EDE8DF]/80 transition-colors">
+                      {project.subtitle}
+                    </p>
+                  </div>
                 </div>
 
-                <div className="p-6 sm:p-8 md:p-10 flex flex-col flex-grow relative z-20">
-                  <div className="flex items-center gap-2 sm:gap-3 mb-4 sm:mb-6">
-                    <Code2 size={24} className="text-primary" />
-                    <div className="flex flex-wrap gap-2">
-                      {project.tech.map((t) => (
-                        <span key={t} className="text-[10px] uppercase font-black text-secondary tracking-tighter px-3 py-1 bg-secondary/5 border border-secondary/10 rounded-md">
-                          {t}
-                        </span>
-                      ))}
-                    </div>
-                  </div>
-
-                  <div className="flex flex-col gap-1 mb-3 sm:mb-4">
-                    <h3 className="text-xl sm:text-2xl md:text-3xl font-bold text-white group-hover:text-primary transition-colors">
-                      {project.title}
-                    </h3>
-                    {project.subtitle && (
-                      <span className="text-xs sm:text-sm font-medium text-secondary/80">
-                        {project.subtitle}
+                {/* Right: Key Metric Badge, Category, Arrow */}
+                <div className="flex items-center justify-between lg:justify-end gap-6 sm:gap-8 pl-10 lg:pl-0">
+                  <div className="flex flex-wrap items-center gap-2">
+                    {project.metrics.slice(0, 1).map((m) => (
+                      <span
+                        key={m}
+                        className="px-3 py-1 rounded-full text-[10px] sm:text-xs font-mono font-medium tracking-wide bg-[#FF85A1]/10 text-[#FF85A1] border border-[#FF85A1]/30"
+                      >
+                        {m}
                       </span>
-                    )}
+                    ))}
+                    <span className="text-xs font-mono text-[#8A847A] uppercase hidden sm:inline">
+                      {project.category}
+                    </span>
                   </div>
 
-                  <p className="text-gray-400 text-sm sm:text-base mb-6 flex-grow leading-relaxed">
-                    {project.description}
-                  </p>
-
-                  {project.contribution && (
-                    <div className="mb-6 sm:mb-8">
-                      <h4 className="text-[10px] uppercase font-black text-gray-500 tracking-widest mb-2">Key Contributions</h4>
-                      <div className="flex flex-wrap gap-2">
-                        {project.contribution.map((c) => (
-                          <span key={c} className="text-xs text-white/70 flex items-center gap-1.5 bg-white/5 px-2.5 py-1 rounded-full border border-white/10">
-                            <span className="w-1 h-1 bg-primary rounded-full" />
-                            {c}
-                          </span>
-                        ))}
-                      </div>
-                    </div>
-                  )}
-
-                  <div className="flex items-center gap-4 sm:gap-6 mt-auto flex-wrap">
-                    {project.links.github && (
-                      <a
-                        href={project.links.github}
-                        className="flex items-center gap-2 text-sm font-bold text-gray-400 hover:text-white transition-all bg-white/5 md:bg-transparent py-3 px-4 md:p-0 rounded-lg"
-                      >
-                        <Github size={18} /> Repository
-                      </a>
-                    )}
-                    {project.links.demo && (
-                      <a
-                        href={project.links.demo}
-                        className="flex items-center gap-2 text-sm font-bold text-primary hover:text-secondary transition-all bg-primary/5 md:bg-transparent py-3 px-4 md:p-0 rounded-lg"
-                      >
-                        <ExternalLink size={18} /> Live System
-                      </a>
-                    )}
+                  <div className="w-10 h-10 sm:w-12 sm:h-12 rounded-full border border-[rgba(237,232,223,0.15)] flex items-center justify-center text-[#EDE8DF] group-hover:border-[#FF85A1] group-hover:bg-[#FF85A1] group-hover:text-[#0B0A09] transition-all duration-300 group-hover:rotate-45">
+                    <ArrowUpRight size={18} />
                   </div>
                 </div>
               </div>
-            </motion.div>
+            </div>
           ))}
         </div>
+      </div>
 
-        {/* GitHub Contributions Graph */}
-        {!graphError && (
+      {/* Floating Image Preview that tracks the cursor on Desktop */}
+      <AnimatePresence>
+        {hoveredProject && (
           <motion.div
-            initial={{ opacity: 0, y: 20 }}
-            whileInView={{ opacity: 1, y: 0 }}
-            viewport={{ once: true }}
-            transition={{ delay: 0.2 }}
-            className="mt-20 md:mt-32 max-w-5xl mx-auto flex flex-col items-center max-w-full"
+            initial={{ opacity: 0, scale: 0.8 }}
+            animate={{ opacity: 1, scale: 1 }}
+            exit={{ opacity: 0, scale: 0.8 }}
+            transition={{ duration: 0.2 }}
+            style={{ x: previewX, y: previewY }}
+            className="pointer-events-none fixed top-0 left-0 z-[880] hidden lg:block w-[320px] aspect-[16/10] rounded-2xl overflow-hidden border border-[rgba(255,133,161,0.4)] shadow-[0_20px_50px_rgba(0,0,0,0.8)] bg-[#141311]"
           >
-            <div className="flex items-center gap-3 mb-8">
-              <Github size={24} className="text-[#FF85A1]" />
-              <h3 className="text-xl md:text-2xl font-bold text-white tracking-widest uppercase text-center">Open Source Activity</h3>
-            </div>
-
-            <div className="w-full p-4 sm:p-6 md:p-10 flex justify-start sm:justify-center overflow-x-auto no-scrollbar group relative max-w-[100vw] bg-transparent">
-              {/* Ambient Glow */}
-              <div className="absolute inset-0 bg-gradient-to-r from-primary/5 to-secondary/5 opacity-0 group-hover:opacity-100 transition-opacity duration-500 rounded-2xl pointer-events-none" />
-
-              <img
-                src="https://ghchart.rshah.org/FF85A1/Taniabiswas3006"
-                alt="Tania's GitHub Contributions"
-                onError={() => setGraphError(true)}
-                className="min-w-[600px] w-full max-w-4xl opacity-75 group-hover:opacity-100 transition-opacity duration-300"
+            <div className="relative w-full h-full">
+              <Image
+                src={hoveredProject.image}
+                alt={hoveredProject.title}
+                fill
+                className="object-cover"
               />
+              <div className="absolute inset-0 bg-gradient-to-t from-black/60 via-transparent to-transparent" />
+              <div className="absolute bottom-3 left-3 right-3 flex justify-between items-center text-[10px] font-mono text-white/90">
+                <span className="uppercase tracking-widest">{hoveredProject.title}</span>
+                <span className="text-[#FF85A1]">Click to View →</span>
+              </div>
             </div>
           </motion.div>
         )}
-      </div>
+      </AnimatePresence>
+
+      {/* Detailed Case Study Modal */}
+      <AnimatePresence>
+        {activeProject && (
+          <div className="fixed inset-0 z-[1100] flex items-center justify-center p-4 sm:p-6 md:p-10">
+            {/* Backdrop */}
+            <motion.div
+              initial={{ opacity: 0 }}
+              animate={{ opacity: 1 }}
+              exit={{ opacity: 0 }}
+              onClick={() => setActiveProject(null)}
+              className="absolute inset-0 bg-[#0B0A09]/90 backdrop-blur-xl"
+            />
+
+            {/* Modal Body */}
+            <motion.div
+              initial={{ opacity: 0, scale: 0.95, y: 30 }}
+              animate={{ opacity: 1, scale: 1, y: 0 }}
+              exit={{ opacity: 0, scale: 0.95, y: 20 }}
+              transition={{ duration: 0.5, ease: [0.22, 1, 0.36, 1] }}
+              onClick={(e) => e.stopPropagation()}
+              className="relative z-10 w-full max-w-5xl max-h-[90vh] bg-[#141311] border border-[rgba(237,232,223,0.12)] rounded-[28px] sm:rounded-[36px] overflow-y-auto shadow-2xl p-6 sm:p-10 md:p-12 text-[#EDE8DF]"
+            >
+              {/* Close Button */}
+              <button
+                onClick={() => setActiveProject(null)}
+                aria-label="Close Case Study"
+                className="absolute top-6 right-6 p-3 rounded-full bg-white/5 border border-white/10 hover:bg-[#FF85A1] hover:text-[#0B0A09] text-[#EDE8DF] transition-all"
+              >
+                <X size={20} />
+              </button>
+
+              {/* Case Study Header */}
+              <div className="space-y-3 mb-8">
+                <div className="flex items-center gap-3 text-xs font-mono text-[#8A847A] uppercase tracking-widest">
+                  <span className="text-[#FF85A1] font-bold">CASE STUDY ({activeProject.num})</span>
+                  <span>•</span>
+                  <span>{activeProject.category}</span>
+                </div>
+
+                <h2 className="font-serif text-4xl sm:text-5xl md:text-6xl text-[#EDE8DF] font-light leading-tight">
+                  {activeProject.title}
+                </h2>
+
+                <p className="font-sans text-base sm:text-lg text-[#FF85A1] font-medium">
+                  {activeProject.subtitle}
+                </p>
+              </div>
+
+              {/* Featured Image Screenshot */}
+              <div className="relative w-full aspect-[16/9] rounded-2xl overflow-hidden border border-white/10 mb-8 bg-[#0B0A09]">
+                <Image
+                  src={activeProject.image}
+                  alt={activeProject.title}
+                  fill
+                  className="object-cover"
+                />
+              </div>
+
+              {/* Metrics Grid */}
+              <div className="grid grid-cols-1 sm:grid-cols-3 gap-4 mb-8">
+                {activeProject.metrics.map((metric, i) => (
+                  <div
+                    key={i}
+                    className="p-4 rounded-xl bg-white/[0.02] border border-white/5 flex flex-col justify-center"
+                  >
+                    <span className="font-mono text-[10px] text-[#8A847A] uppercase tracking-widest">
+                      Key Metric {i + 1}
+                    </span>
+                    <span className="font-serif text-xl sm:text-2xl text-[#FF85A1] mt-1 font-semibold">
+                      {metric}
+                    </span>
+                  </div>
+                ))}
+              </div>
+
+              {/* Problem & Overview Grid */}
+              <div className="grid grid-cols-1 md:grid-cols-2 gap-8 mb-8">
+                <div className="space-y-3">
+                  <h4 className="font-mono text-xs uppercase tracking-widest text-[#8A847A]">
+                    Problem Statement
+                  </h4>
+                  <p className="font-sans text-sm sm:text-base text-[#EDE8DF]/90 leading-relaxed">
+                    {activeProject.problem}
+                  </p>
+                </div>
+
+                <div className="space-y-3">
+                  <h4 className="font-mono text-xs uppercase tracking-widest text-[#8A847A]">
+                    Architecture Overview
+                  </h4>
+                  <p className="font-sans text-sm sm:text-base text-[#EDE8DF]/90 leading-relaxed">
+                    {activeProject.description}
+                  </p>
+                </div>
+              </div>
+
+              {/* Engineering Contributions */}
+              {activeProject.contributions && (
+                <div className="space-y-4 mb-8">
+                  <h4 className="font-mono text-xs uppercase tracking-widest text-[#8A847A]">
+                    Core Engineering Contributions
+                  </h4>
+                  <div className="grid grid-cols-1 sm:grid-cols-2 gap-3">
+                    {activeProject.contributions.map((item, i) => (
+                      <div
+                        key={i}
+                        className="flex items-start gap-3 p-3.5 rounded-xl bg-white/[0.015] border border-white/5 text-xs sm:text-sm text-[#EDE8DF]/85"
+                      >
+                        <CheckCircle2 size={16} className="text-[#FF85A1] shrink-0 mt-0.5" />
+                        <span>{item}</span>
+                      </div>
+                    ))}
+                  </div>
+                </div>
+              )}
+
+              {/* Tech Stack Chips */}
+              <div className="space-y-3 mb-10">
+                <h4 className="font-mono text-xs uppercase tracking-widest text-[#8A847A]">
+                  Technology Stack
+                </h4>
+                <div className="flex flex-wrap gap-2">
+                  {activeProject.tech.map((t) => (
+                    <span
+                      key={t}
+                      className="px-3 py-1.5 rounded-md text-xs font-mono uppercase tracking-wider bg-white/5 border border-white/10 text-[#EDE8DF]"
+                    >
+                      {t}
+                    </span>
+                  ))}
+                </div>
+              </div>
+
+              {/* Action Buttons: Repo & Live System */}
+              <div className="flex flex-wrap items-center gap-4 pt-6 border-t border-white/10">
+                {activeProject.links.demo && (
+                  <a
+                    href={activeProject.links.demo}
+                    target="_blank"
+                    rel="noopener noreferrer"
+                    className="inline-flex items-center gap-2.5 px-7 py-3 rounded-full bg-[#FF85A1] text-[#0B0A09] font-mono text-xs uppercase tracking-widest font-bold hover:bg-[#FF9DB5] transition-all shadow-[0_0_25px_rgba(255,133,161,0.25)]"
+                  >
+                    <ExternalLink size={16} />
+                    <span>Launch Live System</span>
+                  </a>
+                )}
+
+                {activeProject.links.github && (
+                  <a
+                    href={activeProject.links.github}
+                    target="_blank"
+                    rel="noopener noreferrer"
+                    className="inline-flex items-center gap-2.5 px-7 py-3 rounded-full border border-white/15 hover:border-[#FF85A1] text-xs font-mono uppercase tracking-widest text-[#EDE8DF] hover:text-[#FF85A1] transition-all"
+                  >
+                    <Github size={16} />
+                    <span>View Repository</span>
+                  </a>
+                )}
+              </div>
+            </motion.div>
+          </div>
+        )}
+      </AnimatePresence>
     </section>
   );
 }

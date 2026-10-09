@@ -1,71 +1,86 @@
 "use client";
 
+import React from "react";
 import { motion } from "framer-motion";
-import { CheckCircle2 } from "lucide-react";
-
-const certifications = [
-  { name: "Python Bootcamp", issuer: "Udemy", date: "2024", url: "https://drive.google.com/file/d/1AfeWgX_zy8_totiUD1Wrcuuk38uwXByM/view?usp=sharing" },
-  { name: "MongoDB Badge", issuer: "MongoDB University", date: "2025", url: "https://drive.google.com/file/d/1znfTtFZlVsR1cudnFSb__V5IfG8d1YF9/view?usp=drive_link" },
-  { name: "Cybersecurity", issuer: "Ardent Computech", date: "2025", url: "https://drive.google.com/file/d/1KB_6exP1fLzAfZPVL6wHgmy-RGf0GiR7/view?usp=drive_link" },
-  { name: "AWS AI/ML", issuer: "AWS Training", date: "2024", url: "https://drive.google.com/file/d/1PyUVNHpiOf--AkXLgsUSJ2BeHJ7eMlnI/view?usp=sharing" },
-  { name: "NPTEL", issuer: "NPTEL", date: "2025", url: "https://drive.google.com/file/d/1LLwgRQteyoKyeEvaH6wnmUtjvA9LYacK/view?usp=drive_link" },
-  { name: "Android App development", issuer: "Google powered by EduSkill", date: "2025", url: "https://drive.google.com/file/d/1iqaX0U4rSm2yjVgr1Hp5RhXccISEFt5I/view?usp=drive_link" },];
+import { ArrowUpRight } from "lucide-react";
+import { portfolioData } from "@/data";
 
 export default function Certifications() {
   return (
-    <section id="certifications" className="py-16 md:py-24 relative overflow-hidden">
-      <div className="container mx-auto px-4 sm:px-6">
-        <h2 className="section-title !text-5xl md:!text-6xl lg:!text-[4.5rem]">Verified Intelligence</h2>
-        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6 sm:gap-8 max-w-6xl mx-auto mt-12">
-          {certifications.map((cert, i) => {
-            const Wrapper = (cert.url ? motion.a : motion.div) as React.ElementType;
+    <section
+      id="certifications"
+      className="relative py-24 sm:py-36 px-4 sm:px-8 md:px-12 lg:px-20 hairline-b overflow-hidden"
+    >
+      <div className="max-w-7xl mx-auto">
+        {/* Section Heading Tag */}
+        <div className="flex items-center gap-3 text-xs font-mono text-[#8A847A] uppercase tracking-widestEditorial mb-12 sm:mb-16">
+          <span className="text-[#FF85A1] font-bold">(10)</span>
+          <span>Accreditations & Badges</span>
+          <span className="text-white/20">—</span>
+          <span>Verified Competency Ledger</span>
+        </div>
+
+        {/* Section Title */}
+        <div className="flex flex-col md:flex-row justify-between items-start md:items-end gap-6 mb-16 sm:mb-20">
+          <div>
+            <h2 className="font-serif text-4xl sm:text-6xl md:text-7xl font-light text-[#EDE8DF] tracking-tight">
+              Verified <span className="italic font-normal text-[#FF85A1]">Certifications</span>
+            </h2>
+            <p className="font-sans text-sm sm:text-base text-[#8A847A] mt-3 max-w-xl">
+              Formal accreditations across distributed databases, machine learning, systems architecture,cloud computing and mobile development.
+            </p>
+          </div>
+
+        </div>
+
+        {/* Ledger-Style Minimal List */}
+        <div className="border-t border-[rgba(237,232,223,0.1)] divide-y divide-[rgba(237,232,223,0.08)]">
+          {portfolioData.certifications.map((cert, index) => {
+            const hasUrl = !!cert.url;
             return (
-              <Wrapper
-                key={cert.name}
-                href={cert.url}
-                target={cert.url ? "_blank" : undefined}
-                rel={cert.url ? "noopener noreferrer" : undefined}
-                initial={{ opacity: 0, y: 40 }}
+              <motion.a
+                key={cert.title}
+                href={cert.url || "#"}
+                target={hasUrl ? "_blank" : undefined}
+                rel={hasUrl ? "noopener noreferrer" : undefined}
+                onClick={(e) => {
+                  if (!hasUrl) e.preventDefault();
+                }}
+                initial={{ opacity: 0, y: 15 }}
                 whileInView={{ opacity: 1, y: 0 }}
-                viewport={{ once: true }}
-                transition={{ duration: 0.5, delay: i * 0.1 }}
-                className="group relative h-[240px] rounded-3xl cursor-pointer block"
+                viewport={{ once: true, margin: "-30px" }}
+                transition={{ duration: 0.5, delay: index * 0.06, ease: [0.22, 1, 0.36, 1] }}
+                className={`group relative flex flex-col sm:flex-row sm:items-center justify-between py-6 sm:py-8 transition-colors overflow-hidden ${hasUrl ? "cursor-pointer" : "cursor-default"
+                  }`}
               >
-                {/* Outer Ambient Glow Effect */}
-                <div className="absolute -inset-1 bg-[#FF85A1]/0 group-hover:bg-[#FF85A1]/20 blur-2xl transition-all duration-700 rounded-3xl" />
+                {/* Hover Underline Sweep Effect */}
+                <span className="absolute bottom-0 left-0 w-full h-[1px] bg-[#FF85A1] scale-x-0 group-hover:scale-x-100 origin-left transition-transform duration-500 ease-[cubic-bezier(0.22,1,0.36,1)]" />
 
-                {/* Border tracking layer & Card Container */}
-                <div className="absolute inset-0 rounded-3xl bg-gradient-to-b from-white/10 to-white/5 p-[1px] group-hover:from-[#FF85A1]/60 group-hover:to-[#FF85A1]/10 transition-colors duration-500">
+                {/* Left: Year & Title */}
+                <div className="flex flex-col sm:flex-row sm:items-center gap-2 sm:gap-10">
+                  <span className="font-mono text-xs text-[#8A847A] font-semibold w-16 group-hover:text-[#FF85A1] transition-colors">
+                    {cert.year}
+                  </span>
 
-                  {/* Inner Glass Layer */}
-                  <div className="absolute inset-[1px] rounded-[inherit] bg-[#0B0A10]/95 backdrop-blur-2xl flex flex-col justify-between p-8 overflow-hidden z-10 transition-all duration-500 group-hover:bg-[#0B0A10]/80">
+                  <h3 className="font-serif text-2xl sm:text-3xl text-[#EDE8DF] group-hover:text-[#FF85A1] group-hover:translate-x-2 transition-all duration-300">
+                    {cert.title}
+                  </h3>
+                </div>
 
-                    {/* Background Radial Light Source */}
-                    <div className="absolute -top-24 -right-24 w-56 h-56 bg-[#FF85A1]/10 blur-[50px] rounded-full group-hover:bg-[#FF85A1]/30 transition-colors duration-700 pointer-events-none" />
+                {/* Right: Issuer & Arrow Link */}
+                <div className="flex items-center justify-between sm:justify-end gap-6 mt-3 sm:mt-0 pl-16 sm:pl-0">
+                  <span className="font-mono text-xs uppercase tracking-wider text-[#8A847A] group-hover:text-[#EDE8DF] transition-colors">
+                    {cert.issuer}
+                  </span>
 
-                    {/* Top Section */}
-                    <div className="flex justify-between items-start relative z-20">
-                      <div className="w-14 h-14 rounded-2xl bg-white/5 border border-white/10 flex items-center justify-center text-white/40 group-hover:text-[#FF85A1] group-hover:bg-[#FF85A1]/10 group-hover:border-[#FF85A1]/30 transition-all duration-500 group-hover:scale-110 shadow-none group-hover:shadow-[0_0_25px_rgba(255,133,161,0.25)]">
-                        <CheckCircle2 size={28} />
-                      </div>
-                      <span className="text-xs font-mono font-bold tracking-widest text-gray-500 bg-white/5 py-1.5 px-3 rounded-full border border-white/10 group-hover:text-white/90 group-hover:border-[#FF85A1]/40 group-hover:bg-[#FF85A1]/10 transition-all">
-                        {cert.date}
-                      </span>
-                    </div>
-
-                    {/* Bottom Text Content */}
-                    <div className="relative z-20 mt-auto">
-                      <h3 className="text-2xl font-bold font-poppins text-white mb-2 group-hover:text-transparent group-hover:bg-clip-text group-hover:bg-gradient-to-r group-hover:from-white group-hover:to-[#FF85A1] transition-all tracking-tight">
-                        {cert.name}
-                      </h3>
-                      <p className="text-xs font-bold tracking-[0.2em] text-gray-500 uppercase group-hover:text-[#FF85A1] transition-colors">
-                        {cert.issuer}
-                      </p>
-                    </div>
-
+                  <div className={`w-8 h-8 rounded-full border border-[rgba(237,232,223,0.12)] flex items-center justify-center text-[#8A847A] transition-all ${hasUrl
+                      ? "group-hover:border-[#FF85A1] group-hover:text-[#FF85A1] group-hover:rotate-45"
+                      : "opacity-40 group-hover:border-[rgba(237,232,223,0.3)] group-hover:text-[#EDE8DF]"
+                    }`}>
+                    <ArrowUpRight size={14} />
                   </div>
                 </div>
-              </Wrapper>
+              </motion.a>
             );
           })}
         </div>

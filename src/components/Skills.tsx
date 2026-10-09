@@ -1,285 +1,162 @@
 "use client";
 
-import { useState } from "react";
-import { Brain, Shield, Layout, Smartphone, Code2, Database } from "lucide-react";
-import { clsx, type ClassValue } from "clsx";
-import { twMerge } from "tailwind-merge";
+import React, { useRef } from "react";
+import { motion, useMotionValue, useSpring, useTransform } from "framer-motion";
+import { portfolioData, SkillCategory } from "@/data";
+import { Cpu, Layers, Database, BarChart3, ShieldCheck, Smartphone } from "lucide-react";
 
-function cn(...inputs: ClassValue[]) {
-  return twMerge(clsx(inputs));
-}
+const skillIcons: Record<string, React.ReactNode> = {
+  ml: <Cpu size={22} className="text-[#FF85A1]" />,
+  fullstack: <Layers size={22} className="text-[#FF85A1]" />,
+  database: <Database size={22} className="text-[#FF85A1]" />,
+  "data-analysis": <BarChart3 size={22} className="text-[#FF85A1]" />,
+  cybersecurity: <ShieldCheck size={22} className="text-[#FF85A1]" />,
+  android: <Smartphone size={22} className="text-[#FF85A1]" />,
+};
 
-export interface SkillInfo {
-  id: string;
-  name: string;
-  role: string;
-  description: string;
-  level: number;
-  icon: React.ReactNode;
-  techStack: string[];
-}
+function BentoTile({ skill, index }: { skill: SkillCategory; index: number }) {
+  const cardRef = useRef<HTMLDivElement>(null);
 
-const SKILLS: SkillInfo[] = [
-  {
-    id: "1",
-    name: "Machine Learning",
-    role: "ADVANCED",
-    icon: <Brain className="text-[#FF85A1]" size={22} />,
-    level: 95,
-    description: "Experienced in training models, crafting NLP solutions, and deep data preprocessing pipelines.",
-    techStack: ["Python", "Pandas","NumPy", "Scikit", "NLP"],
-  },
-  {
-    id: "2",
-    name: "Cybersecurity",
-    role: "COMPETENT",
-    icon: <Shield className="text-[#FF85A1]" size={22} />,
-    level: 75,
-    description: "Knowledgeable in network security, pen testing foundations, and cryptography deployments.",
-    techStack: ["Kali Linux", "VMware", "Metasploit","VirtualBox"],
-  },
-  {
-    id: "3",
-    name: "Data Analysis",
-    role: "PROFICIENT",
-    icon: <Layout className="text-[#FF85A1]" size={22} />,
-    level: 85,
-    description: "Proficient in data analysis with hands-on experience in extracting insights, identifying patterns, and visualizing data.",
-    techStack: ["Pandas", "Matplotlib", "SQL", "Tableau","EXCEL"],
-  },
-  {
-    id: "4",
-    name: "Android Apps",
-    role: "COMPETENT",
-    icon: <Smartphone className="text-[#FF85A1]" size={22} />,
-    level: 75,
-    description: "Experience with building solid mobile applications using modern flexible frameworks.",
-    techStack: ["Java", "Kotlin", "Android Studio", "XML"],
-  },
-  {
-    id: "5",
-    name: "Full Stack Dev",
-    role: "ADVANCED",
-    icon: <Code2 className="text-[#FF85A1]" size={22} />,
-    level: 90,
-    description: "Highly proficient in React, Next.js, Framer Motion, and Tailwind. End-to-End scalable architectures.",
-    techStack: ["React", "Next.js", "Node.js", "Appwrite","Flask","REST API","HTML+CSS+JS"],
-  },
-  {
-    id: "6",
-    name: "Database Mgmt",
-    role: "ADVANCED",
-    icon: <Database className="text-[#FF85A1]" size={22} />,
-    level: 90,
-    description: "Designing schemas, optimizing NoSQL structures, and high-availability data migrations.",
-    techStack: ["MongoDB", "PostgreSQL", "MYSQL", "SQLite"],
-  },
-];
+  // Mouse coords for 3D tilt & dynamic spotlight border
+  const mouseX = useMotionValue(0);
+  const mouseY = useMotionValue(0);
 
-export default function Skills({ members = SKILLS }: { members?: SkillInfo[] }) {
-  const [hoveredId, setHoveredId] = useState<string | null>(null);
+  const rotateX = useSpring(useTransform(mouseY, [-150, 150], [6, -6]), { stiffness: 300, damping: 25 });
+  const rotateY = useSpring(useTransform(mouseX, [-150, 150], [-6, 6]), { stiffness: 300, damping: 25 });
 
-  const col1 = members.filter((_, i) => i % 3 === 0);
-  const col2 = members.filter((_, i) => i % 3 === 1);
-  const col3 = members.filter((_, i) => i % 3 === 2);
+  const handleMouseMove = (e: React.MouseEvent<HTMLDivElement>) => {
+    if (!cardRef.current) return;
+    const rect = cardRef.current.getBoundingClientRect();
+    const x = e.clientX - rect.left;
+    const y = e.clientY - rect.top;
+    mouseX.set(x - rect.width / 2);
+    mouseY.set(y - rect.height / 2);
+    cardRef.current.style.setProperty("--spotlight-x", `${x}px`);
+    cardRef.current.style.setProperty("--spotlight-y", `${y}px`);
+  };
+
+  const handleMouseLeave = () => {
+    mouseX.set(0);
+    mouseY.set(0);
+  };
 
   return (
-    <section id="skills" className="py-16 md:py-24 relative overflow-hidden bg-transparent">
-      <div className="container mx-auto px-4 sm:px-6 max-w-7xl">
-        <h2 className="section-title !text-5xl md:!text-6xl lg:!text-[7xl] xl:!text-[4.5rem]">
-          Technical Arsenal
-        </h2>
-
-        {/* Responsive Grid System */}
-        <div className="w-full select-none mx-auto">
-          
-          {/* Mobile & Tablet Grid (hidden on xl/desktop) */}
-          <div className="grid grid-cols-1 md:grid-cols-2 xl:hidden gap-4 sm:gap-6 w-full px-2">
-            {members.map((skill) => (
-              <SkillCard
-                key={skill.id}
-                skill={skill}
-                className="w-full h-auto min-h-[160px] py-6"
-                hoveredId={hoveredId}
-                onHover={setHoveredId}
-              />
-            ))}
-          </div>
-
-          {/* Desktop/Extra Large Screens: Complex offset columns */}
-          <div className="hidden xl:flex flex-row items-start gap-12 lg:gap-16 w-full">
-            <div className="flex gap-4 flex-shrink-0">
-              {/* Column 1 */}
-              <div className="flex flex-col gap-4 shrink-0">
-                {col1.map((skill) => (
-                  <SkillCard
-                    key={skill.id}
-                    skill={skill}
-                    className="w-[220px] h-[260px]"
-                    hoveredId={hoveredId}
-                    onHover={setHoveredId}
-                  />
-                ))}
-              </div>
-
-              {/* Column 2 */}
-              <div className="flex flex-col gap-4 mt-[70px] shrink-0">
-                {col2.map((skill) => (
-                  <SkillCard
-                    key={skill.id}
-                    skill={skill}
-                    className="w-[245px] h-[285px]"
-                    hoveredId={hoveredId}
-                    onHover={setHoveredId}
-                  />
-                ))}
-              </div>
-
-              {/* Column 3 */}
-              <div className="flex flex-col gap-4 mt-[35px] shrink-0">
-                {col3.map((skill) => (
-                  <SkillCard
-                    key={skill.id}
-                    skill={skill}
-                    className="w-[230px] h-[270px]"
-                    hoveredId={hoveredId}
-                    onHover={setHoveredId}
-                  />
-                ))}
-              </div>
-            </div>
-
-            {/* Right-Aligned Skill Rows for Desktop */}
-            <div className="flex flex-col gap-6 pt-10 flex-1 justify-center items-end">
-              {members.map((skill) => (
-                <SkillRow
-                  key={skill.id}
-                  skill={skill}
-                  hoveredId={hoveredId}
-                  onHover={setHoveredId}
-                />
-              ))}
-            </div>
-          </div>
-        </div>
-      </div>
-    </section>
-  );
-}
-
-/* ─────────────────────────────────────────
-   Skill "Detailed Info" Card 
-───────────────────────────────────────── */
-function SkillCard({
-  skill,
-  className,
-  hoveredId,
-  onHover,
-}: {
-  skill: SkillInfo;
-  className: string;
-  hoveredId: string | null;
-  onHover: (id: string | null) => void;
-}) {
-  const isActive = hoveredId === skill.id;
-  const isDimmed = hoveredId !== null && !isActive;
-
-  return (
-    <div
-      className={cn(
-        'overflow-hidden rounded-2xl cursor-pointer flex-shrink-0 transition-all duration-500 p-4 sm:p-5 flex flex-col justify-between relative group z-10',
-        className,
-        isDimmed ? 'opacity-30 scale-95 border-white/5' : 'opacity-100 scale-100 border-[#FF85A1]/30 shadow-[0_0_25px_rgba(255,133,161,0.05)]',
-        'border bg-spaceDark/60 backdrop-blur-md'
-      )}
-      onMouseEnter={() => onHover(skill.id)}
-      onMouseLeave={() => onHover(null)}
+    <motion.div
+      ref={cardRef}
+      onMouseMove={handleMouseMove}
+      onMouseLeave={handleMouseLeave}
+      style={{
+        rotateX,
+        rotateY,
+        transformStyle: "preserve-3d",
+      }}
+      initial={{ opacity: 0, y: 30 }}
+      whileInView={{ opacity: 1, y: 0 }}
+      viewport={{ once: true, margin: "-40px" }}
+      transition={{ duration: 0.7, delay: index * 0.1, ease: [0.22, 1, 0.36, 1] }}
+      className={`group relative rounded-[24px] sm:rounded-[28px] p-6 sm:p-8 bg-[#141311] border border-[rgba(237,232,223,0.08)] hover:border-[#FF85A1]/40 transition-colors duration-500 overflow-hidden flex flex-col justify-between ${
+        index === 0 || index === 3 ? "lg:col-span-7" : "lg:col-span-5"
+      }`}
     >
-      {isDimmed === false && (
-        <div className="absolute inset-0 bg-gradient-to-br from-[#FF85A1]/10 to-transparent transition-opacity opacity-100 pointer-events-none" />
-      )}
+      {/* Spotlight Border & Radial Hover Glow */}
+      <div
+        className="pointer-events-none absolute inset-0 opacity-0 group-hover:opacity-100 transition-opacity duration-300"
+        style={{
+          background: "radial-gradient(400px circle at var(--spotlight-x, 150px) var(--spotlight-y, 150px), rgba(255, 133, 161, 0.12), transparent 70%)",
+        }}
+      />
 
-      <div className="flex justify-between items-center relative z-20">
-        <div className={cn("p-2 sm:p-3 rounded-xl transition-colors duration-500 flex-shrink-0", isActive ? "bg-[#FF85A1]/20 shadow-[0_0_15px_rgba(255,133,161,0.2)]" : "bg-white/5")}>
-          {skill.icon}
+      {/* Top Header: Icon & Proficiency Label */}
+      <div className="relative z-10 flex items-center justify-between gap-4 mb-6">
+        <div className="w-12 h-12 rounded-2xl bg-white/[0.03] border border-white/10 flex items-center justify-center group-hover:border-[#FF85A1]/30 transition-colors shadow-inner">
+          {skillIcons[skill.id] || <Cpu size={22} className="text-[#FF85A1]" />}
         </div>
-        <span className={cn("font-black text-[10px] md:text-xs transition-all duration-500 font-mono tracking-widest uppercase border px-2 py-1 rounded-md", isActive ? "text-[#FF85A1] border-[#FF85A1]/30 bg-[#FF85A1]/10" : "text-gray-500 border-white/10")}>
-          {skill.role}
-        </span>
+
+        <div className="text-right">
+          <span className="font-mono text-[10px] uppercase tracking-widest text-[#FF85A1] font-bold block">
+            {skill.proficiency}
+          </span>
+          <span className="font-mono text-[9px] text-[#8A847A] tracking-wider">
+            {skill.progress}% Mastery
+          </span>
+        </div>
       </div>
 
-      <div className="relative z-20 overflow-hidden mt-2">
-        <p className={cn("text-[10px] sm:text-xs md:text-sm leading-snug md:leading-relaxed transition-colors duration-500", isActive ? "text-gray-100" : "text-gray-500")}>
+      {/* Title & Description */}
+      <div className="relative z-10 space-y-3">
+        <h3 className="font-serif text-2xl sm:text-3xl text-[#EDE8DF] group-hover:text-[#FF85A1] transition-colors">
+          {skill.title}
+        </h3>
+        <p className="font-sans text-xs sm:text-sm text-[#8A847A] leading-relaxed line-clamp-2">
           {skill.description}
         </p>
       </div>
 
-      <div className="relative z-20 flex flex-wrap gap-1 md:gap-2 mt-4">
-        {skill.techStack.map((tech) => (
-          <span 
-            key={tech} 
-            className={cn(
-              "text-[8px] md:text-[10px] px-1.5 py-0.5 rounded-md border transition-all duration-300",
-              isActive ? "border-[#FF85A1]/40 text-[#FF85A1] bg-[#FF85A1]/5" : "border-white/5 text-gray-600"
-            )}
+      {/* Thin Animated Progress Line */}
+      <div className="relative z-10 mt-6 mb-6">
+        <div className="w-full h-[2px] bg-white/5 rounded-full overflow-hidden">
+          <motion.div
+            initial={{ width: 0 }}
+            whileInView={{ width: `${skill.progress}%` }}
+            viewport={{ once: true }}
+            transition={{ duration: 1.2, delay: 0.2 + index * 0.1, ease: [0.22, 1, 0.36, 1] }}
+            className="h-full bg-[#FF85A1]"
+          />
+        </div>
+      </div>
+
+      {/* Tech Chips */}
+      <div className="relative z-10 flex flex-wrap gap-1.5 sm:gap-2 mt-auto pt-2">
+        {skill.tech.map((item) => (
+          <span
+            key={item}
+            className="px-2.5 py-1 rounded-md text-[10px] font-mono uppercase tracking-wider bg-white/[0.03] border border-white/5 text-[#EDE8DF]/80 group-hover:border-[#FF85A1]/20 transition-colors"
           >
-            {tech}
+            {item}
           </span>
         ))}
       </div>
-    </div>
+    </motion.div>
   );
 }
 
-/* ─────────────────────────────────────────
-   Skill Index Row (Right aligned list)
-───────────────────────────────────────── */
-function SkillRow({
-  skill,
-  hoveredId,
-  onHover,
-}: {
-  skill: SkillInfo;
-  hoveredId: string | null;
-  onHover: (id: string | null) => void;
-}) {
-  const isActive = hoveredId === skill.id;
-  const isDimmed = hoveredId !== null && !isActive;
-
+export default function Skills() {
   return (
-    <div
-      className={cn(
-        'cursor-pointer transition-all duration-500 py-2 sm:py-3 rounded-2xl px-4 md:px-6 w-full flex flex-col xl:items-end overflow-hidden',
-        isDimmed ? 'opacity-40' : 'opacity-100',
-        isActive ? 'bg-white/5' : ''
-      )}
-      onMouseEnter={() => onHover(skill.id)}
-      onMouseLeave={() => onHover(null)}
+    <section
+      id="skills"
+      className="relative py-24 sm:py-32 px-4 sm:px-8 md:px-12 lg:px-20 hairline-b overflow-hidden"
     >
-      {/* Name and Dash row - perfectly right aligned for xl */}
-      <div className="flex items-center gap-4 sm:gap-6 xl:flex-row-reverse w-full xl:justify-start">
-        <span
-          className={cn(
-            'h-2 sm:h-3 rounded-full flex-shrink-0 transition-all duration-500',
-            isActive ? 'bg-[#FF85A1] w-8 sm:w-12 shadow-[0_0_10px_rgba(255,133,161,0.5)]' : 'bg-[#FF85A1]/20 w-3 sm:w-4',
-          )}
-        />
-        <span
-          className={cn(
-            'text-lg sm:text-2xl md:text-3xl lg:text-4xl font-extrabold leading-none tracking-tight transition-all duration-500 truncate min-w-0 flex-1 xl:flex-none xl:text-right',
-            isActive ? 'text-white translate-x-1 sm:translate-x-2 xl:translate-x-0 xl:-translate-x-2' : 'text-gray-500 hover:text-gray-300',
-          )}
-        >
-          {skill.name}
-        </span>
-      </div>
+      <div className="max-w-7xl mx-auto">
+        {/* Section Heading Tag */}
+        <div className="flex items-center gap-3 text-xs font-mono text-[#8A847A] uppercase tracking-widestEditorial mb-12 sm:mb-16">
+          <span className="text-[#FF85A1] font-bold">(04)</span>
+          <span>Technical Arsenal</span>
+          <span className="text-white/20">—</span>
+          <span>Core Capabilities & Tooling</span>
+        </div>
 
-      <p className={cn(
-        "mt-3 md:mt-4 pl-[48px] sm:pl-[72px] xl:pl-0 text-[9px] sm:text-[10px] md:text-xs font-bold uppercase tracking-[0.2em] md:tracking-[0.4em] transition-colors duration-500 xl:text-right xl:pr-[60px]",
-        isActive ? "text-[#FF85A1]" : "text-gray-600"
-      )}>
-        {skill.role}
-      </p>
-    </div>
+        {/* Section Header */}
+        <div className="flex flex-col md:flex-row justify-between items-start md:items-end gap-6 mb-16">
+          <div>
+            <h2 className="font-serif text-4xl sm:text-6xl md:text-7xl font-light text-[#EDE8DF] tracking-tight">
+              Disciplined <span className="italic font-normal text-[#FF85A1]">Arsenal</span>
+            </h2>
+            <p className="font-sans text-sm sm:text-base text-[#8A847A] mt-3 max-w-xl">
+              Engineered with depth across machine learning primitives, modern web systems, and secure infrastructure.
+            </p>
+          </div>
+          <div className="font-mono text-xs text-[#8A847A] uppercase tracking-widest hidden sm:block">
+            6 Specialized Domains
+          </div>
+        </div>
+
+        {/* Bento Grid: 6 Tiles */}
+        <div className="grid grid-cols-1 lg:grid-cols-12 gap-6 sm:gap-8">
+          {portfolioData.skills.map((skill, index) => (
+            <BentoTile key={skill.id} skill={skill} index={index} />
+          ))}
+        </div>
+      </div>
+    </section>
   );
 }

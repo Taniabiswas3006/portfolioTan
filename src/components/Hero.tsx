@@ -1,198 +1,288 @@
 "use client";
 
-import React from "react";
-import { ChevronDown } from "lucide-react";
-import Antigravity from "./Antigravity";
-import TextType from "./TextType";
-import PathAnimation from "./PathAnimation";
+import React, { useRef, useState } from "react";
+import Image from "next/image";
+import { motion, useScroll, useTransform } from "framer-motion";
+import { ArrowDownRight, Sparkles, Github, Linkedin, Mail, RefreshCw } from "lucide-react";
+import { portfolioData } from "@/data";
+import MorphGallery, { type MorphItem } from "@/components/ui/morph-gallery";
 
-// Open to Work Badge
-const OpenToWorkBadge: React.FC = () => {
-  return (
-    <div
-      className="inline-flex items-center gap-2.5 px-5 py-2.5 rounded-full border border-emerald-500/20 backdrop-blur-md"
-      style={{
-        background: "linear-gradient(135deg, rgba(16,185,129,0.08), rgba(205,180,219,0.06))",
-        boxShadow: "0 0 20px rgba(16,185,129,0.08), inset 0 1px 0 rgba(255,255,255,0.05)",
-        animation: "badgeFadeIn 1s ease-out 1.5s both",
-      }}
-    >
-      {/* Animated pulse dot */}
-      <span className="relative flex h-2.5 w-2.5">
-        <span className="absolute inline-flex h-full w-full rounded-full bg-emerald-400 opacity-75 animate-ping" />
-        <span className="relative inline-flex h-2.5 w-2.5 rounded-full bg-emerald-400" />
-      </span>
-      <span
-        className="text-[11px] sm:text-xs font-semibold tracking-[0.15em] uppercase"
-        style={{
-          background: "linear-gradient(90deg, #ef7dc3ff, #cfb4dfff)",
-          WebkitBackgroundClip: "text",
-          WebkitTextFillColor: "transparent",
-        }}
-      >
-        Available for Opportunities
-      </span>
-    </div>
-  );
-};
-
-import ProfileCard from "./ProfileCard";
+const HERO_PHOTOS: MorphItem[] = [
+  { src: "/photo.jpg", alt: "Tania Biswas" },
+  { src: "/6167799154659233180.jpg", alt: "Tania Biswas — Portrait 2" },
+  { src: "/1791560166256.jpg", alt: "Tania Biswas — Portrait 3" },
+  { src: "/1791560166283.jpg", alt: "Tania Biswas — Portrait 4" },
+  { src: "/1791560166310.jpg", alt: "Tania Biswas — Portrait 5" },
+];
 
 export default function Hero() {
+  const containerRef = useRef<HTMLDivElement>(null);
+  const [flipped, setFlipped] = useState(false);
+
+  const { scrollYProgress } = useScroll({
+    target: containerRef,
+    offset: ["start start", "end start"],
+  });
+
+  // Only keep the subtle text parallax; photo is fully static (no tilt/translate)
+  const textY = useTransform(scrollYProgress, [0, 1], ["0%", "15%"]);
+
   return (
-    <section id="hero" className="relative min-h-screen flex flex-col overflow-hidden">
-      <style>{`
-        @keyframes customAppear {
-          0% { opacity: 0; filter: blur(20px); transform: scale(0.9) translateX(-40px); }
-          100% { opacity: 0.75; filter: blur(0px); transform: scale(1) translateX(0); }
-        }
-        @keyframes badgeFadeIn {
-          0% { opacity: 0; transform: translateY(8px); }
-          100% { opacity: 1; transform: translateY(0); }
-        }
-      `}</style>
+    <section
+      ref={containerRef}
+      id="hero"
+      className="relative min-h-screen flex flex-col justify-between pt-28 pb-12 sm:pb-16 px-4 sm:px-8 md:px-12 lg:px-20 overflow-hidden border-b border-[rgba(237,232,223,0.06)]"
+    >
+      {/* Corner crosshairs */}
+      <div className="crosshair-corner crosshair-top-left absolute top-6 left-6 hidden sm:block" />
+      <div className="crosshair-corner crosshair-top-right absolute top-6 right-6 hidden sm:block" />
 
-      {/* Antigravity Background */}
-      <div className="absolute inset-0 z-0">
-        <Antigravity
-          count={100}
-          magnetRadius={6}
-          ringRadius={7}
-          waveSpeed={0.4}
-          waveAmplitude={1}
-          particleSize={0.3}
-          lerpSpeed={0.05}
-          color="#FF85A1"
-          autoAnimate
-          particleVariance={1.5}
-          rotationSpeed={0}
-          depthFactor={1}
-          pulseSpeed={3}
-          particleShape="sphere"
-          fieldStrength={10}
-          opacity={0.25}
-        />
+      {/* Top Meta Header: Section Number & Status */}
+      <motion.div
+        initial={{ opacity: 0, y: -10 }}
+        animate={{ opacity: 1, y: 0 }}
+        transition={{ duration: 0.8, delay: 0.2 }}
+        className="flex flex-col sm:flex-row justify-between items-start sm:items-center gap-4 text-xs font-mono text-[#8A847A] uppercase tracking-widestEditorial mb-8 sm:mb-12"
+      >
+        <div className="flex items-center gap-3">
+          <span className="text-[#FF85A1] font-bold">(01)</span>
+          <span>Index & Hero Portfolio</span>
+          <span className="hidden md:inline text-white/20">—</span>
+          <span className="hidden md:inline">Vol. MMXXVI</span>
+        </div>
+
+        <div className="flex items-center gap-2 px-3 py-1 rounded-full border border-[rgba(237,232,223,0.08)] bg-white/[0.02]">
+          <span className="relative flex h-2 w-2">
+            <span className="animate-ping absolute inline-flex h-full w-full rounded-full bg-[#00C853] opacity-75" />
+            <span className="relative inline-flex rounded-full h-2 w-2 bg-[#00C853]" />
+          </span>
+          <span className="text-[11px] text-[#EDE8DF]">Active — West Bengal, IN</span>
+        </div>
+      </motion.div>
+
+      {/* Main Hero Grid: Asymmetric 12-Column Editorial */}
+      <div className="grid grid-cols-1 lg:grid-cols-12 gap-8 lg:gap-12 items-center my-auto">
+        {/* Left 8 Columns: Massive Stacked Typographic Reveal */}
+        <motion.div style={{ y: textY }} className="lg:col-span-8 flex flex-col z-10">
+          {/* TANIA Line with Mask Reveal */}
+          <div className="overflow-hidden leading-none">
+            <motion.h1
+              initial={{ y: "105%" }}
+              animate={{ y: 0 }}
+              transition={{ duration: 1.1, ease: [0.22, 1, 0.36, 1], delay: 0.1 }}
+              className="font-serif text-[clamp(4.2rem,13.5vw,13.8rem)] font-light tracking-tight leading-[0.88] text-[#EDE8DF]"
+            >
+              TANIA
+            </motion.h1>
+          </div>
+
+          {/* BISWAS Line with Roman + Italic Mix & Mask Reveal */}
+          <div className="overflow-hidden leading-none mt-1 sm:mt-2">
+            <motion.h1
+              initial={{ y: "105%" }}
+              animate={{ y: 0 }}
+              transition={{ duration: 1.1, ease: [0.22, 1, 0.36, 1], delay: 0.25 }}
+              className="font-serif text-[clamp(4.2rem,13.5vw,13.8rem)] font-light tracking-tight leading-[0.88] text-[#EDE8DF]"
+            >
+              <span className="italic font-normal text-[#FF85A1] mr-3">Biswas</span>
+              <span className="text-outline hidden sm:inline select-none opacity-40">✦</span>
+            </motion.h1>
+          </div>
+
+          {/* Subtext and Manifesto */}
+          <motion.div
+            initial={{ opacity: 0, y: 24 }}
+            animate={{ opacity: 1, y: 0 }}
+            transition={{ duration: 0.9, delay: 0.6, ease: [0.22, 1, 0.36, 1] }}
+            className="mt-8 sm:mt-10 max-w-2xl"
+          >
+            <p className="font-sans text-base sm:text-xl text-[#EDE8DF] font-normal leading-relaxed">
+              <strong className="font-semibold text-white">AI Engineer & Full Stack Developer</strong>{" "}
+              — <span className="text-[#8A847A] italic">A Learner with Code and Coffee.</span>
+            </p>
+            <p className="font-sans text-sm sm:text-base text-[#8A847A] mt-3 leading-relaxed">
+              Designing at the intersection of machine perception and editorial craftsmanship. 
+              Engineering autonomous systems, edge models, and fluid digital experiences.
+            </p>
+
+            {/* CTAs with Magnetic Feel */}
+            <div className="flex flex-wrap items-center gap-4 sm:gap-6 mt-8 sm:mt-10">
+              <motion.a
+                href="#projects"
+                whileHover={{ scale: 1.03 }}
+                whileTap={{ scale: 0.98 }}
+                className="group relative inline-flex items-center gap-3 px-7 py-3.5 rounded-full bg-[#FF85A1] text-[#0B0A09] font-mono text-xs uppercase tracking-widest font-bold overflow-hidden shadow-[0_0_30px_rgba(255,133,161,0.25)] transition-all hover:bg-[#FF9DB5]"
+              >
+                <span>Explore Selected Work</span>
+                <ArrowDownRight size={16} className="group-hover:translate-x-0.5 group-hover:translate-y-0.5 transition-transform" />
+              </motion.a>
+
+              <motion.a
+                href="#contact"
+                whileHover={{ scale: 1.03 }}
+                whileTap={{ scale: 0.98 }}
+                className="inline-flex items-center gap-2 px-7 py-3.5 rounded-full border border-[rgba(237,232,223,0.15)] hover:border-[#FF85A1] text-xs font-mono uppercase tracking-widest text-[#EDE8DF] hover:text-[#FF85A1] transition-all bg-white/[0.02] backdrop-blur-md"
+              >
+                <span>Initiate Contact</span>
+                <span className="w-1.5 h-1.5 rounded-full bg-[#FF85A1]" />
+              </motion.a>
+            </div>
+          </motion.div>
+        </motion.div>
+
+        {/* Right 4 Columns: Flip Card */}
+        <div className="lg:col-span-4 relative flex justify-center lg:justify-end mt-8 lg:mt-0">
+          {/* Circular Rotating Badge */}
+          <motion.div
+            className="absolute -top-10 -left-6 sm:-top-8 sm:-left-8 z-30 w-32 h-32 sm:w-36 sm:h-36 pointer-events-none"
+            animate={{ rotate: 360 }}
+            transition={{ duration: 18, repeat: Infinity, ease: "linear" }}
+          >
+            <svg viewBox="0 0 100 100" className="w-full h-full fill-[#FF85A1]">
+              <path
+                id="textPathHero"
+                d="M 50, 50 m -37, 0 a 37,37 0 1,1 74,0 a 37,37 0 1,1 -74,0"
+                fill="none"
+              />
+              <text className="text-[8.5px] font-mono uppercase tracking-[0.24em] fill-[#EDE8DF]">
+                <textPath href="#textPathHero">
+                  AVAILABLE FOR OPPORTUNITIES • AVAILABLE FOR OPPORTUNITIES •
+                </textPath>
+              </text>
+            </svg>
+            <div className="absolute inset-0 m-auto w-10 h-10 rounded-full bg-[#FF85A1]/10 border border-[#FF85A1]/40 flex items-center justify-center">
+              <Sparkles size={14} className="text-[#FF85A1]" />
+            </div>
+          </motion.div>
+
+          {/* 3-D Flip Card — click to flip, no scroll tilt */}
+          <div
+            className="relative w-72 sm:w-80 md:w-96 cursor-pointer"
+            style={{ aspectRatio: "3/4", perspective: "1200px" }}
+            onClick={() => setFlipped((f) => !f)}
+            title={flipped ? "Click to see photo" : "Click to learn more"}
+          >
+            {/* Flip hint badge */}
+            <motion.div
+              className="absolute -bottom-3 left-1/2 -translate-x-1/2 z-40 flex items-center gap-1.5 px-3 py-1 rounded-full bg-[#FF85A1]/15 border border-[#FF85A1]/30 backdrop-blur-md text-[10px] font-mono text-[#FF85A1] uppercase tracking-widest select-none"
+              animate={{ opacity: [0.6, 1, 0.6] }}
+              transition={{ duration: 2.4, repeat: Infinity, ease: "easeInOut" }}
+            >
+              <RefreshCw size={10} />
+              <span>{flipped ? "See photo" : "Flip card"}</span>
+            </motion.div>
+
+            {/* Inner flipper */}
+            <motion.div
+              className="relative w-full h-full"
+              style={{ transformStyle: "preserve-3d" }}
+              animate={{ rotateY: flipped ? 180 : 0 }}
+              transition={{ duration: 0.75, ease: [0.4, 0, 0.2, 1] }}
+            >
+              {/* ── FRONT: Photo ─────────────────────────────────────── */}
+              <div
+                className="absolute inset-0 rounded-t-[140px] rounded-b-[40px] overflow-hidden border border-[rgba(237,232,223,0.12)] p-2 bg-[#141311]/90 shadow-[0_25px_60px_-15px_rgba(0,0,0,0.8)]"
+                style={{ backfaceVisibility: "hidden" }}
+              >
+                <div className="relative w-full h-full rounded-t-[132px] rounded-b-[32px] overflow-hidden bg-gradient-to-b from-[#1C1B18] to-[#0B0A09]">
+                  <MorphGallery
+                    items={HERO_PHOTOS}
+                    height="100%"
+                    autoplay={3800}
+                    duration={1400}
+                    arrows={true}
+                    thumbnails={false}
+                    loop={true}
+                    className="w-full h-full"
+                  />
+                  <div className="absolute inset-0 bg-gradient-to-t from-[#0B0A09]/70 via-transparent to-transparent pointer-events-none z-10" />
+                  <div className="absolute bottom-4 left-4 right-4 flex justify-between items-center text-[10px] font-mono text-[#8A847A] uppercase tracking-widest px-2 py-1 bg-[#0B0A09]/75 backdrop-blur-md rounded-full border border-white/5 pointer-events-none z-20">
+                    <span>PORTRAIT • 2026</span>
+                    <span className="text-[#FF85A1]">TB.AI</span>
+                  </div>
+                </div>
+              </div>
+
+              {/* ── BACK: Cartoon + minimal info ────────────────────── */}
+              <div
+                className="absolute inset-0 rounded-t-[140px] rounded-b-[40px] border border-[rgba(255,133,161,0.18)] bg-gradient-to-b from-[#1A1318] via-[#120E14] to-[#0B0A09] shadow-[0_25px_60px_-15px_rgba(0,0,0,0.8)] flex flex-col overflow-hidden"
+                style={{ backfaceVisibility: "hidden", transform: "rotateY(180deg)" }}
+              >
+                {/* Cartoon image — fills top ~65% */}
+                <div className="relative flex-1 min-h-0">
+                  <Image
+                    src="/cartoonimg.png"
+                    alt="Tania Biswas — Cartoon"
+                    fill
+                    className="object-contain object-bottom"
+                  />
+                </div>
+
+                {/* Bottom strip: role + social icons */}
+                <div className="flex flex-col items-center gap-3 px-6 pb-6 pt-3">
+                  <p className="text-[11px] font-mono text-[#8A847A] uppercase tracking-widest text-center">
+                    {portfolioData.personal.role}
+                  </p>
+
+                  <div className="flex items-center justify-center gap-4">
+                    <a
+                      href={portfolioData.personal.github}
+                      target="_blank"
+                      rel="noopener noreferrer"
+                      onClick={(e) => e.stopPropagation()}
+                      className="w-9 h-9 rounded-full border border-[rgba(237,232,223,0.12)] flex items-center justify-center text-[#8A847A] hover:text-[#FF85A1] hover:border-[#FF85A1]/40 transition-all bg-white/[0.02]"
+                    >
+                      <Github size={15} />
+                    </a>
+                    <a
+                      href={portfolioData.personal.linkedin}
+                      target="_blank"
+                      rel="noopener noreferrer"
+                      onClick={(e) => e.stopPropagation()}
+                      className="w-9 h-9 rounded-full border border-[rgba(237,232,223,0.12)] flex items-center justify-center text-[#8A847A] hover:text-[#FF85A1] hover:border-[#FF85A1]/40 transition-all bg-white/[0.02]"
+                    >
+                      <Linkedin size={15} />
+                    </a>
+                    <a
+                      href={`mailto:${portfolioData.personal.email}`}
+                      onClick={(e) => e.stopPropagation()}
+                      className="w-9 h-9 rounded-full border border-[rgba(237,232,223,0.12)] flex items-center justify-center text-[#8A847A] hover:text-[#FF85A1] hover:border-[#FF85A1]/40 transition-all bg-white/[0.02]"
+                    >
+                      <Mail size={15} />
+                    </a>
+                  </div>
+                </div>
+              </div>
+            </motion.div>
+          </div>
+        </div>
       </div>
 
-      {/* ═══ MOBILE LAYOUT (< md) ═══ */}
-      <div className="flex md:hidden flex-col items-center justify-center text-center relative z-10 pt-24 pb-8 px-4 min-h-screen">
-        {/* Profile Card - Mobile */}
-        <div className="relative flex-shrink-0 mb-4 transform scale-80 sm:scale-100 -mt-20 sm:-mt-16">
-          <ProfileCard
-            name="A Learner"
-            title="with Code and Coffee"
-            handle="Taniabiswas3006"
-            status="Open to Work"
-            avatarUrl="/profile.png"
-            showUserInfo={false}
-            enableTilt={true}
-            enableMobileTilt={true}
-            behindGlowEnabled={false}
-            behindGlowColor="rgba(255, 133, 161, 0.4)"
-          />
+      {/* Bottom Editorial Hairline & Scroll Indicator */}
+      <motion.div
+        initial={{ opacity: 0 }}
+        animate={{ opacity: 1 }}
+        transition={{ delay: 0.9, duration: 0.8 }}
+        className="pt-10 flex flex-col sm:flex-row justify-between items-start sm:items-center gap-4 text-xs font-mono text-[#8A847A] uppercase tracking-widestEditorial hairline-t"
+      >
+        <div className="flex items-center gap-6">
+          <span>PAROT.DEV</span>
+          <span className="text-[#FF85A1]">✦</span>
+          <span>JISCE CSE &apos;27</span>
+          <span className="text-[#FF85A1]">✦</span>
+          <span>TINYML AUTHOR</span>
         </div>
 
-        {/* Name Text - Mobile (added gap) */}
-        <div className="w-full max-w-[240px] sm:max-w-[420px] mt-2 sm:mt-6">
-          <div className="w-full">
-            <PathAnimation text="TANIA" />
-          </div>
-          <div className="w-full -mt-2 sm:-mt-3">
-            <PathAnimation text="BISWAS" />
-          </div>
-        </div>
-
-        {/* Open to Work Badge - Mobile */}
-        <div className="mt-2">
-          <OpenToWorkBadge />
-        </div>
-
-        {/* Typing Text - Mobile */}
-        <div className="mt-4 font-medium text-[clamp(12px,4vw,16px)] tracking-wide text-center px-4" style={{ color: "#FF85A1", fontFamily: "var(--font-fira-code)" }}>
-          <TextType
-            texts={["CS UNDERGRAD | AI/ML Enthusiast | JISCE"]}
-            typingSpeed={75}
-            pauseDuration={1500}
-            showCursor
-            cursorCharacter="_"
-            deletingSpeed={50}
-            variableSpeedEnabled
-            variableSpeedMin={60}
-            variableSpeedMax={120}
-            cursorBlinkDuration={0.8}
-          />
-        </div>
-      </div>
-
-      {/* ═══ MOBILE BOTTOM ELEMENTS (Tagline & Arrow) ═══ */}
-      <div className="flex md:hidden absolute bottom-6 left-1/2 -translate-x-1/2 w-full px-6 z-20 pointer-events-auto flex-col items-center gap-2">
         <a
           href="#about"
-          className="transition-colors duration-300 pointer-events-auto"
-          aria-label="Scroll down"
+          className="group flex items-center gap-3 text-[#8A847A] hover:text-[#EDE8DF] transition-colors"
         >
-          <ChevronDown className="w-5 h-5 text-gray-500 hover:text-white transition-colors duration-300 animate-bounce" />
+          <span>Scroll to Read Editorial</span>
+          <span className="w-6 h-6 rounded-full border border-[rgba(237,232,223,0.15)] group-hover:border-[#FF85A1] flex items-center justify-center text-[#FF85A1] group-hover:translate-y-1 transition-all">
+            ↓
+          </span>
         </a>
-      </div>
-
-      {/* ═══ DESKTOP LAYOUT (>= md) ═══ */}
-      <div className="hidden md:flex absolute inset-0 pt-36 items-center justify-center z-10 pointer-events-none overflow-hidden">
-        <div className="flex flex-row items-center justify-center gap-8 lg:gap-14 xl:gap-20 w-full max-w-[1400px] mx-auto px-8 translate-x-12">
-
-          {/* Left Side: Profile Card */}
-          <div className="pointer-events-auto shrink-0">
-            <ProfileCard
-              name="A Learner"
-              title="With Code and Coffee"
-              handle="Taniabiswas3006"
-              status="Open to Work"
-              avatarUrl="/profile.png"
-              showUserInfo={false}
-              enableTilt={true}
-              behindGlowEnabled={false}
-              behindGlowColor="rgba(255, 133, 161, 0.4)"
-              onContactClick={() => {
-                const contactSection = document.getElementById('contact');
-                if (contactSection) contactSection.scrollIntoView({ behavior: 'smooth' });
-              }}
-            />
-          </div>
-
-          {/* Right Side: Name Text */}
-          <div className="flex flex-col items-center justify-center text-center pointer-events-auto flex-1 translate-x-16 translate-y-6 max-w-full">
-            <div className="w-full max-w-[700px] lg:max-w-[800px] xl:max-w-[900px]">
-              <PathAnimation text="TANIA" />
-            </div>
-            <div className="w-full max-w-[700px] lg:max-w-[800px] xl:max-w-[900px] -mt-6 lg:-mt-8">
-              <PathAnimation text="BISWAS" />
-            </div>
-
-            {/* Open to Work Badge - Desktop */}
-            <div className="mt-4">
-              <OpenToWorkBadge />
-            </div>
-
-            <div className="mt-8 font-medium text-[clamp(18px,2vw,24px)] tracking-wide text-center px-4" style={{ color: "#FF85A1", fontFamily: "var(--font-fira-code)" }}>
-              <TextType
-                texts={["CS UNDERGRAD | AI/ML Enthusiast | JISCE"]}
-                typingSpeed={75}
-                pauseDuration={1500}
-                showCursor
-                cursorCharacter="_"
-                deletingSpeed={50}
-                variableSpeedEnabled
-                variableSpeedMin={60}
-                variableSpeedMax={120}
-                cursorBlinkDuration={0.8}
-              />
-            </div>
-          </div>
-
-        </div>
-      </div>
-
-      {/* Scroll Indicator - Desktop */}
-
+      </motion.div>
     </section>
   );
 }

@@ -1,41 +1,24 @@
 "use client";
 
-import PillNav from './PillNav';
+import React from "react";
 import { motion } from "framer-motion";
+import { PillBase } from "@/components/ui/3d-adaptive-navigation-bar";
 
+/**
+ * Navbar — only the floating bottom pill nav.
+ * The old top nav has been removed; the pill handles all navigation.
+ */
 export default function Navbar() {
-  const logoComponent = (
-    <motion.div
-      initial={{ opacity: 0, x: -20 }}
-      animate={{ opacity: 1, x: 0 }}
-      className="text-2xl font-bold font-poppins bg-clip-text text-transparent bg-gradient-to-r from-[#FF85A1] to-[#FFC1D1] px-2 md:px-0"
-    >
-      TB.
-    </motion.div>
-  );
-
   return (
-    <PillNav
-      logo={logoComponent}
-      logoAlt="Logo"
-      items={[
-        { label: 'About', href: '#about' },
-        { label: 'Skills', href: '#skills' },
-        { label: 'Projects', href: '#projects' },
-        { label: 'Hackathons', href: '#hackathons' },
-        { label: 'Certifications', href: '#certifications' },
-        { label: 'Resume', href: '/resume' },
-        { label: 'Contact', href: '#contact' }
-      ]}
-      activeHref="#about"
-      className="custom-nav"
-      ease="power2.easeOut"
-      baseColor="#9ca3af" // Gray text for non-active/hovered items
-      pillColor="#FF85A1" // Pink background pill
-      hoveredPillTextColor="#ffffff" // White text when pill is hovered/active
-      pillTextColor="#000000"
-      theme="dark"
-      initialLoadAnimation={false}
-    />
+    <div className="fixed bottom-6 left-0 right-0 z-[800] flex justify-center pointer-events-none">
+      <motion.div
+        initial={{ y: 30, opacity: 0 }}
+        animate={{ y: 0, opacity: 1 }}
+        transition={{ duration: 0.9, delay: 1.2, ease: [0.22, 1, 0.36, 1] }}
+        className="pointer-events-auto"
+      >
+        <PillBase />
+      </motion.div>
+    </div>
   );
 }

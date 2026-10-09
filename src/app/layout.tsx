@@ -1,32 +1,42 @@
-import type { Metadata } from "next";
-import { Poppins, Inter, Fira_Code, Antic } from "next/font/google";
+import type { Metadata, Viewport } from "next";
 import "./globals.css";
 
-const poppins = Poppins({
-  subsets: ["latin"],
-  weight: ["400", "500", "600", "700"],
-  variable: "--font-poppins",
-});
-
-const inter = Inter({
-  subsets: ["latin"],
-  variable: "--font-inter",
-});
-
-const firaCode = Fira_Code({
-  subsets: ["latin"],
-  variable: "--font-fira-code",
-});
-
-const antic = Antic({
-  subsets: ["latin"],
-  weight: ["400"],
-  variable: "--font-antic",
-});
-
 export const metadata: Metadata = {
-  title: "Tania Biswas | Portfolio",
-  description: "Computer Science Undergraduate | Machine Learning Enthusiast",
+  title: "Tania Biswas — AI Engineer & Full Stack Developer",
+  description:
+    "Personal editorial portfolio of Tania Biswas. AI Engineer & Full Stack Developer specializing in predictive models, OCR inference, edge computing, and ultra-fluid web architectures.",
+  keywords: [
+    "Tania Biswas",
+    "AI Engineer",
+    "Machine Learning",
+    "Full Stack Developer",
+    "Next.js",
+    "React",
+    "TinyML",
+    "Scrivener Publishing",
+    "Parot.Dev",
+    "Portfolio",
+  ],
+  authors: [{ name: "Tania Biswas", url: "https://github.com/Taniabiswas3006" }],
+  creator: "Tania Biswas",
+  openGraph: {
+    title: "Tania Biswas — AI Engineer & Full Stack Developer",
+    description:
+      "A Learner with Code and Coffee. Quiet luxury editorial portfolio showcasing AI models, OCR pipelines, and award-grade web apps.",
+    url: "https://tania-biswas.vercel.app",
+    siteName: "Tania Biswas Portfolio",
+    locale: "en_US",
+    type: "website",
+  },
+  icons: {
+    icon: "/favicon.ico",
+  },
+};
+
+export const viewport: Viewport = {
+  themeColor: "#0B0A09",
+  width: "device-width",
+  initialScale: 1,
 };
 
 export default function RootLayout({
@@ -35,10 +45,10 @@ export default function RootLayout({
   children: React.ReactNode;
 }>) {
   return (
-    <html lang="en" className="scroll-smooth">
-      <body
-        className={`${poppins.variable} ${inter.variable} ${firaCode.variable} ${antic.variable} antialiased bg-bg-light text-text-dark selection:bg-primary/30 font-inter overflow-x-hidden`}
-      >
+    <html lang="en" suppressHydrationWarning>
+      <body className="bg-[#0B0A09] text-[#EDE8DF] antialiased selection:bg-[#FF85A1] selection:text-[#0B0A09] font-sans">
+        {/* Subtle Film Grain Noise Texture */}
+        <div className="film-grain" aria-hidden="true" />
         {children}
       </body>
     </html>
