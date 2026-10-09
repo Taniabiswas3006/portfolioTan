@@ -6,6 +6,7 @@ import { Trophy, Award, Zap, Star, ArrowUpRight, ExternalLink, CalendarDays, Fol
 import { portfolioData } from "@/data";
 import { AnimatedTabs } from "@/components/ui/animated-tabs";
 import type { Tab } from "@/components/ui/animated-tabs";
+import { cn } from "@/lib/utils";
 
 const hackathonIcons: Record<string, React.ReactNode> = {
   "01": <Trophy size={20} className="text-[#FF85A1]" />,
@@ -14,28 +15,36 @@ const hackathonIcons: Record<string, React.ReactNode> = {
   "04": <Zap size={20} className="text-[#FF85A1]" />,
 };
 
-// Curated Unsplash tech/hackathon images per entry
+// Local hackathon images mapped to each respective event
 const hackathonImages: Record<string, string> = {
-  "01": "https://images.unsplash.com/photo-1504384308090-c894fdcc538d?w=800&q=80",
-  "02": "https://images.unsplash.com/photo-1531482615713-2afd69097998?w=800&q=80",
-  "03": "https://images.unsplash.com/photo-1518770660439-4636190af475?w=800&q=80",
-  "04": "https://images.unsplash.com/photo-1488590528505-98d2b5aba04b?w=800&q=80",
+  "01": "/hack4bengal.jpg",
+  "02": "/statuscode2.jpg",
+  "03": "/hackodisha3_cover.jpg",
+  "04": "/sih.png",
 };
 
 function HackathonTabContent({ hack }: { hack: (typeof portfolioData.hackathons)[0] }) {
+  const imgSrc = hack.image || hackathonImages[hack.num];
+  const isLogo = hack.num === "04";
+
   return (
     <div className="grid grid-cols-1 sm:grid-cols-2 gap-6 w-full h-full">
       {/* Image */}
-      <div className="relative rounded-xl overflow-hidden h-64 sm:h-full min-h-[260px]">
+      <div className="relative rounded-xl overflow-hidden h-64 sm:h-full min-h-[260px] bg-[#12110F] flex items-center justify-center border border-white/5">
         {/* eslint-disable-next-line @next/next/no-img-element */}
         <img
-          src={hackathonImages[hack.num]}
+          src={imgSrc}
           alt={hack.name}
-          className="w-full h-full object-cover"
+          className={cn(
+            "w-full h-full transition-transform duration-500",
+            isLogo
+              ? "object-contain p-8 max-h-[280px] drop-shadow-[0_0_30px_rgba(255,133,161,0.18)]"
+              : "object-cover object-center"
+          )}
         />
-        <div className="absolute inset-0 bg-gradient-to-t from-[#0B0A09]/80 via-transparent to-transparent" />
+        <div className="absolute inset-0 bg-gradient-to-t from-[#0B0A09]/80 via-transparent to-transparent pointer-events-none" />
         {/* Year badge */}
-        <div className="absolute bottom-3 left-3 flex items-center gap-1.5 px-2.5 py-1 rounded-full bg-[#0B0A09]/70 backdrop-blur-sm border border-white/10 text-[10px] font-mono text-[#FF85A1] uppercase tracking-widest">
+        <div className="absolute bottom-3 left-3 flex items-center gap-1.5 px-2.5 py-1 rounded-full bg-[#0B0A09]/70 backdrop-blur-sm border border-white/10 text-[10px] font-mono text-[#FF85A1] uppercase tracking-widest z-10">
           <CalendarDays size={10} />
           {hack.year}
         </div>

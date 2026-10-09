@@ -48,6 +48,7 @@ export interface HackathonItem {
   tech?: string[];
   year: string;
   url?: string;
+  image?: string;
 }
 
 export interface CertificationItem {
@@ -381,6 +382,7 @@ export const portfolioData = {
       tech: ["PyTorch", "Sentence Transformers", "FastAPI", "Python", "Hugging Face"],
       year: "2024",
       url: "https://drive.google.com/file/d/14BnTOEgxNkIcMH0m-RqLgor1_V6-2HP3/view?usp=drive_link",
+      image: "/hack4bengal.jpg",
     },
     {
       num: "02",
@@ -394,6 +396,7 @@ export const portfolioData = {
       tech: ["Python", "Machine Learning", "FastAPI", "Docker", "Network Security"],
       year: "2024",
       url: "https://drive.google.com/file/d/1R6Zo_mYEroEvNg6v5e_UGOzlBmznD6nj/view?usp=drive_link",
+      image: "/statuscode2.jpg",
     },
     {
       num: "03",
@@ -407,6 +410,7 @@ export const portfolioData = {
       tech: ["LangChain", "Python", "Next.js", "TypeScript", "AI Agents"],
       year: "2025",
       url: "https://drive.google.com/file/d/1S45LnJP0-5Hd2TV2gzm0XeTIiWX_lk59/view?usp=drive_link",
+      image: "/hackodisha3_cover.jpg",
     },
     {
       num: "04",
@@ -420,6 +424,7 @@ export const portfolioData = {
       tech: ["Next.js", "Node.js", "PostgreSQL", "Google Maps API", "Tailwind CSS"],
       year: "2025",
       url: "https://drive.google.com/file/d/1P0SSN1tKJV9kuQrtZN0jU4oAHELX1dA0/view?usp=drive_link",
+      image: "/sih.png",
     },
   ] as HackathonItem[],
 

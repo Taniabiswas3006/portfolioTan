@@ -1,6 +1,6 @@
 "use client"
 
-import { useEffect, useRef, useState } from "react"
+import { useEffect, useRef } from "react"
 
 // ─────────────────────────────────────────────────────────────
 // THE CITY OPENS — locked scroll-scrub video hero
@@ -59,7 +59,6 @@ export default function MetroHero({
   onProgress,
   onComplete,
   autoUnlockOnEnd = false,
-  autoplayVideo = true,
   children,
 }: MetroHeroProps) {
   const sectionRef = useRef<HTMLDivElement>(null)
@@ -68,7 +67,6 @@ export default function MetroHero({
   const hintRef = useRef<HTMLDivElement>(null)
   const taglineRef = useRef<HTMLDivElement>(null)
   const progressBarRef = useRef<HTMLDivElement>(null)
-  const [ready, setReady] = useState(false)
 
   // Keep callback refs fresh
   const onProgressRef = useRef(onProgress)
@@ -101,7 +99,6 @@ export default function MetroHero({
     // loadeddata alone is unreliable when the browser serves from disk cache.
     const onVideoReady = () => {
       duration = video.duration || 0
-      setReady(true)
       if (reduceMotion) {
         video.currentTime = duration * 0.92
       }
@@ -113,8 +110,6 @@ export default function MetroHero({
     video.addEventListener("loadeddata", onVideoReady)
     video.addEventListener("canplay", onVideoReady)
     video.addEventListener("canplaythrough", onVideoReady)
-    // Absolute fallback: show video after 600ms regardless
-    const readyFallback = setTimeout(() => setReady(true), 600)
 
     // iOS Safari often won't buffer any video data — even with
     // preload="auto" — until playback actually starts, to save mobile
@@ -275,7 +270,6 @@ export default function MetroHero({
     }
 
     return () => {
-      clearTimeout(readyFallback)
       video.removeEventListener("loadeddata", onVideoReady)
       video.removeEventListener("canplay", onVideoReady)
       video.removeEventListener("canplaythrough", onVideoReady)
