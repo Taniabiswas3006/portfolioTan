@@ -223,7 +223,7 @@ export const portfolioData = {
     {
       id: "nestate",
       num: "02",
-      title: "Nestate",
+      title: "Ne",
       italicTitle: "State",
       subtitle: "Intelligent Real Estate Automation",
       category: "Full Stack & OCR",
@@ -245,7 +245,7 @@ export const portfolioData = {
     {
       id: "ahaarsetu",
       num: "03",
-      title: "Ahaarsetu",
+      title: "Ahaar",
       italicTitle: "Setu",
       subtitle: "Smart India Hackathon 2025 Finalist Platform",
       category: "Deep Tech & Agritech",

@@ -89,14 +89,14 @@ export default function MetroHero({
     let currentProgress = 0
     let hasStartedScrolling = false
     let isSeeking = false
-    let pendingTime: number | null = null
     let locked = false
     let lockedScrollY = 0
     let touchStartY = 0
     let completedTriggered = false
+    let velocity = 0
+    let lastTime = typeof performance !== "undefined" ? performance.now() : Date.now()
 
     // Use multiple events so cached-reload hits are covered.
-    // loadeddata alone is unreliable when the browser serves from disk cache.
     const onVideoReady = () => {
       duration = video.duration || 0
       if (reduceMotion) {
@@ -111,11 +111,7 @@ export default function MetroHero({
     video.addEventListener("canplay", onVideoReady)
     video.addEventListener("canplaythrough", onVideoReady)
 
-    // iOS Safari often won't buffer any video data — even with
-    // preload="auto" — until playback actually starts, to save mobile
-    // data. Since we only ever seek (never call play() elsewhere), the
-    // video can stay permanently blank on iPhone. Force a silent
-    // play-then-immediately-pause on mount to kick off real loading.
+    // iOS Safari often won't buffer any video data until playback starts
     const kickstartLoad = () => {
       const p = video.play()
       if (p && typeof p.then === "function") {
@@ -128,28 +124,9 @@ export default function MetroHero({
 
     const onSeeked = () => {
       isSeeking = false
-      if (pendingTime !== null) {
-        const t = pendingTime
-        pendingTime = null
-        isSeeking = true
-        if (video) video.currentTime = t
-      }
     }
     video.addEventListener("seeked", onSeeked)
 
-    function seekTo(t: number) {
-      if (!video) return
-      if (isSeeking) {
-        pendingTime = t
-        return
-      }
-      isSeeking = true
-      video.currentTime = t
-    }
-
-    // Locked for the entire lifetime of this component — there is no
-    // release valve in either direction. Scroll input only ever moves
-    // the video back and forth; the page itself never moves.
     function engageLock() {
       if (locked || typeof document === "undefined") return
       locked = true
@@ -181,33 +158,30 @@ export default function MetroHero({
 
     engageLock()
 
+    // Liquid momentum scroll accumulator
     function addDelta(deltaY: number) {
-      const next = clamp(targetProgress + deltaY / scrubDistance, 0, 1)
-      targetProgress = next
-      if (targetProgress > 0.001) hasStartedScrolling = true
-
-      // If user reaches 100% and pushes forward
-      if (autoUnlockOnEnd && targetProgress >= 0.999 && deltaY > 0) {
-        if (!completedTriggered) {
-          completedTriggered = true
-          releaseLock()
-          onCompleteRef.current?.()
-        }
-      }
+      hasStartedScrolling = true
+      // Smoothly accumulate velocity scaled to scrubDistance
+      const deltaProgress = deltaY / scrubDistance
+      velocity += deltaProgress
       return true
     }
 
     const onWheel = (e: WheelEvent) => {
-      addDelta(e.deltaY)
+      let dy = e.deltaY
+      if (e.deltaMode === 1) dy *= 25 // Line mode
+      else if (e.deltaMode === 2) dy *= 450 // Page mode
+      addDelta(dy)
       e.preventDefault()
     }
 
     const onTouchStart = (e: TouchEvent) => {
       touchStartY = e.touches[0]?.clientY ?? 0
+      velocity = 0
     }
     const onTouchMove = (e: TouchEvent) => {
       const y = e.touches[0]?.clientY ?? touchStartY
-      const deltaY = touchStartY - y
+      const deltaY = (touchStartY - y) * 1.3
       touchStartY = y
       addDelta(deltaY)
       e.preventDefault()
@@ -216,25 +190,65 @@ export default function MetroHero({
     window.addEventListener("wheel", onWheel, { passive: false })
     window.addEventListener("touchstart", onTouchStart, { passive: true })
     window.addEventListener("touchmove", onTouchMove, { passive: false })
-    // Also bind directly on the element itself, with capture — on some
-    // iOS versions a window-level listener alone can lose the race
-    // against the browser's own native scroll handling.
     section.addEventListener("touchstart", onTouchStart, { passive: true, capture: true })
     section.addEventListener("touchmove", onTouchMove, { passive: false, capture: true })
 
-    function frame() {
-      currentProgress += (targetProgress - currentProgress) * 0.18
+    // Ultra-smooth 60/120fps physics & video synchronization frame loop
+    function frame(now: number) {
+      const dt = Math.min(Math.max((now - lastTime) / 1000, 0.001), 0.05)
+      lastTime = now
 
+      // 1. Fluid momentum physics with exponential friction decay
+      targetProgress = clamp(targetProgress + velocity, 0, 1)
+      velocity *= Math.pow(0.12, dt * 7)
+      if (Math.abs(velocity) < 0.00002) velocity = 0
+
+      // 2. Critically damped spring lerp for currentProgress
+      const lerpSpeed = 1 - Math.exp(-14 * dt)
+      currentProgress += (targetProgress - currentProgress) * lerpSpeed
+
+      // Fire callback for external indicators
       if (onProgressRef.current) {
         onProgressRef.current(currentProgress)
       }
 
-      if (duration > 0) {
-        seekTo(currentProgress * duration)
+      // 3. ULTRA-SMOOTH VIDEO TRACKING ENGINE
+      // Uses hardware playback acceleration forward and throttled seek backward
+      if (duration > 0 && video) {
+        const targetVideoTime = currentProgress * duration
+        const currentVideoTime = video.currentTime
+        const timeDiff = targetVideoTime - currentVideoTime
+
+        if (timeDiff > 0.02 && timeDiff < 1.6) {
+          // Forward scrub: adjust playbackRate smoothly to track target time
+          // GPU hardware decoder streams continuous frames at 60fps without keyframe stalls!
+          const targetRate = clamp(timeDiff * 5.0, 0.5, 4.0)
+          video.playbackRate = targetRate
+          if (video.paused) {
+            video.play().catch(() => {})
+          }
+        } else if (timeDiff <= 0.015 && timeDiff >= -0.03) {
+          // Cleanly locked onto target frame: pause video
+          if (!video.paused) {
+            video.pause()
+          }
+        } else {
+          // Backward scrub or significant seek gap
+          if (!video.paused) {
+            video.pause()
+          }
+          if (!isSeeking && Math.abs(timeDiff) > 0.035) {
+            isSeeking = true
+            if ("fastSeek" in video && typeof (video as any).fastSeek === "function") {
+              ;(video as any).fastSeek(targetVideoTime)
+            } else {
+              video.currentTime = targetVideoTime
+            }
+          }
+        }
       }
 
-      // Video stays at native resolution — no scale upsampling
-      // (scaling causes browser pixel interpolation → blurry look)
+      // 4. Overlays & UI transformations
       if (titleRef.current) {
         const t = 1 - clamp(currentProgress / 0.35, 0, 1)
         titleRef.current.style.opacity = String(t)
@@ -245,8 +259,6 @@ export default function MetroHero({
         hintRef.current.style.opacity = hasStartedScrolling ? "0" : "1"
       }
       if (taglineRef.current) {
-        // Mirrors the title's blur-focus treatment, timed as the payoff
-        // once the reveal is nearly complete — not a background afterthought.
         const t = clamp((currentProgress - 0.82) / 0.18, 0, 1)
         taglineRef.current.style.opacity = String(t)
         taglineRef.current.style.transform = `translateY(${(1 - t) * 20}px) scale(${0.97 + t * 0.03})`
@@ -256,6 +268,7 @@ export default function MetroHero({
         progressBarRef.current.style.transform = `scaleX(${currentProgress})`
       }
 
+      // 5. Auto unlock on completion
       if (autoUnlockOnEnd && currentProgress >= 0.995 && !completedTriggered) {
         completedTriggered = true
         releaseLock()
