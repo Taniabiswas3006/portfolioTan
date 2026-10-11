@@ -13,26 +13,43 @@ interface Tab {
 interface AnimatedTabsProps {
   tabs?: Tab[];
   defaultTab?: string;
+  activeTab?: string;
+  onTabChange?: (id: string) => void;
   className?: string;
+  panelClassName?: string;
 }
 
 const AnimatedTabs = ({
   tabs = [],
   defaultTab,
+  activeTab: activeTabProp,
+  onTabChange,
   className,
+  panelClassName,
 }: AnimatedTabsProps) => {
-  const [activeTab, setActiveTab] = useState<string>(defaultTab || tabs[0]?.id);
+  const [internalActiveTab, setInternalActiveTab] = useState<string>(
+    defaultTab || tabs[0]?.id
+  );
+
+  const activeTab = activeTabProp !== undefined ? activeTabProp : internalActiveTab;
+
+  const handleTabChange = (id: string) => {
+    if (activeTabProp === undefined) {
+      setInternalActiveTab(id);
+    }
+    onTabChange?.(id);
+  };
 
   if (!tabs?.length) return null;
 
   return (
-    <div className={cn("w-full h-full flex flex-col gap-y-1", className)}>
-      {/* Tab strip */}
-      <div className="flex gap-2 flex-wrap bg-[#11111198] bg-opacity-50 backdrop-blur-sm p-1 rounded-xl">
+    <div className={cn("w-full h-full flex flex-col gap-y-3 min-h-0", className)}>
+      {/* Tab strip - fixed height */}
+      <div className="shrink-0 flex gap-2 flex-wrap bg-[#11111198] bg-opacity-50 backdrop-blur-sm p-1 rounded-xl">
         {tabs.map((tab) => (
           <button
             key={tab.id}
-            onClick={() => setActiveTab(tab.id)}
+            onClick={() => handleTabChange(tab.id)}
             className={cn(
               "relative px-4 py-2 text-sm font-mono font-medium rounded-lg text-white outline-none transition-colors uppercase tracking-widest"
             )}
@@ -56,18 +73,23 @@ const AnimatedTabs = ({
         ))}
       </div>
 
-      {/* Tab content panel — flex-1 fills remaining height */}
-      <div className="flex-1 p-6 bg-[#141311]/80 backdrop-blur-sm rounded-xl border border-[rgba(237,232,223,0.08)] min-h-[320px]">
+      {/* Tab content panel — uniform size, strictly fills remaining height without overflow */}
+      <div
+        className={cn(
+          "flex-1 min-h-0 w-full p-5 sm:p-6 bg-[#141311]/80 backdrop-blur-sm rounded-xl border border-[rgba(237,232,223,0.08)] overflow-hidden flex flex-col",
+          panelClassName
+        )}
+      >
         {tabs.map(
           (tab) =>
             activeTab === tab.id && (
               <motion.div
                 key={tab.id}
-                className="h-full"
-                initial={{ opacity: 0, scale: 0.97, x: -8, filter: "blur(6px)" }}
+                className="w-full h-full flex flex-col min-h-0 flex-1"
+                initial={{ opacity: 0, scale: 0.98, x: -6, filter: "blur(4px)" }}
                 animate={{ opacity: 1, scale: 1, x: 0, filter: "blur(0px)" }}
-                exit={{ opacity: 0, scale: 0.97, x: -8, filter: "blur(6px)" }}
-                transition={{ duration: 0.45, ease: [0.22, 1, 0.36, 1] }}
+                exit={{ opacity: 0, scale: 0.98, x: -6, filter: "blur(4px)" }}
+                transition={{ duration: 0.35, ease: [0.22, 1, 0.36, 1] }}
               >
                 {tab.content}
               </motion.div>

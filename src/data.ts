@@ -382,7 +382,7 @@ export const portfolioData = {
       tech: ["PyTorch", "Sentence Transformers", "FastAPI", "Python", "Hugging Face"],
       year: "2024",
       url: "https://drive.google.com/file/d/14BnTOEgxNkIcMH0m-RqLgor1_V6-2HP3/view?usp=drive_link",
-      image: "/hack4bengal.jpg",
+      image: "/hack4bengal.png",
     },
     {
       num: "02",
@@ -396,7 +396,7 @@ export const portfolioData = {
       tech: ["Python", "Machine Learning", "FastAPI", "Docker", "Network Security"],
       year: "2024",
       url: "https://drive.google.com/file/d/1R6Zo_mYEroEvNg6v5e_UGOzlBmznD6nj/view?usp=drive_link",
-      image: "/statuscode2.jpg",
+      image: "/statuscode.png",
     },
     {
       num: "03",
@@ -410,7 +410,7 @@ export const portfolioData = {
       tech: ["React", "Node.js", "Express", "MongoDB", "Tailwind CSS"],
       year: "2025",
       url: "https://drive.google.com/file/d/1S45LnJP0-5Hd2TV2gzm0XeTIiWX_lk59/view?usp=drive_link",
-      image: "/hackodisha3_cover.jpg",
+      image: "/hackodisha.png",
     },
     {
       num: "04",
