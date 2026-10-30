@@ -31,7 +31,7 @@ export default function Hero() {
     <section
       ref={containerRef}
       id="hero"
-      className="relative min-h-screen flex flex-col justify-between pt-28 pb-12 sm:pb-16 px-4 sm:px-8 md:px-12 lg:px-20 overflow-hidden border-b border-[rgba(237,232,223,0.06)]"
+      className="relative min-h-screen flex flex-col justify-between pt-20 sm:pt-24 pb-8 sm:pb-12 px-4 sm:px-8 md:px-12 lg:px-20 overflow-hidden"
     >
       {/* Corner crosshairs */}
       <div className="crosshair-corner crosshair-top-left absolute top-6 left-6 hidden sm:block" />
@@ -42,7 +42,7 @@ export default function Hero() {
         initial={{ opacity: 0, y: -10 }}
         animate={{ opacity: 1, y: 0 }}
         transition={{ duration: 0.8, delay: 0.2 }}
-        className="flex flex-col sm:flex-row justify-between items-start sm:items-center gap-4 text-xs font-mono text-[#8A847A] uppercase tracking-widestEditorial mb-8 sm:mb-12"
+        className="flex flex-col sm:flex-row justify-between items-start sm:items-center gap-4 text-xs font-mono text-[#8A847A] uppercase tracking-widestEditorial mb-4 sm:mb-6"
       >
         <div className="flex items-center gap-3">
           <span className="text-[#FF85A1] font-bold">(01)</span>
@@ -61,7 +61,7 @@ export default function Hero() {
       </motion.div>
 
       {/* Main Hero Grid: Asymmetric 12-Column Editorial */}
-      <div className="grid grid-cols-1 lg:grid-cols-12 gap-8 lg:gap-12 items-center my-auto">
+      <div className="grid grid-cols-1 lg:grid-cols-12 gap-8 lg:gap-12 items-center my-auto -mt-2 sm:-mt-4 lg:-mt-6">
         {/* Left 8 Columns: Massive Stacked Typographic Reveal */}
         <motion.div style={{ y: textY }} className="lg:col-span-8 flex flex-col z-10">
           {/* TANIA Line with Mask Reveal */}
@@ -76,17 +76,44 @@ export default function Hero() {
             </motion.h1>
           </div>
 
-          {/* BISWAS Line with Roman + Italic Mix & Mask Reveal */}
-          <div className="overflow-hidden leading-none mt-1 sm:mt-2">
-            <motion.h1
-              initial={{ y: "105%" }}
-              animate={{ y: 0 }}
-              transition={{ duration: 1.1, ease: [0.22, 1, 0.36, 1], delay: 0.25 }}
-              className="font-serif text-[clamp(4.2rem,13.5vw,13.8rem)] font-light tracking-tight leading-[0.88] text-[#EDE8DF]"
+          {/* BISWAS Line with Roman + Italic Mix & Mask Reveal + Designer Avatar Pop */}
+          <div className="overflow-visible leading-none mt-1 sm:mt-2 flex items-center gap-3 sm:gap-6">
+            <div className="overflow-hidden">
+              <motion.h1
+                initial={{ y: "105%" }}
+                animate={{ y: 0 }}
+                transition={{ duration: 1.1, ease: [0.22, 1, 0.36, 1], delay: 0.25 }}
+                className="font-serif text-[clamp(4.2rem,13.5vw,13.8rem)] font-light tracking-tight leading-[0.88] text-[#EDE8DF]"
+              >
+                <span className="italic font-normal text-[#FF85A1]">Biswas</span>
+              </motion.h1>
+            </div>
+
+            {/* Designer 3D Avatar Pop-In */}
+            <motion.div
+              initial={{ scale: 0, opacity: 0, rotate: -12 }}
+              animate={{ scale: 1, opacity: 1, rotate: 0 }}
+              transition={{
+                type: "spring",
+                stiffness: 260,
+                damping: 20,
+                delay: 0.55,
+              }}
+              whileHover={{ scale: 1.1, rotate: 4 }}
+              className="relative shrink-0 w-16 h-16 sm:w-20 sm:h-20 md:w-24 md:h-24 lg:w-28 lg:h-28 select-none"
             >
-              <span className="italic font-normal text-[#FF85A1] mr-3">Biswas</span>
-              <span className="text-outline hidden sm:inline select-none opacity-40">✦</span>
-            </motion.h1>
+              {/* Soft aesthetic ambient pink glow */}
+              <div className="absolute inset-1 rounded-full bg-[#FF85A1]/20 blur-xl pointer-events-none" />
+
+              <Image
+                src="/avatar.png"
+                alt="Tania Biswas Avatar"
+                width={140}
+                height={140}
+                className="w-full h-full object-contain relative z-10 drop-shadow-[0_12px_24px_rgba(0,0,0,0.6)]"
+                priority
+              />
+            </motion.div>
           </div>
 
           {/* Subtext and Manifesto */}
@@ -94,19 +121,19 @@ export default function Hero() {
             initial={{ opacity: 0, y: 24 }}
             animate={{ opacity: 1, y: 0 }}
             transition={{ duration: 0.9, delay: 0.6, ease: [0.22, 1, 0.36, 1] }}
-            className="mt-8 sm:mt-10 max-w-2xl"
+            className="mt-5 sm:mt-6 max-w-2xl"
           >
             <p className="font-sans text-base sm:text-xl text-[#EDE8DF] font-normal leading-relaxed">
               <strong className="font-semibold text-white">AI Engineer & Full Stack Developer</strong>{" "}
               — <span className="text-[#8A847A] italic">A Learner with Code and Coffee.</span>
             </p>
-            <p className="font-sans text-sm sm:text-base text-[#8A847A] mt-3 leading-relaxed">
+            <p className="font-sans text-sm sm:text-base text-[#8A847A] mt-2.5 leading-relaxed">
               Designing at the intersection of machine perception and editorial craftsmanship. 
               Engineering autonomous systems, edge models, and fluid digital experiences.
             </p>
 
             {/* CTAs with Magnetic Feel */}
-            <div className="flex flex-wrap items-center gap-4 sm:gap-6 mt-8 sm:mt-10">
+            <div className="flex flex-wrap items-center gap-4 sm:gap-6 mt-6 sm:mt-7">
               <motion.a
                 href="#projects"
                 whileHover={{ scale: 1.03 }}
@@ -258,12 +285,12 @@ export default function Hero() {
         </div>
       </div>
 
-      {/* Bottom Editorial Hairline & Scroll Indicator */}
+      {/* Bottom Editorial Scroll Indicator (hairline removed) */}
       <motion.div
         initial={{ opacity: 0 }}
         animate={{ opacity: 1 }}
         transition={{ delay: 0.9, duration: 0.8 }}
-        className="pt-10 flex flex-col sm:flex-row justify-between items-start sm:items-center gap-4 text-xs font-mono text-[#8A847A] uppercase tracking-widestEditorial hairline-t"
+        className="pt-6 sm:pt-8 flex flex-col sm:flex-row justify-between items-start sm:items-center gap-4 text-xs font-mono text-[#8A847A] uppercase tracking-widestEditorial"
       >
         <div className="flex items-center gap-6">
           <span>PAROT.DEV</span>

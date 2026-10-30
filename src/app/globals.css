@@ -25,22 +25,27 @@
   --color-muted-foreground: #8A847A;
 }
 
-.light-paper {
-  --background: #F4EFE8;
-  --foreground: #1A1917;
-  --muted: #6B655D;
-  --accent: #E05375;
-  --accent-rgb: 224, 83, 117;
-  --card-bg: #EDE7DE;
-  --card-subtle: #E2DBD0;
-  --hairline: rgba(26, 25, 23, 0.12);
-  --hairline-hover: rgba(224, 83, 117, 0.4);
+/* Light Theme Variables (Editorial Warm Paper & Rich Rose) */
+html.light-paper,
+body.light-paper,
+.light-paper,
+html.light,
+body.light {
+  --background: #F7F3EB;
+  --foreground: #181715;
+  --muted: #6E685F;
+  --accent: #D83A65;
+  --accent-rgb: 216, 58, 101;
+  --card-bg: #FFFFFF;
+  --card-subtle: #ECE6DB;
+  --hairline: rgba(24, 23, 21, 0.09);
+  --hairline-hover: rgba(216, 58, 101, 0.45);
 
   /* Component & shadcn color tokens */
-  --color-background: #EDE7DE;
-  --color-foreground: #1A1917;
-  --color-border: rgba(26, 25, 23, 0.15);
-  --color-muted-foreground: #6B655D;
+  --color-background: #FFFFFF;
+  --color-foreground: #181715;
+  --color-border: rgba(24, 23, 21, 0.1);
+  --color-muted-foreground: #6E685F;
 }
 
 * {
@@ -79,15 +84,22 @@ body {
   background-image: url("data:image/svg+xml,%3Csvg viewBox='0 0 200 200' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='noiseFilter'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.8' numOctaves='3' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23noiseFilter)'/%3E%3C/svg%3E");
 }
 
-.light-paper .film-grain {
+.light-paper .film-grain,
+html.light .film-grain {
   mix-blend-mode: multiply;
-  opacity: 0.04;
+  opacity: 0.03;
 }
 
-/* Selection Color in Blush Pink */
+/* Selection Color */
 ::selection {
   background-color: var(--accent);
   color: #0B0A09;
+}
+
+.light-paper ::selection,
+html.light ::selection {
+  background-color: var(--accent);
+  color: #FFFFFF;
 }
 
 /* Custom Minimal Scrollbar */
@@ -106,6 +118,11 @@ body {
 
 ::-webkit-scrollbar-thumb:hover {
   background: var(--accent);
+}
+
+.light-paper ::-webkit-scrollbar-thumb,
+html.light ::-webkit-scrollbar-thumb {
+  background: rgba(216, 58, 101, 0.35);
 }
 
 /* Lenis Recommended CSS */
@@ -135,8 +152,9 @@ html.lenis, html.lenis body {
   -webkit-text-stroke: 1px rgba(237, 232, 223, 0.22);
 }
 
-.light-paper .text-outline {
-  -webkit-text-stroke: 1px rgba(26, 25, 23, 0.25);
+.light-paper .text-outline,
+html.light .text-outline {
+  -webkit-text-stroke: 1px rgba(24, 23, 21, 0.22);
 }
 
 .text-outline-accent {
@@ -195,6 +213,161 @@ html.lenis, html.lenis body {
 
 .hairline-r {
   border-right: 1px solid var(--hairline);
+}
+
+/* ==========================================================================
+   EDITORIAL LIGHT THEME OVERRIDES (Full Cohesive Conversion)
+   ========================================================================== */
+
+.light-paper,
+html.light {
+  /* Background overrides */
+  & .bg-\[\#0B0A09\],
+  & [class*="bg-[#0B0A09]"]:not([class*="group-hover"]) {
+    background-color: var(--background) !important;
+  }
+
+  & .bg-\[\#141311\],
+  & [class*="bg-[#141311]"] {
+    background-color: var(--card-bg) !important;
+    box-shadow: 0 4px 24px -2px rgba(24, 23, 21, 0.05);
+  }
+
+  & .bg-\[\#1C1B18\],
+  & [class*="bg-[#1C1B18]"] {
+    background-color: var(--card-subtle) !important;
+  }
+
+  & .bg-\[\#0E0D0B\],
+  & [class*="bg-[#0E0D0B]"] {
+    background-color: #ECE5DA !important;
+  }
+
+  /* Semi-transparent dark backdrops -> semi-transparent light */
+  & .bg-\[\#0B0A09\]\/85,
+  & .bg-\[\#0B0A09\]\/90,
+  & .bg-\[\#0B0A09\]\/75,
+  & .bg-black\/50,
+  & .bg-black\/60,
+  & .bg-black\/70,
+  & .bg-black\/80 {
+    background-color: rgba(247, 243, 235, 0.9) !important;
+  }
+
+  /* Transparent chips & pills */
+  & .bg-white\/\[0\.015\],
+  & .bg-white\/\[0\.02\],
+  & .bg-white\/\[0\.03\],
+  & .bg-white\/\[0\.04\],
+  & .bg-white\/\[0\.05\],
+  & .bg-white\/\[0\.06\],
+  & .bg-white\/\[0\.08\],
+  & .bg-white\/5 {
+    background-color: rgba(24, 23, 21, 0.04) !important;
+  }
+
+  & .hover\:bg-white\/\[0\.02\]:hover,
+  & .hover\:bg-white\/\[0\.04\]:hover,
+  & .hover\:bg-white\/5:hover {
+    background-color: rgba(24, 23, 21, 0.07) !important;
+  }
+
+  /* Text color overrides */
+  & .text-\[\#EDE8DF\],
+  & [class*="text-[#EDE8DF]"] {
+    color: var(--foreground) !important;
+  }
+
+  & .text-white:not([class*="bg-[#FF85A1]"]):not([class*="bg-[#D83A65]"]):not(.keep-white) {
+    color: var(--foreground) !important;
+  }
+
+  & .text-white\/90,
+  & .text-white\/80,
+  & .text-white\/70,
+  & .text-\[\#EDE8DF\]\/90,
+  & .text-\[\#EDE8DF\]\/85,
+  & .text-\[\#EDE8DF\]\/80,
+  & .text-\[\#EDE8DF\]\/75,
+  & .text-\[\#EDE8DF\]\/70 {
+    color: #2D2A26 !important;
+  }
+
+  & .text-\[\#8A847A\],
+  & [class*="text-[#8A847A]"] {
+    color: var(--muted) !important;
+  }
+
+  & .text-white\/20,
+  & .text-white\/30,
+  & .text-white\/40,
+  & .text-white\/50,
+  & .text-\[\#8A847A\]\/60 {
+    color: rgba(24, 23, 21, 0.35) !important;
+  }
+
+  /* Accent rose on light paper */
+  & .text-\[\#FF85A1\],
+  & [class*="text-[#FF85A1]"] {
+    color: var(--accent) !important;
+  }
+
+  & .bg-\[\#FF85A1\]\/10,
+  & .bg-\[\#FF85A1\]\/15,
+  & .bg-\[\#FF85A1\]\/20 {
+    background-color: rgba(216, 58, 101, 0.12) !important;
+  }
+
+  & .border-\[\#FF85A1\]\/20,
+  & .border-\[\#FF85A1\]\/30,
+  & .border-\[\#FF85A1\]\/40 {
+    border-color: rgba(216, 58, 101, 0.3) !important;
+  }
+
+  /* Borders */
+  & [class*="border-[rgba(237,232,223"],
+  & [class*="border-[rgba(237, 232, 223"] {
+    border-color: var(--hairline) !important;
+  }
+
+  & .border-white\/5,
+  & .border-white\/10,
+  & .border-white\/15,
+  & .border-white\/20 {
+    border-color: rgba(24, 23, 21, 0.08) !important;
+  }
+
+  & .divide-\[rgba\(237\,232\,223\,0\.08\)\] > :not([hidden]) ~ :not([hidden]),
+  & [class*="divide-[rgba(237,232,223"] > :not([hidden]) ~ :not([hidden]) {
+    border-color: var(--hairline) !important;
+  }
+
+  & .divide-white\/5 > :not([hidden]) ~ :not([hidden]),
+  & .divide-white\/10 > :not([hidden]) ~ :not([hidden]) {
+    border-color: rgba(24, 23, 21, 0.08) !important;
+  }
+
+  /* Flip card back styling */
+  & .bg-gradient-to-b.from-\[\#1A1318\] {
+    background: linear-gradient(to bottom, #FFFFFF, #FAF5ED, #EDE5DA) !important;
+    border-color: rgba(216, 58, 101, 0.25) !important;
+  }
+
+  /* Animated tabs header strip in light theme */
+  & .bg-\[\#11111198\] {
+    background-color: rgba(24, 23, 21, 0.05) !important;
+  }
+
+  & .bg-\[\#141311\]\/80 {
+    background-color: rgba(255, 255, 255, 0.95) !important;
+    box-shadow: 0 4px 20px -2px rgba(24, 23, 21, 0.05) !important;
+  }
+
+  /* Custom cursor blend mode in light mode */
+  & .mix-blend-screen {
+    mix-blend-mode: multiply !important;
+    opacity: 0.25 !important;
+  }
 }
 
 /* Accessibility: Prefers Reduced Motion */

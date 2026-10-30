@@ -1,5 +1,6 @@
 import type { Metadata, Viewport } from "next";
 import "./globals.css";
+import { ThemeProvider } from "@/context/ThemeContext";
 
 export const metadata: Metadata = {
   title: "Tania Biswas — AI Engineer & Full Stack Developer",
@@ -46,10 +47,31 @@ export default function RootLayout({
 }>) {
   return (
     <html lang="en" suppressHydrationWarning>
-      <body className="bg-[#0B0A09] text-[#EDE8DF] antialiased selection:bg-[#FF85A1] selection:text-[#0B0A09] font-sans">
-        {/* Subtle Film Grain Noise Texture */}
-        <div className="film-grain" aria-hidden="true" />
-        {children}
+      <head>
+        <script
+          dangerouslySetInnerHTML={{
+            __html: `
+              (function() {
+                try {
+                  var saved = localStorage.getItem('editorial-theme');
+                  var prefersLight = window.matchMedia('(prefers-color-scheme: light)').matches;
+                  if (saved === 'paper' || saved === 'light') {
+                    document.documentElement.classList.add('light-paper', 'light');
+                  } else {
+                    document.documentElement.classList.add('dark');
+                  }
+                } catch (e) {}
+              })();
+            `,
+          }}
+        />
+      </head>
+      <body className="bg-background text-foreground transition-colors duration-500 antialiased selection:bg-[#FF85A1] selection:text-[#0B0A09] font-sans">
+        <ThemeProvider>
+          {/* Subtle Film Grain Noise Texture */}
+          <div className="film-grain" aria-hidden="true" />
+          {children}
+        </ThemeProvider>
       </body>
     </html>
   );

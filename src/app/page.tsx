@@ -18,6 +18,7 @@ import Hackathons from "@/components/Hackathons";
 import Certifications from "@/components/Certifications";
 import Beyond from "@/components/Beyond";
 import Contact from "@/components/Contact";
+import ThemeToggle from "@/components/ThemeToggle";
 
 export default function Home() {
   return (
@@ -27,8 +28,11 @@ export default function Home() {
       <CustomCursor />
       <ScrollProgress />
 
+      {/* Floating Theme Switcher */}
+      <ThemeToggle />
+
       {/* Main Single Page Application Content */}
-      <div className="relative min-h-screen flex flex-col bg-[#0B0A09] text-[#EDE8DF] selection:bg-[#FF85A1] selection:text-[#0B0A09]">
+      <div className="relative min-h-screen flex flex-col bg-background text-foreground transition-colors duration-500 selection:bg-[#FF85A1] selection:text-[#0B0A09]">
         {/* Navigation */}
         <Navbar />
 

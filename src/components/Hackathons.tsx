@@ -213,8 +213,8 @@ export default function Hackathons() {
               {[
                 { label: "Hackathons", value: "4" },
                 { label: "Podium Finishes", value: "4" },
-                { label: "Years Active", value: "2024–25" },
-                { label: "Roles", value: "Lead & Dev" },
+                { label: "Years Active", value: "2025–26" },
+                { label: "Roles", value: "Dev & AI" },
               ].map((stat) => (
                 <div
                   key={stat.label}

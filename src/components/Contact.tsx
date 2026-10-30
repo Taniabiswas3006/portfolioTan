@@ -33,7 +33,7 @@ export default function Contact() {
   return (
     <footer
       id="contact"
-      className="relative pt-24 sm:pt-36 pb-16 px-4 sm:px-8 md:px-12 lg:px-20 overflow-hidden bg-[#0B0A09]"
+      className="relative pt-24 sm:pt-36 pb-16 px-4 sm:px-8 md:px-12 lg:px-20 overflow-hidden bg-background transition-colors duration-500"
     >
       {/* Corner crosshairs */}
       <div className="crosshair-corner crosshair-top-left absolute top-8 left-8 hidden sm:block" />

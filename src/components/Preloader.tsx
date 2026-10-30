@@ -77,42 +77,10 @@ export default function Preloader() {
                 </div>
               </div>
 
-              {/* Center TB. monogram with dynamic scrub opacity & scale */}
-              <div className="flex flex-col items-center justify-center my-auto text-center pointer-events-none select-none">
-                <div className="overflow-hidden">
-                  <motion.h1
-                    initial={{ y: "110%", opacity: 0 }}
-                    animate={{ y: 0, opacity: 0.45 }}
-                    transition={{ duration: 0.8, ease: [0.22, 1, 0.36, 1] }}
-                    className="font-serif text-7xl sm:text-9xl md:text-[11rem] tracking-tight leading-none text-[#EDE8DF] drop-shadow-[0_10px_40px_rgba(0,0,0,0.4)]"
-                    style={{
-                      transform: `scale(${1 + (count / 100) * 0.12})`,
-                      transition: "transform 0.1s ease-out",
-                    }}
-                  >
-                    TB<span className="text-[#FF85A1] opacity-70">.</span>
-                  </motion.h1>
-                </div>
-
-                <motion.p
-                  initial={{ opacity: 0 }}
-                  animate={{ opacity: 1 }}
-                  transition={{ delay: 0.3, duration: 0.6 }}
-                  className="mt-4 font-mono text-[11px] sm:text-xs uppercase tracking-widestEditorial text-[#8A847A] flex items-center gap-2"
-                >
-                  <Sparkles size={12} className="text-[#FF85A1]" />
-                  <span>
-                    {count < 85
-                      ? "AI Engineer & Full Stack Developer"
-                      : "Unlocking The City · Entering Portfolio"}
-                  </span>
-                </motion.p>
-              </div>
-
-              {/* Bottom Progress Counter & Scrub Indicator */}
+              {/* Bottom Progress Counter & Scrub Indicator with TB. Monogram above percentage */}
               <div className="flex flex-col sm:flex-row justify-between items-center sm:items-end gap-6 pointer-events-auto">
                 {/* Horizontal Progress Bar */}
-                <div className="w-full sm:w-56 h-[2px] bg-white/10 relative overflow-hidden rounded-full">
+                <div className="w-full sm:w-56 h-[2px] bg-white/10 relative overflow-hidden rounded-full mb-2">
                   <div
                     className="absolute inset-y-0 left-0 bg-gradient-to-r from-[#FF85A1] to-white transition-all duration-75"
                     style={{ width: `${count}%` }}
@@ -120,17 +88,47 @@ export default function Preloader() {
                 </div>
 
                 {/* Center Scroll Hint */}
-                <div className="flex items-center gap-2 text-xs font-mono text-white/70 uppercase tracking-widest animate-pulse">
+                <div className="flex items-center gap-2 text-xs font-mono text-white/70 uppercase tracking-widest animate-pulse mb-2">
                   <ChevronDown size={14} className="text-[#FF85A1] animate-bounce" />
                   <span>
                     {count < 95 ? "Scroll To Scrub & Enter" : "Push Forward To Release"}
                   </span>
                 </div>
 
-                {/* Percentage Display */}
-                <div className="font-mono text-5xl sm:text-6xl md:text-7xl font-light text-[#FF85A1] tabular-nums leading-none">
-                  {String(count).padStart(2, "0")}
-                  <span className="text-xs text-[#8A847A] ml-1 font-normal">%</span>
+                {/* Right side: TB. Monogram + Subtitle placed just above the percentage */}
+                <div className="flex flex-col items-center sm:items-end text-center sm:text-right select-none">
+                  <motion.h1
+                    initial={{ y: 20, opacity: 0 }}
+                    animate={{ y: 0, opacity: 0.8 }}
+                    transition={{ duration: 0.8, ease: [0.22, 1, 0.36, 1] }}
+                    className="font-serif text-5xl sm:text-6xl md:text-7xl tracking-tight leading-none text-[#EDE8DF] drop-shadow-[0_4px_24px_rgba(0,0,0,0.7)]"
+                    style={{
+                      transform: `scale(${1 + (count / 100) * 0.08})`,
+                      transition: "transform 0.1s ease-out",
+                    }}
+                  >
+                    TB<span className="text-[#FF85A1] opacity-80">.</span>
+                  </motion.h1>
+
+                  <motion.p
+                    initial={{ opacity: 0 }}
+                    animate={{ opacity: 1 }}
+                    transition={{ delay: 0.2, duration: 0.6 }}
+                    className="mt-1 mb-2 font-mono text-[10px] sm:text-[11px] uppercase tracking-widestEditorial text-[#8A847A] flex items-center gap-1.5"
+                  >
+                    <Sparkles size={10} className="text-[#FF85A1]" />
+                    <span>
+                      {count < 85
+                        ? "AI Engineer & Full Stack Developer"
+                        : "Unlocking The City · Entering Portfolio"}
+                    </span>
+                  </motion.p>
+
+                  {/* Percentage Display */}
+                  <div className="font-mono text-5xl sm:text-6xl md:text-7xl font-light text-[#FF85A1] tabular-nums leading-none drop-shadow-[0_4px_20px_rgba(255,133,161,0.2)]">
+                    {String(count).padStart(2, "0")}
+                    <span className="text-xs text-[#8A847A] ml-1 font-normal">%</span>
+                  </div>
                 </div>
               </div>
             </div>
