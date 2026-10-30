@@ -45,26 +45,28 @@ const AnimatedTabs = ({
   return (
     <div className={cn("w-full h-full flex flex-col gap-y-3 min-h-0", className)}>
       {/* Tab strip - fixed height */}
-      <div className="shrink-0 flex gap-2 flex-wrap bg-[#11111198] bg-opacity-50 backdrop-blur-sm p-1 rounded-xl">
+      <div className="shrink-0 flex gap-2 flex-wrap bg-black/[0.04] dark:bg-[#11111198] dark:bg-opacity-50 border border-black/5 dark:border-transparent backdrop-blur-sm p-1 rounded-xl">
         {tabs.map((tab) => (
           <button
             key={tab.id}
             onClick={() => handleTabChange(tab.id)}
             className={cn(
-              "relative px-4 py-2 text-sm font-mono font-medium rounded-lg text-white outline-none transition-colors uppercase tracking-widest"
+              "relative px-4 py-2 text-sm font-mono font-medium rounded-lg outline-none transition-colors uppercase tracking-widest"
             )}
           >
             {activeTab === tab.id && (
               <motion.div
                 layoutId="active-tab"
-                className="absolute inset-0 bg-[#FF85A1]/20 border border-[#FF85A1]/40 shadow-[0_0_20px_rgba(255,133,161,0.15)] backdrop-blur-sm !rounded-lg"
+                className="absolute inset-0 bg-white dark:bg-[#FF85A1]/20 border border-black/10 dark:border-[#FF85A1]/40 shadow-[0_2px_12px_rgba(0,0,0,0.06)] dark:shadow-[0_0_20px_rgba(255,133,161,0.15)] backdrop-blur-sm !rounded-lg"
                 transition={{ type: "spring", duration: 0.5, bounce: 0.2 }}
               />
             )}
             <span
               className={cn(
                 "relative z-10 transition-colors duration-200",
-                activeTab === tab.id ? "text-[#FF85A1]" : "text-[#8A847A] hover:text-[#EDE8DF]"
+                activeTab === tab.id
+                  ? "text-[#D83A65] dark:text-[#FF85A1] font-semibold"
+                  : "text-[#6E685F] hover:text-[#181715] dark:text-[#8A847A] dark:hover:text-[#EDE8DF]"
               )}
             >
               {tab.label}
@@ -76,7 +78,7 @@ const AnimatedTabs = ({
       {/* Tab content panel — uniform size, strictly fills remaining height without overflow */}
       <div
         className={cn(
-          "flex-1 min-h-0 w-full p-5 sm:p-6 bg-[#141311]/80 backdrop-blur-sm rounded-xl border border-[rgba(237,232,223,0.08)] overflow-hidden flex flex-col",
+          "flex-1 min-h-0 w-full p-5 sm:p-6 bg-white dark:bg-[#141311]/80 shadow-[0_8px_30px_rgba(24,23,21,0.06)] dark:shadow-none backdrop-blur-sm rounded-xl border border-[rgba(24,23,21,0.08)] dark:border-[rgba(237,232,223,0.08)] overflow-hidden flex flex-col",
           panelClassName
         )}
       >

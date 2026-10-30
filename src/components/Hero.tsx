@@ -161,37 +161,43 @@ export default function Hero() {
         <div className="lg:col-span-4 relative flex justify-center lg:justify-end mt-8 lg:mt-0">
           {/* Circular Rotating Badge */}
           <motion.div
-            className="absolute -top-10 -left-6 sm:-top-8 sm:-left-8 z-30 w-32 h-32 sm:w-36 sm:h-36 pointer-events-none"
+            className="absolute -top-8 -left-4 sm:-top-10 sm:-left-6 z-30 w-24 h-24 sm:w-32 sm:h-32 md:w-36 md:h-36 pointer-events-none"
             animate={{ rotate: 360 }}
             transition={{ duration: 18, repeat: Infinity, ease: "linear" }}
           >
-            <svg viewBox="0 0 100 100" className="w-full h-full fill-[#FF85A1]">
+            <svg viewBox="0 0 100 100" className="w-full h-full">
               <path
                 id="textPathHero"
                 d="M 50, 50 m -37, 0 a 37,37 0 1,1 74,0 a 37,37 0 1,1 -74,0"
                 fill="none"
               />
-              <text className="text-[8.5px] font-mono uppercase tracking-[0.24em] fill-[#EDE8DF]">
+              <text
+                fontSize="8.5"
+                fontFamily="monospace"
+                textAnchor="start"
+                className="uppercase fill-[#181715] dark:fill-[#EDE8DF] font-semibold"
+                letterSpacing="0.24em"
+              >
                 <textPath href="#textPathHero">
                   AVAILABLE FOR OPPORTUNITIES • AVAILABLE FOR OPPORTUNITIES •
                 </textPath>
               </text>
             </svg>
-            <div className="absolute inset-0 m-auto w-10 h-10 rounded-full bg-[#FF85A1]/10 border border-[#FF85A1]/40 flex items-center justify-center">
-              <Sparkles size={14} className="text-[#FF85A1]" />
+            <div className="absolute inset-0 m-auto w-10 h-10 rounded-full bg-[#D83A65]/20 dark:bg-[#FF85A1]/10 border-2 border-[#D83A65]/60 dark:border-[#FF85A1]/40 flex items-center justify-center shadow-sm dark:shadow-none">
+              <Sparkles size={14} className="text-[#D83A65] dark:text-[#FF85A1]" />
             </div>
           </motion.div>
 
           {/* 3-D Flip Card — click to flip, no scroll tilt */}
           <div
-            className="relative w-72 sm:w-80 md:w-96 cursor-pointer"
+            className="relative w-56 sm:w-72 md:w-80 lg:w-96 cursor-pointer"
             style={{ aspectRatio: "3/4", perspective: "1200px" }}
             onClick={() => setFlipped((f) => !f)}
             title={flipped ? "Click to see photo" : "Click to learn more"}
           >
             {/* Flip hint badge */}
             <motion.div
-              className="absolute -bottom-3 left-1/2 -translate-x-1/2 z-40 flex items-center gap-1.5 px-3 py-1 rounded-full bg-[#FF85A1]/15 border border-[#FF85A1]/30 backdrop-blur-md text-[10px] font-mono text-[#FF85A1] uppercase tracking-widest select-none"
+              className="absolute -bottom-3 left-1/2 -translate-x-1/2 z-40 flex items-center gap-1.5 px-3 py-1 rounded-full bg-white/95 dark:bg-[#FF85A1]/15 border border-[#D83A65]/30 dark:border-[#FF85A1]/30 shadow-md dark:shadow-none backdrop-blur-md text-[10px] font-mono text-[#D83A65] dark:text-[#FF85A1] uppercase tracking-widest select-none"
               animate={{ opacity: [0.6, 1, 0.6] }}
               transition={{ duration: 2.4, repeat: Infinity, ease: "easeInOut" }}
             >
@@ -208,10 +214,10 @@ export default function Hero() {
             >
               {/* ── FRONT: Photo ─────────────────────────────────────── */}
               <div
-                className="absolute inset-0 rounded-t-[140px] rounded-b-[40px] overflow-hidden border border-[rgba(237,232,223,0.12)] p-2 bg-[#141311]/90 shadow-[0_25px_60px_-15px_rgba(0,0,0,0.8)]"
+                className="absolute inset-0 rounded-t-[140px] rounded-b-[40px] overflow-hidden border border-[rgba(24,23,21,0.08)] dark:border-[rgba(237,232,223,0.12)] p-2 bg-white dark:bg-[#141311]/90 shadow-[0_20px_50px_rgba(24,23,21,0.08)] dark:shadow-[0_25px_60px_-15px_rgba(0,0,0,0.8)]"
                 style={{ backfaceVisibility: "hidden" }}
               >
-                <div className="relative w-full h-full rounded-t-[132px] rounded-b-[32px] overflow-hidden bg-gradient-to-b from-[#1C1B18] to-[#0B0A09]">
+                <div className="relative w-full h-full rounded-t-[132px] rounded-b-[32px] overflow-hidden bg-gradient-to-b from-[#ECE6DB] to-[#F7F3EB] dark:from-[#1C1B18] dark:to-[#0B0A09]">
                   <MorphGallery
                     items={HERO_PHOTOS}
                     height="100%"
@@ -222,17 +228,17 @@ export default function Hero() {
                     loop={true}
                     className="w-full h-full"
                   />
-                  <div className="absolute inset-0 bg-gradient-to-t from-[#0B0A09]/70 via-transparent to-transparent pointer-events-none z-10" />
-                  <div className="absolute bottom-4 left-4 right-4 flex justify-between items-center text-[10px] font-mono text-[#8A847A] uppercase tracking-widest px-2 py-1 bg-[#0B0A09]/75 backdrop-blur-md rounded-full border border-white/5 pointer-events-none z-20">
+                  <div className="absolute inset-0 bg-gradient-to-t from-black/20 dark:from-[#0B0A09]/70 via-transparent to-transparent pointer-events-none z-10" />
+                  <div className="absolute bottom-4 left-4 right-4 flex justify-between items-center text-[10px] font-mono text-[#6E685F] dark:text-[#8A847A] uppercase tracking-widest px-2 py-1 bg-white/90 dark:bg-[#0B0A09]/75 backdrop-blur-md rounded-full border border-black/5 dark:border-white/5 pointer-events-none z-20 shadow-sm">
                     <span>PORTRAIT • 2026</span>
-                    <span className="text-[#FF85A1]">TB.AI</span>
+                    <span className="text-[#D83A65] dark:text-[#FF85A1]">TB.AI</span>
                   </div>
                 </div>
               </div>
 
               {/* ── BACK: Cartoon + minimal info ────────────────────── */}
               <div
-                className="absolute inset-0 rounded-t-[140px] rounded-b-[40px] border border-[rgba(255,133,161,0.18)] bg-gradient-to-b from-[#1A1318] via-[#120E14] to-[#0B0A09] shadow-[0_25px_60px_-15px_rgba(0,0,0,0.8)] flex flex-col overflow-hidden"
+                className="absolute inset-0 rounded-t-[140px] rounded-b-[40px] border border-[#D83A65]/20 dark:border-[rgba(255,133,161,0.18)] bg-gradient-to-b from-[#F5EFE8] via-[#EDE6DD] to-[#E5DDD4] dark:from-[#1A1318] dark:via-[#120E14] dark:to-[#0B0A09] shadow-[0_20px_50px_rgba(24,23,21,0.10)] dark:shadow-[0_25px_60px_-15px_rgba(0,0,0,0.8)] flex flex-col overflow-hidden"
                 style={{ backfaceVisibility: "hidden", transform: "rotateY(180deg)" }}
               >
                 {/* Cartoon image — fills top ~65% */}
@@ -247,7 +253,7 @@ export default function Hero() {
 
                 {/* Bottom strip: role + social icons */}
                 <div className="flex flex-col items-center gap-3 px-6 pb-6 pt-3">
-                  <p className="text-[11px] font-mono text-[#8A847A] uppercase tracking-widest text-center">
+                  <p className="text-[11px] font-mono text-[#5A5450] dark:text-[#8A847A] uppercase tracking-widest text-center">
                     {portfolioData.personal.role}
                   </p>
 
@@ -257,7 +263,7 @@ export default function Hero() {
                       target="_blank"
                       rel="noopener noreferrer"
                       onClick={(e) => e.stopPropagation()}
-                      className="w-9 h-9 rounded-full border border-[rgba(237,232,223,0.12)] flex items-center justify-center text-[#8A847A] hover:text-[#FF85A1] hover:border-[#FF85A1]/40 transition-all bg-white/[0.02]"
+                      className="w-9 h-9 rounded-full border border-[rgba(24,23,21,0.15)] dark:border-[rgba(237,232,223,0.12)] flex items-center justify-center text-[#5A5450] dark:text-[#8A847A] hover:text-[#D83A65] dark:hover:text-[#FF85A1] hover:border-[#D83A65]/40 dark:hover:border-[#FF85A1]/40 transition-all bg-white/40 dark:bg-white/[0.02]"
                     >
                       <Github size={15} />
                     </a>
@@ -266,14 +272,14 @@ export default function Hero() {
                       target="_blank"
                       rel="noopener noreferrer"
                       onClick={(e) => e.stopPropagation()}
-                      className="w-9 h-9 rounded-full border border-[rgba(237,232,223,0.12)] flex items-center justify-center text-[#8A847A] hover:text-[#FF85A1] hover:border-[#FF85A1]/40 transition-all bg-white/[0.02]"
+                      className="w-9 h-9 rounded-full border border-[rgba(24,23,21,0.15)] dark:border-[rgba(237,232,223,0.12)] flex items-center justify-center text-[#5A5450] dark:text-[#8A847A] hover:text-[#D83A65] dark:hover:text-[#FF85A1] hover:border-[#D83A65]/40 dark:hover:border-[#FF85A1]/40 transition-all bg-white/40 dark:bg-white/[0.02]"
                     >
                       <Linkedin size={15} />
                     </a>
                     <a
                       href={`mailto:${portfolioData.personal.email}`}
                       onClick={(e) => e.stopPropagation()}
-                      className="w-9 h-9 rounded-full border border-[rgba(237,232,223,0.12)] flex items-center justify-center text-[#8A847A] hover:text-[#FF85A1] hover:border-[#FF85A1]/40 transition-all bg-white/[0.02]"
+                      className="w-9 h-9 rounded-full border border-[rgba(24,23,21,0.15)] dark:border-[rgba(237,232,223,0.12)] flex items-center justify-center text-[#5A5450] dark:text-[#8A847A] hover:text-[#D83A65] dark:hover:text-[#FF85A1] hover:border-[#D83A65]/40 dark:hover:border-[#FF85A1]/40 transition-all bg-white/40 dark:bg-white/[0.02]"
                     >
                       <Mail size={15} />
                     </a>

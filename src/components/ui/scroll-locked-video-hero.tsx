@@ -325,8 +325,17 @@ export default function MetroHero({
           objectFit: "cover",
           opacity: 1,
           transformOrigin: "center center",
-          willChange: "auto",
-          imageRendering: "auto",
+          /* GPU-composited layer — eliminates sub-pixel blur from CPU rasterisation */
+          transform: "translate3d(0,0,0) scale(1.0)",
+          willChange: "transform",
+          /* Crisp pixel rendering — never let the browser apply bicubic softening */
+          imageRendering: "-webkit-optimize-contrast",
+          /* Boost perceived sharpness: slight contrast + saturation lift */
+          filter: "contrast(1.08) saturate(1.12) brightness(1.04)",
+          /* Ensure we get full colour range */
+          colorInterpolation: "sRGB",
+          backfaceVisibility: "hidden",
+          WebkitBackfaceVisibility: "hidden",
           transition: "opacity 0.6s ease",
           touchAction: "none",
           pointerEvents: "none",
@@ -337,7 +346,8 @@ export default function MetroHero({
         style={{
           position: "absolute",
           inset: 0,
-          background: "linear-gradient(180deg, rgba(5,7,13,0.35), rgba(5,7,13,0) 30%, rgba(5,7,13,0.15) 70%, rgba(5,7,13,0.55))",
+          /* Lighter overlay — lets more video detail show through */
+          background: "linear-gradient(180deg, rgba(5,7,13,0.18), rgba(5,7,13,0) 25%, rgba(5,7,13,0.08) 70%, rgba(5,7,13,0.38))",
           pointerEvents: "none",
         }}
       />

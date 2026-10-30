@@ -29,7 +29,7 @@ function HackathonTabContent({ hack }: { hack: (typeof portfolioData.hackathons)
   return (
     <div className="grid grid-cols-1 md:grid-cols-2 gap-5 lg:gap-6 w-full h-full min-h-0">
       {/* Photo Frame — locked uniform height */}
-      <div className="relative rounded-xl overflow-hidden h-64 md:h-full w-full min-h-0 bg-[#0E0D0B] flex items-center justify-center border border-white/10 p-3 sm:p-4 group">
+      <div className="relative rounded-xl overflow-hidden h-64 md:h-full w-full min-h-0 bg-[#F4EFE8] dark:bg-[#0E0D0B] flex items-center justify-center border border-black/5 dark:border-white/10 p-3 sm:p-4 group">
         {/* Ambient atmospheric glow matching each poster's color palette */}
         {/* eslint-disable-next-line @next/next/no-img-element */}
         <img
@@ -48,7 +48,7 @@ function HackathonTabContent({ hack }: { hack: (typeof portfolioData.hackathons)
         />
 
         {/* Year badge */}
-        <div className="absolute top-2.5 right-2.5 flex items-center gap-1.5 px-2.5 py-1 rounded-full bg-[#0B0A09]/85 backdrop-blur-md border border-white/15 text-[10px] font-mono text-[#FF85A1] uppercase tracking-widest z-20 shadow-lg">
+        <div className="absolute top-2.5 right-2.5 flex items-center gap-1.5 px-2.5 py-1 rounded-full bg-white/90 dark:bg-[#0B0A09]/85 backdrop-blur-md border border-black/10 dark:border-white/15 text-[10px] font-mono text-[#D83A65] dark:text-[#FF85A1] uppercase tracking-widest z-20 shadow-md">
           <CalendarDays size={10} />
           {hack.year}
         </div>
@@ -59,10 +59,10 @@ function HackathonTabContent({ hack }: { hack: (typeof portfolioData.hackathons)
           target="_blank"
           rel="noopener noreferrer"
           title="View full poster"
-          className="absolute bottom-2.5 right-2.5 z-20 opacity-0 group-hover:opacity-100 transition-opacity duration-300 flex items-center gap-1 px-2.5 py-1 rounded-full bg-[#0B0A09]/85 backdrop-blur-md border border-white/15 text-[10px] font-mono text-white/80 hover:text-white hover:border-[#FF85A1]/40"
+          className="absolute bottom-2.5 right-2.5 z-20 opacity-0 group-hover:opacity-100 transition-opacity duration-300 flex items-center gap-1 px-2.5 py-1 rounded-full bg-white/90 dark:bg-[#0B0A09]/85 backdrop-blur-md border border-black/10 dark:border-white/15 text-[10px] font-mono text-[#181715]/80 hover:text-[#181715] dark:text-white/80 dark:hover:text-white hover:border-[#D83A65]/40"
         >
           <span>Full Image</span>
-          <ArrowUpRight size={10} className="text-[#FF85A1]" />
+          <ArrowUpRight size={10} className="text-[#D83A65] dark:text-[#FF85A1]" />
         </a>
       </div>
 
@@ -71,17 +71,17 @@ function HackathonTabContent({ hack }: { hack: (typeof portfolioData.hackathons)
         {/* Top: Icon + Title + Role */}
         <div className="flex flex-col gap-1 shrink-0">
           <div className="flex items-center gap-2">
-            <div className="w-7 h-7 rounded-lg bg-white/[0.04] border border-white/10 flex items-center justify-center">
+            <div className="w-7 h-7 rounded-lg bg-black/[0.04] dark:bg-white/[0.04] border border-black/10 dark:border-white/10 flex items-center justify-center">
               {hackathonIcons[hack.num]}
             </div>
-            <span className="font-mono text-[10px] uppercase tracking-widest text-[#8A847A]">
+            <span className="font-mono text-[10px] uppercase tracking-widest text-[#6E685F] dark:text-[#8A847A]">
               Vol. {hack.num}
             </span>
           </div>
-          <h3 className="font-serif text-2xl lg:text-[25px] text-[#EDE8DF] leading-tight">
+          <h3 className="font-serif text-2xl lg:text-[25px] text-[#181715] dark:text-[#EDE8DF] leading-tight">
             {hack.name}
           </h3>
-          <p className="font-mono text-[10px] uppercase tracking-wider text-[#FF85A1]">
+          <p className="font-mono text-[10px] uppercase tracking-wider text-[#D83A65] dark:text-[#FF85A1]">
             {hack.role}
           </p>
         </div>
@@ -89,7 +89,7 @@ function HackathonTabContent({ hack }: { hack: (typeof portfolioData.hackathons)
         {/* Middle: Description + Highlights + Tech Stack */}
         <div className="flex-1 min-h-0 flex flex-col justify-center gap-2.5 my-auto">
           {hack.description && (
-            <p className="font-sans text-xs sm:text-[13px] text-[#EDE8DF]/75 leading-relaxed line-clamp-3">
+            <p className="font-sans text-xs sm:text-[13px] text-[#4A453E] dark:text-[#EDE8DF]/75 leading-relaxed line-clamp-3">
               {hack.description}
             </p>
           )}
@@ -99,9 +99,9 @@ function HackathonTabContent({ hack }: { hack: (typeof portfolioData.hackathons)
               {hack.highlights.map((item) => (
                 <span
                   key={item}
-                  className="inline-flex items-center gap-1 px-2.5 py-0.5 rounded-md bg-white/[0.04] border border-white/10 text-[10px] font-mono text-[#EDE8DF]/80"
+                  className="inline-flex items-center gap-1 px-2.5 py-0.5 rounded-md bg-black/[0.03] dark:bg-white/[0.04] border border-black/10 dark:border-white/10 text-[10px] font-mono text-[#181715] dark:text-[#EDE8DF]/80"
                 >
-                  <Sparkles size={9} className="text-[#FF85A1]" />
+                  <Sparkles size={9} className="text-[#D83A65] dark:text-[#FF85A1]" />
                   {item}
                 </span>
               ))}
@@ -110,11 +110,11 @@ function HackathonTabContent({ hack }: { hack: (typeof portfolioData.hackathons)
 
           {hack.tech && hack.tech.length > 0 && (
             <div className="flex flex-wrap items-center gap-1.5 pt-0.5">
-              <span className="text-[10px] font-mono text-[#8A847A] uppercase tracking-wider">Stack:</span>
+              <span className="text-[10px] font-mono text-[#6E685F] dark:text-[#8A847A] uppercase tracking-wider">Stack:</span>
               {hack.tech.map((t) => (
                 <span
                   key={t}
-                  className="px-2 py-0.5 rounded text-[10px] font-mono text-[#FF85A1] bg-[#FF85A1]/10 border border-[#FF85A1]/20"
+                  className="px-2 py-0.5 rounded text-[10px] font-mono text-[#D83A65] dark:text-[#FF85A1] bg-[#D83A65]/10 dark:bg-[#FF85A1]/10 border border-[#D83A65]/20 dark:border-[#FF85A1]/20"
                 >
                   {t}
                 </span>
@@ -124,15 +124,15 @@ function HackathonTabContent({ hack }: { hack: (typeof portfolioData.hackathons)
         </div>
 
         {/* Bottom: Achievement + Project + CTA */}
-        <div className="border-t border-[rgba(237,232,223,0.08)] pt-2.5 space-y-2 shrink-0">
-          <p className="font-serif text-base text-[#EDE8DF]/90 italic leading-snug">
+        <div className="border-t border-[rgba(24,23,21,0.08)] dark:border-[rgba(237,232,223,0.08)] pt-2.5 space-y-2 shrink-0">
+          <p className="font-serif text-base text-[#181715] dark:text-[#EDE8DF]/90 italic leading-snug">
             &ldquo;{hack.achievement}&rdquo;
           </p>
 
           <div className="flex items-center justify-between gap-2 flex-wrap pt-0.5">
             {hack.project && (
-              <div className="flex items-center gap-1.5 text-[11px] font-mono uppercase tracking-wider text-[#8A847A]">
-                <Folder size={11} className="text-[#FF85A1]" />
+              <div className="flex items-center gap-1.5 text-[11px] font-mono uppercase tracking-wider text-[#6E685F] dark:text-[#8A847A]">
+                <Folder size={11} className="text-[#D83A65] dark:text-[#FF85A1]" />
                 <span>Project: {hack.project}</span>
               </div>
             )}
@@ -142,7 +142,7 @@ function HackathonTabContent({ hack }: { hack: (typeof portfolioData.hackathons)
                 href={hack.url}
                 target="_blank"
                 rel="noopener noreferrer"
-                className="inline-flex items-center gap-1.5 px-3 py-1.5 rounded-full border border-[#FF85A1]/30 text-[#FF85A1] text-[11px] font-mono uppercase tracking-widest hover:bg-[#FF85A1]/10 transition-all duration-300 group"
+                className="inline-flex items-center gap-1.5 px-3 py-1.5 rounded-full border border-[#D83A65]/30 dark:border-[#FF85A1]/30 text-[#D83A65] dark:text-[#FF85A1] text-[11px] font-mono uppercase tracking-widest hover:bg-[#D83A65]/10 dark:hover:bg-[#FF85A1]/10 transition-all duration-300 group"
               >
                 <ExternalLink size={11} />
                 <span>Certificate</span>
@@ -192,11 +192,11 @@ export default function Hackathons() {
               viewport={{ once: true }}
               transition={{ duration: 0.7, ease: [0.22, 1, 0.36, 1] }}
             >
-              <h2 className="font-serif text-4xl sm:text-5xl font-light text-[#EDE8DF] tracking-tight leading-tight">
+              <h2 className="font-serif text-4xl sm:text-5xl font-light text-[#181715] dark:text-[#EDE8DF] tracking-tight leading-tight">
                 Hackathon{" "}
-                <span className="italic font-normal text-[#FF85A1]">Arena</span>
+                <span className="italic font-normal text-[#D83A65] dark:text-[#FF85A1]">Arena</span>
               </h2>
-              <p className="font-sans text-sm text-[#8A847A] mt-3 leading-relaxed">
+              <p className="font-sans text-sm text-[#6E685F] dark:text-[#8A847A] mt-3 leading-relaxed">
                 Rapid execution, adversarial architectures, and prize-winning
                 sprints under intense clock constraints.
               </p>
@@ -218,10 +218,10 @@ export default function Hackathons() {
               ].map((stat) => (
                 <div
                   key={stat.label}
-                  className="rounded-2xl border border-[rgba(237,232,223,0.07)] bg-[#141311] p-3.5 flex flex-col gap-0.5"
+                  className="rounded-2xl border border-[rgba(24,23,21,0.08)] dark:border-[rgba(237,232,223,0.07)] bg-white dark:bg-[#141311] shadow-[0_4px_20px_-2px_rgba(24,23,21,0.05)] dark:shadow-none p-3.5 flex flex-col gap-0.5"
                 >
-                  <span className="font-serif text-2xl text-[#FF85A1]">{stat.value}</span>
-                  <span className="font-mono text-[10px] uppercase tracking-widest text-[#8A847A]">
+                  <span className="font-serif text-2xl text-[#D83A65] dark:text-[#FF85A1]">{stat.value}</span>
+                  <span className="font-mono text-[10px] uppercase tracking-widest text-[#6E685F] dark:text-[#8A847A]">
                     {stat.label}
                   </span>
                 </div>
@@ -245,15 +245,15 @@ export default function Hackathons() {
                     className={cn(
                       "flex items-center justify-between py-2 px-3 rounded-lg border transition-all text-left",
                       isActive
-                        ? "bg-[#FF85A1]/10 border-[#FF85A1]/30 text-[#EDE8DF]"
-                        : "border-[rgba(237,232,223,0.05)] hover:border-white/10 hover:bg-white/[0.02] text-[#8A847A]"
+                        ? "bg-[#D83A65]/10 dark:bg-[#FF85A1]/10 border-[#D83A65]/30 dark:border-[#FF85A1]/30 text-[#181715] dark:text-[#EDE8DF]"
+                        : "border-[rgba(24,23,21,0.06)] dark:border-[rgba(237,232,223,0.05)] hover:border-black/10 dark:hover:border-white/10 hover:bg-black/[0.02] dark:hover:bg-white/[0.02] text-[#6E685F] dark:text-[#8A847A]"
                     )}
                   >
                     <div className="flex items-center gap-2.5">
                       <span
                         className={cn(
                           "font-mono text-[10px] font-bold",
-                          isActive ? "text-[#FF85A1]" : "text-[#8A847A]"
+                          isActive ? "text-[#D83A65] dark:text-[#FF85A1]" : "text-[#6E685F] dark:text-[#8A847A]"
                         )}
                       >
                         {hack.num}
@@ -261,13 +261,13 @@ export default function Hackathons() {
                       <span
                         className={cn(
                           "font-sans text-xs sm:text-sm",
-                          isActive ? "text-[#EDE8DF] font-medium" : "text-[#EDE8DF]/70"
+                          isActive ? "text-[#181715] dark:text-[#EDE8DF] font-semibold" : "text-[#181715]/75 dark:text-[#EDE8DF]/70"
                         )}
                       >
                         {hack.name}
                       </span>
                     </div>
-                    <span className="font-mono text-[10px] text-[#8A847A]">{hack.year}</span>
+                    <span className="font-mono text-[10px] text-[#6E685F] dark:text-[#8A847A]">{hack.year}</span>
                   </button>
                 );
               })}
