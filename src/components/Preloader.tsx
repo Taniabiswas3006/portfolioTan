@@ -1,6 +1,6 @@
 "use client";
 
-import React, { useState, useCallback } from "react";
+import React, { useState, useCallback, useRef } from "react";
 import { motion, AnimatePresence } from "framer-motion";
 import { ChevronDown, ArrowRight, Sparkles } from "lucide-react";
 import MetroHero from "@/components/ui/scroll-locked-video-hero";
@@ -8,10 +8,14 @@ import MetroHero from "@/components/ui/scroll-locked-video-hero";
 export default function Preloader() {
   const [count, setCount] = useState(0);
   const [isComplete, setIsComplete] = useState(false);
+  const lastCountRef = useRef(0);
 
   const handleProgress = useCallback((progress: number) => {
     const p = Math.min(100, Math.max(0, Math.round(progress * 100)));
-    setCount(p);
+    if (p !== lastCountRef.current) {
+      lastCountRef.current = p;
+      setCount(p);
+    }
   }, []);
 
   const handleComplete = useCallback(() => {
