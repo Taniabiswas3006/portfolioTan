@@ -72,16 +72,16 @@ export default function Research() {
                 <span>BOOK CHAPTER CONTRIBUTION</span>
               </div>
 
-              <h3 className="font-serif text-3xl sm:text-4xl md:text-5xl lg:text-6xl text-[#EDE8DF] font-light leading-[1.12] tracking-tight group-hover:text-white transition-colors">
+              <h3 className="font-serif text-3xl sm:text-4xl md:text-5xl lg:text-6xl text-[#181715] dark:text-[#EDE8DF] font-light leading-[1.12] tracking-tight transition-colors">
                 &ldquo;{research.title}&rdquo;
               </h3>
 
-              <p className="font-sans text-base sm:text-lg text-[#8A847A] leading-relaxed">
-                Appearing in: <strong className="text-[#EDE8DF] font-medium italic">{research.publication}</strong>
+              <p className="font-sans text-base sm:text-lg text-[#6E685F] dark:text-[#8A847A] leading-relaxed">
+                Appearing in: <strong className="text-[#181715] dark:text-[#EDE8DF] font-medium italic">{research.publication}</strong>
               </p>
 
-              <div className="p-5 sm:p-7 rounded-2xl bg-white/[0.02] border border-white/5 backdrop-blur-sm">
-                <p className="font-serif text-lg sm:text-xl text-[#EDE8DF]/90 italic leading-relaxed">
+              <div className="p-5 sm:p-7 rounded-2xl bg-black/[0.03] dark:bg-white/[0.02] border border-black/10 dark:border-white/5 backdrop-blur-sm">
+                <p className="font-serif text-lg sm:text-xl text-[#181715] dark:text-[#EDE8DF]/90 italic leading-relaxed">
                   &ldquo;{research.quote}&rdquo;
                 </p>
               </div>
@@ -89,15 +89,15 @@ export default function Research() {
 
             {/* Right 4 Cols: Graphic Badge & Paper CTA */}
             <div className="lg:col-span-4 flex flex-col items-start lg:items-center justify-center gap-8 border-t lg:border-t-0 lg:border-l border-[rgba(237,232,223,0.08)] lg:pl-12 pt-8 lg:pt-0">
-              <div className="w-24 h-24 sm:w-28 sm:h-28 rounded-3xl bg-white/[0.02] border border-white/10 flex items-center justify-center text-[#FF85A1] group-hover:scale-110 transition-transform duration-500 shadow-inner">
+              <div className="w-24 h-24 sm:w-28 sm:h-28 rounded-3xl bg-black/[0.03] dark:bg-white/[0.02] border border-black/10 dark:border-white/10 flex items-center justify-center text-[#FF85A1] group-hover:scale-110 transition-transform duration-500 shadow-inner">
                 <BookOpen size={44} className="stroke-[1.3]" />
               </div>
 
               <div className="text-left lg:text-center space-y-2">
-                <span className="font-mono text-xs uppercase tracking-widest text-[#8A847A] block">
+                <span className="font-mono text-xs uppercase tracking-widest text-[#6E685F] dark:text-[#8A847A] block">
                   Archive Telemetry
                 </span>
-                <span className="font-mono text-sm text-[#EDE8DF] font-semibold block">
+                <span className="font-mono text-sm text-[#181715] dark:text-[#EDE8DF] font-semibold block">
                   Peer-Reviewed Edge AI
                 </span>
               </div>
